@@ -1,0 +1,108 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package sample.job;
+
+
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import sample.utils.DBUtils;
+
+/**
+ *
+ * @author Tranduc
+ */
+public class JobDAO {
+    public static ArrayList<JobDTO> getJobs() throws SQLException{
+        ArrayList<JobDTO> list= new ArrayList<>();
+        Connection cn=null;
+        Statement st=null;
+        ResultSet rs=null;
+        try {
+            cn=DBUtils.makeConnection();
+            if(cn!=null){
+                String sql = "select [jobID],[jobName],[jobTitle],[jobDescription],[jobRequirements],[jobBenefits],[jobSalary],[jobCreateDate],[jobEndDate],[status],amount,majorID,Company.comID as 'comID',Company.comAddress as 'comAddress',Company.comImage as 'comImage'\n"
+                        + "from Job join Company on Job.comID=Company.comID\n"
+                        + "where job.status=1";
+                st=cn.createStatement();
+                rs=st.executeQuery(sql);
+                while(rs!=null && rs.next()){
+                    int jobid=rs.getInt("jobID");
+                    String jobname=rs.getString("jobName");
+                    String jobtitle=rs.getString("jobTitle");
+                    String jobdescription=rs.getString("jobDescription");
+                    String jobrequirement=rs.getString("jobRequirements");
+                    String jobbenefit=rs.getString("jobBenefits");
+                    int salary=rs.getInt("jobSalary");
+                    Date createdate=rs.getDate("jobCreateDate");
+                    Date enddate=rs.getDate("jobEndDate");
+                    int status=rs.getInt("status");
+                    int amount=rs.getInt("amount");
+                    String comaddress=rs.getString("comAddress");
+                    String comimg=rs.getString("comImage");
+                    int comid=rs.getInt("comID");          
+                    String majorID=rs.getString("majorID");
+                    JobDTO job=new JobDTO(jobid, jobname, jobtitle, jobdescription, jobrequirement, jobbenefit, salary, createdate, enddate, status, amount, comid, comimg, comaddress, majorID);
+                    list.add(job);                                      
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally{
+            if(cn!=null) cn.close();
+            if(st!=null) st.close();
+            if(rs!=null) rs.close();
+        }
+        return list;
+    }
+    public static JobDTO getJobByID(int jobID) throws SQLException{
+        JobDTO job= null;
+        Connection cn=null;
+        PreparedStatement pst=null;
+        ResultSet rs=null;
+        try {
+            cn=DBUtils.makeConnection();
+            if(cn!=null){
+                String sql = "select [jobID],[jobName],[jobTitle],[jobDescription],[jobRequirements],[jobBenefits],[jobSalary],[jobCreateDate],[jobEndDate],[status],amount,majorID,Company.comID as 'comID',Company.comAddress as 'comAddress',Company.comImage as 'comImage'\n"
+                        + "from Job join Company on Job.comID=Company.comID\n"
+                        + "where job.status=1 and jobID=?";
+                pst=cn.prepareStatement(sql);
+                pst.setInt(1, jobID);
+                rs=pst.executeQuery();
+                if(rs!=null && rs.next()){
+                    int jobid=rs.getInt("jobID");
+                    String jobname=rs.getString("jobName");
+                    String jobtitle=rs.getString("jobTitle");
+                    String jobdescription=rs.getString("jobDescription");
+                    String jobrequirement=rs.getString("jobRequirements");
+                    String jobbenefit=rs.getString("jobBenefits");
+                    int salary=rs.getInt("jobSalary");
+                    Date createdate=rs.getDate("jobCreateDate");
+                    Date enddate=rs.getDate("jobEndDate");
+                    int status=rs.getInt("status");
+                    int amount=rs.getInt("amount");
+                    String comaddress=rs.getString("comAddress");
+                    String comimg=rs.getString("comImage");
+                    int comid=rs.getInt("comID");          
+                    String majorID=rs.getString("majorID");
+                    job=new JobDTO(jobid, jobname, jobtitle, jobdescription, jobrequirement, jobbenefit, salary, createdate, enddate, status, amount, comid, comimg, comaddress, majorID);
+                                                        
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally{
+            if(cn!=null) cn.close();
+            if(pst!=null) pst.close();
+            if(rs!=null) rs.close();
+        }
+        return job;
+    }
+}

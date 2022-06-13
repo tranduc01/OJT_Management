@@ -1,0 +1,227 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Jun 6, 2022, 10:02:11 AM
+    Author     : Tranduc
+*/
+
+*{
+    padding: 0px;
+    margin: 0px;
+}
+body{
+    min-height: 100vh;    
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-content{
+    background-color: #FB9F6C;
+    padding: 30px ;
+    border-radius: 20px;
+    box-shadow: 0px 0px 10px 0px #000;
+}
+
+
+.navbar-dark{
+    background-color: #f27229;
+}
+
+.footer{
+    background-color: #f27229;
+    margin-top: auto;
+    position: relative;
+}
+
+/* login with google css */
+.google {
+    background-color: #dd4b39;
+    color: white;
+    width: 100%;
+    padding: 12px;   
+    border-radius: 4px;
+    margin: 5px 0; 
+    line-height: 17px;    
+    text-align: center;
+  }
+
+  .navbar-text{
+      padding-left: 15px;
+  }
+
+.jumbotron{
+    
+   
+}
+
+.p-footer{
+    color: black;
+}
+.btn{
+    margin-top: 5px;
+}
+
+/* search css */
+form.search-container input[type=text] {
+    padding: 10px;
+    font-size: 17px;
+    border: 1px solid grey;
+    float: left;
+    width: 40%;
+    background: #f1f1f1;
+    align-items: flex-end;   
+  }
+  
+  form.search-container button {
+    float: left;
+    width: 5%;
+    padding: 10px;
+    background: #2196F3;
+    color: white;
+    font-size: 17px;
+    border: 1px solid grey;
+    border-left: none;
+    cursor: pointer;
+  }
+  
+  form.search-container button:hover {
+    background: #0b7dda;
+    
+  }
+  
+  form.search-container::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+
+  .search-container{
+      display: flex;
+      justify-content: flex-end;
+  }
+  /* end search */
+
+  /* card css */
+  .card{
+      padding: 0px ;
+      margin-top: 50px;    
+  }
+
+  .card-container{
+    display: flex;
+    justify-content: space-evenly;
+  }
+/* end */
+    
+.fpt-map{
+    padding-top: 20px;
+}
+
+.job-container{
+  margin-left: 100px;
+}
+
+/* css carousel */
+.carousel-inner{
+  height: auto;
+  width: 99%;
+}
+.img-account-profile {
+    height: 10rem;
+}
+.rounded-circle {
+    border-radius: 50% !important;
+}
+.card {
+    box-shadow: 0 0.15rem 1.75rem 0 rgb(33 40 50 / 15%);
+}
+.card .card-header {
+    font-weight: 500;
+}
+.card-header:first-child {
+    border-radius: 0.35rem 0.35rem 0 0;
+}
+.card-header {
+    padding: 1rem 1.35rem;
+    margin-bottom: 0;
+    background-color: rgba(33, 40, 50, 0.03);
+    border-bottom: 1px solid rgba(33, 40, 50, 0.125);
+}
+.form-control, .dataTable-input {
+    display: block;
+    width: 100%;
+    padding: 0.875rem 1.125rem;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1;
+    color: #69707a;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #c5ccd6;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 0.35rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.nav-borders .nav-link.active {
+    color: #0061f2;
+    border-bottom-color: #0061f2;
+}
+.nav-borders .nav-link {
+    color: #69707a;
+    border-bottom-width: 0.125rem;
+    border-bottom-style: solid;
+    border-bottom-color: transparent;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+.panel-order .row {
+	border-bottom: 1px solid #ccc;
+}
+.panel-order .row:last-child {
+	border: 0px;
+}
+.panel-order .row .col-md-1  {
+	text-align: center;
+	padding-top: 15px;
+}
+.panel-order .row .col-md-1 img {
+	width: 50px;
+	max-height: 50px;
+}
+.panel-order .row .row {
+	border-bottom: 0;
+}
+.panel-order .row .col-md-11 {
+	border-left: 1px solid #ccc;
+}
+.panel-order .row .row .col-md-12 {
+	padding-top: 7px;
+	padding-bottom: 7px; 
+}
+.panel-order .row .row .col-md-12:last-child {
+	font-size: 11px; 
+	color: #555;  
+	background: #efefef;
+}
+.panel-order .btn-group {
+	margin: 0px;
+	padding: 0px;
+}
+.panel-order .panel-body {
+	padding-top: 0px;
+	padding-bottom: 0px;
+}
+.panel-order .panel-deading {
+	margin-bottom: 0;
+}      
+
