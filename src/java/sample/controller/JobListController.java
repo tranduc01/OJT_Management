@@ -43,17 +43,17 @@ public class JobListController extends HttpServlet {
        
             try {
                 /* TODO output your page here. You may use following sample code. */
-                ArrayList<JobDTO> listJob = JobDAO.getJobs();
-            ArrayList<CompanyDTO> listCompany = new ArrayList<>();
+           ArrayList<JobDTO> listJob = JobDAO.getJobs();
+            ArrayList<CompanyDTO> listCompany = CompanyDAO.getCompanies();
             ArrayList<AccountDTO> listAccount=new ArrayList<>();
-            for (JobDTO jobDTO : listJob) {
-                CompanyDTO company = CompanyDAO.getCompanyByID(jobDTO.getComID());
+              
                 
-                listCompany.add(company);
-            }
+            
             for (CompanyDTO com : listCompany) {
                 AccountDTO account=AccountDAO.getAccountByID(com.getAccID());
+                if(account.getAccId()==com.getAccID()){
                 listAccount.add(account);
+                }
             }
                 
                 request.setAttribute("companyList", listCompany);

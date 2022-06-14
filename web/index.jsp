@@ -146,7 +146,7 @@
                                             <img class="card-img-top" src="${acc.getAvatar()}" alt="Card image" style="width:298px; height: 250px;">
                                             <div class="card-body">
                                                 <h4 class="card-title">${job.getJobName()}</h4>
-                                                <p>Create date: 2022/12/12 - Remain: 2 days</p> 
+                                                <p>${job.getJobCreateDate()} - Remain: 2 days</p> 
                                                 <p><i class="fas fa-map-marker-alt"></i> ${com.getComAddress()}</p>
                                                 <a href="mainController?action=jobDetails&jobid=${job.getJobID()}" class="btn btn-primary btn-block">Detail</a>
                                             </div>

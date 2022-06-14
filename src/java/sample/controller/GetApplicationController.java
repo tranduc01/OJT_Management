@@ -40,18 +40,14 @@ public class GetApplicationController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try  {
-            String stuID=request.getParameter("stuID");
-            ArrayList<ApplicationDTO> listApp = ApplicationDAO.getApplicationByID(stuID);
+            ArrayList<ApplicationDTO> listApp = ApplicationDAO.getApplicationByID("SE151204");
             ArrayList<JobDTO> listJob = new ArrayList<>();
-            ArrayList<CompanyDTO> listCom = new ArrayList<>();
+            ArrayList<CompanyDTO> listCom = CompanyDAO.getCompanies();
             ArrayList<AccountDTO> listAcc = new ArrayList<>();
             for (ApplicationDTO app : listApp) {
                 JobDTO job = JobDAO.getJobByID(app.getJobID());
                 listJob.add(job);
-                CompanyDTO com = CompanyDAO.getCompanyByID(job.getComID());
-                if(job.getJobID()==com.getComID()){
-                    listCom.add(com);
-                }             
+                            
             }
             for (CompanyDTO com : listCom) {
                  AccountDTO acc = AccountDAO.getAccountByID(com.getAccID());

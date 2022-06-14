@@ -9,6 +9,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import sample.utils.DBUtils;
 
 /**
@@ -47,5 +49,39 @@ public class CompanyDAO {
             if(rs!=null) rs.close();
         }
         return com;
-    } 
+    }
+    
+    public static ArrayList<CompanyDTO> getCompanies() throws SQLException{
+    ArrayList<CompanyDTO> list=new ArrayList<>();
+        Connection cn=null;
+        Statement st=null;
+        ResultSet rs=null;
+        try {
+            cn=DBUtils.makeConnection();
+            if(cn!=null){
+                String sql = "select [comID],[comDescription],[comAddress],[accID]\n"
+                        + "from [Company]";
+                        
+                st=cn.createStatement();
+                
+                rs=st.executeQuery(sql);
+                while(rs!=null && rs.next()){
+                    int comid=rs.getInt("comID");
+                    String comdescription=rs.getString("comDescription");
+                    String comaddress=rs.getString("comAddress");
+                    int accid=rs.getInt("accID");
+                    CompanyDTO com=new CompanyDTO(comid, comdescription, comaddress, accid);
+                    list.add(com);
+                }
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally{
+            if(cn!=null) cn.close();
+            if(st!=null) st.close();
+            if(rs!=null) rs.close();
+        }
+        return list;
+    }
 }

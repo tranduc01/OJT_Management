@@ -25,35 +25,24 @@ public class test {
 
     public static void main(String[] args) {
         try {
-
-            
-//            System.out.println(listAcc.size());
-//            System.out.println(listApp.size());
-//            System.out.println(listCom.size());
-//            System.out.println(listJob.size());
-            
-//            for (JobDTO job : listJob) {
-//                
-//                listCom.add(com);
-//            }
-
+            ArrayList<ApplicationDTO> listApp = ApplicationDAO.getApplicationByID("SE151204");
+            ArrayList<JobDTO> listJob = new ArrayList<>();
+            ArrayList<CompanyDTO> listCom = CompanyDAO.getCompanies();
+            ArrayList<AccountDTO> listAcc = new ArrayList<>();
             for (ApplicationDTO app : listApp) {
-                for (JobDTO job : listJob) {                  
-                            for (CompanyDTO com : listCom) {
-                                for (AccountDTO acc : listAcc) {
-                                if (app.getJobID() == job.getJobID()) {
-                                if (job.getComID() == com.getComID()) {
-                                    if (com.getAccID() == acc.getAccId()) {
-                                        System.out.println(acc.getName());
-                                    }
-                                }
-                            }
-                        }
-
-                    }
-                }
-
+                JobDTO job = JobDAO.getJobByID(app.getJobID());
+                listJob.add(job);
+                            
             }
+            for (CompanyDTO com : listCom) {
+                 AccountDTO acc = AccountDAO.getAccountByID(com.getAccID());
+                listAcc.add(acc);
+            }
+      
+            System.out.println(listAcc.size());
+            System.out.println(listApp.size());
+            System.out.println(listCom.size());
+            System.out.println(listJob.size());
         } catch (Exception e) {
             e.printStackTrace();
         }
