@@ -12,6 +12,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import sample.account.AccountDAO;
+import sample.account.AccountDTO;
 import sample.application.ApplicationDAO;
 import sample.application.ApplicationDTO;
 import sample.company.CompanyDAO;
@@ -39,20 +41,27 @@ public class GetApplicationController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try  {
             String stuID=request.getParameter("stuID");
-            ArrayList<ApplicationDTO> listApp=ApplicationDAO.getApplicationByID(stuID);
-            ArrayList<JobDTO> listJob=new ArrayList<>();
-            ArrayList<CompanyDTO> listCom=new ArrayList<>();
+            ArrayList<ApplicationDTO> listApp = ApplicationDAO.getApplicationByID(stuID);
+            ArrayList<JobDTO> listJob = new ArrayList<>();
+            ArrayList<CompanyDTO> listCom = new ArrayList<>();
+            ArrayList<AccountDTO> listAcc = new ArrayList<>();
             for (ApplicationDTO app : listApp) {
-                JobDTO job=JobDAO.getJobByID(app.getJobID());
-                CompanyDTO com=CompanyDAO.getCompanyByID(job.getComID());
+                JobDTO job = JobDAO.getJobByID(app.getJobID());
                 listJob.add(job);
-                listCom.add(com);
+                CompanyDTO com = CompanyDAO.getCompanyByID(job.getComID());
+                if(job.getJobID()==com.getComID()){
+                    listCom.add(com);
+                }             
+            }
+            for (CompanyDTO com : listCom) {
+                 AccountDTO acc = AccountDAO.getAccountByID(com.getAccID());
+                listAcc.add(acc);
             }
             
             request.setAttribute("jobList", listJob);
             request.setAttribute("comList", listCom);
             request.setAttribute("appList", listApp);
-            
+            request.setAttribute("accList", listAcc);
             
             request.getRequestDispatcher("application.jsp").forward(request, response);
             

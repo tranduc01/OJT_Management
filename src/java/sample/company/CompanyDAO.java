@@ -24,7 +24,7 @@ public class CompanyDAO {
         try {
             cn=DBUtils.makeConnection();
             if(cn!=null){
-                String sql = "select [comID],[comName],[comDescription],[comAddress],[comImage]\n"
+                String sql = "select [comID],[comDescription],[comAddress],[accID]\n"
                         + "from [Company]\n"
                         + "where comID=?";
                 pst=cn.prepareStatement(sql);
@@ -32,11 +32,10 @@ public class CompanyDAO {
                 rs=pst.executeQuery();
                 if(rs!=null && rs.next()){
                     int comid=rs.getInt("comID");
-                    String comname=rs.getString("comName");
                     String comdescription=rs.getString("comDescription");
                     String comaddress=rs.getString("comAddress");
-                    String comimg=rs.getString("comImage");
-                    com=new CompanyDTO(comid, comname, comdescription, comaddress, comimg);
+                    int accid=rs.getInt("accID");
+                    com=new CompanyDTO(comid, comdescription, comaddress, accid);
                 }
             }
             

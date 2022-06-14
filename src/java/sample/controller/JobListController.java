@@ -15,6 +15,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import sample.account.AccountDAO;
+import sample.account.AccountDTO;
 import sample.company.CompanyDAO;
 import sample.company.CompanyDTO;
 import sample.job.JobDAO;
@@ -41,14 +43,22 @@ public class JobListController extends HttpServlet {
        
             try {
                 /* TODO output your page here. You may use following sample code. */
-                ArrayList<JobDTO> jobList=JobDAO.getJobs();
-                 ArrayList<CompanyDTO> listCompany=new ArrayList<>();
-                for (JobDTO jobDTO : jobList) {
-                    CompanyDTO company=CompanyDAO.getCompanyByID(jobDTO.getComID());                  
-                    listCompany.add(company);                    
-                }
+                ArrayList<JobDTO> listJob = JobDAO.getJobs();
+            ArrayList<CompanyDTO> listCompany = new ArrayList<>();
+            ArrayList<AccountDTO> listAccount=new ArrayList<>();
+            for (JobDTO jobDTO : listJob) {
+                CompanyDTO company = CompanyDAO.getCompanyByID(jobDTO.getComID());
+                
+                listCompany.add(company);
+            }
+            for (CompanyDTO com : listCompany) {
+                AccountDTO account=AccountDAO.getAccountByID(com.getAccID());
+                listAccount.add(account);
+            }
+                
                 request.setAttribute("companyList", listCompany);
-                request.setAttribute("jobList", jobList);
+                request.setAttribute("jobList", listJob);
+                request.setAttribute("accList", listAccount);
                 request.getRequestDispatcher("index.jsp").forward(request, response);
             } catch (Exception ex) {
                 ex.printStackTrace();

@@ -4,6 +4,7 @@
     Author     : Tranduc
 --%>
 
+<%@page import="sample.student.StudentDTO"%>
 <%@page import="sample.account.AccountDTO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -41,7 +42,9 @@
         <title>Student's Profile</title>
     </head>
     <body>
-        <% AccountDTO acc = (AccountDTO) session.getAttribute("acc");%>
+        <% AccountDTO acc = (AccountDTO) session.getAttribute("acc");
+           StudentDTO stu = (StudentDTO) session.getAttribute("student");
+        %>
 
         <nav class="navbar navbar-dark navbar-expand-md fixed-top">
             <div class="container">
@@ -58,7 +61,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="mainController?action=GetApplication&stuID=${ acc.getStuID() }">
+                            <a class="nav-link" href="mainController?action=GetApplication&stuID=<%=stu.getStudentID()%>">
                                 <span class="far fa-file-alt"></span>
                                 Application
                             </a>
@@ -168,13 +171,13 @@
                         </div>
                     </div>
 
-                               <!-- <input type="hidden" name="stuID" value="<%= acc.getStuID() %>"> -->
+                            
                     <div class="col-xl-8">
                         <!-- Account details card-->
                         <div class="card mb-4">
                             <div class="card-header">Account Details</div>
                             <div class="card-body">
-                                <form action="mainController" method="post">
+                                <form action="mainController" method="post" enctype="">
                                     <!-- Form Group (username)-->
                                     <div class="mb-3">
                                         <label class="small mb-1" for="inputUsername">Student Name</label>
@@ -187,7 +190,7 @@
                                         <!-- Form Group (organization name)-->
                                         <div class="col-md-6">
                                             <label class="small mb-1" for="inputPhone">Student ID</label>
-                                            <input class="form-control" id="inputPhone" type="tel" name="txtstuid" value="<%= acc.getStuID()%>" readonly="">
+                                            <input class="form-control" id="inputPhone" type="tel" name="txtstuid" value="<%= stu.getStudentID() %>" readonly="">
                                         </div>
                                         <!-- Form Group (location)-->
                                         <div class="col-md-6">

@@ -25,8 +25,8 @@ public class AccountDAO {
         try {
             cn=DBUtils.makeConnection();
             if(cn!=null){
-                String sql = "select Account.[accID],[email],[password],[name],[phone],[birthday],[avatar],cv,[createDate],[roleID],[status],stuID,Semester.semID as 'semID',Semester.semName as 'semName',Major.majorID as 'majorID',Major.majorName as 'majorName'\n"
-                        + "from Student join Account on Account.accID=Student.accID join Semester on Student.semID=Semester.semID join Major on Student.majorID=Major.majorID\n"
+                String sql = "select [accID],[email],[password],[name],[phone],[birthday],[avatar],[cv],[createDate],[roleID],[status]\n"
+                        + "from Account\n"
                         + "where status=1 and email=? and password=? Collate Latin1_General_CS_AS";
                 pst=cn.prepareStatement(sql);
                 pst.setString(1, email);
@@ -44,12 +44,7 @@ public class AccountDAO {
                     Date createdate=rs.getDate("createDate");
                     int roleid=rs.getInt("roleID");
                     int status=rs.getInt("status");
-                    String stuid=rs.getString("stuID");
-                    String semid=rs.getString("semID");
-                    String semname=rs.getString("semName");
-                    String majorid=rs.getString("majorID");
-                    String majorname=rs.getString("majorName");
-                    acc=new AccountDTO(accid, Email, Password, name, phone, avatar, cv, birthday, roleid, status, createdate, stuid, semid, semname, majorid, majorname);
+                    acc=new AccountDTO(accid, Email, Password, name, phone, avatar, cv, birthday, roleid, status, createdate);
                 }
             }
         } catch (Exception e) {
@@ -69,8 +64,8 @@ public class AccountDAO {
         try {
             cn=DBUtils.makeConnection();
             if(cn!=null){
-                String sql = "select Account.[accID],[email],[password],[name],[phone],[birthday],[avatar],cv,[createDate],[roleID],[status],stuID,Semester.semID as 'semID',Semester.semName as 'semName',Major.majorID as 'majorID',Major.majorName as 'majorName'\n"
-                        + "from Student join Account on Account.accID=Student.accID join Semester on Student.semID=Semester.semID join Major on Student.majorID=Major.majorID\n"
+                String sql = "select [accID],[email],[password],[name],[phone],[birthday],[avatar],[cv],[createDate],[roleID],[status]\n"
+                        + "from Account\n"
                         + "where status=1 and email=?";
                 pst=cn.prepareStatement(sql);
                 pst.setString(1, email);
@@ -87,12 +82,7 @@ public class AccountDAO {
                     Date createdate=rs.getDate("createDate");
                     int roleid=rs.getInt("roleID");
                     int status=rs.getInt("status");
-                    String stuid=rs.getString("stuID");
-                    String semid=rs.getString("semID");
-                    String semname=rs.getString("semName");
-                    String majorid=rs.getString("majorID");
-                    String majorname=rs.getString("majorName");
-                    acc=new AccountDTO(accid, Email, Password, name, phone, avatar, cv, birthday, roleid, status, createdate, stuid, semid, semname, majorid, majorname);
+                    acc=new AccountDTO(accid, Email, Password, name, phone, avatar, cv, birthday, roleid, status, createdate);
                 }
             }
         } catch (Exception e) {
@@ -113,8 +103,8 @@ public class AccountDAO {
         try {
             cn=DBUtils.makeConnection();
             if(cn!=null){
-                String sql = "select Account.[accID],[email],[password],[name],[phone],[birthday],[avatar],cv,[createDate],[roleID],[status],stuID,Semester.semID as 'semID',Semester.semName as 'semName',Major.majorID as 'majorID',Major.majorName as 'majorName'\n"
-                        + "from Student join Account on Account.accID=Student.accID join Semester on Student.semID=Semester.semID join Major on Student.majorID=Major.majorID\n"
+                String sql = "select [accID],[email],[password],[name],[phone],[birthday],[avatar],[cv],[createDate],[roleID],[status]\n"
+                        + "from Account\n"
                         + "where status=1 and Account.[accID]=?";
                 pst=cn.prepareStatement(sql);
                 pst.setInt(1, accID);
@@ -131,12 +121,7 @@ public class AccountDAO {
                     String cv=rs.getString("cv");
                     int roleid=rs.getInt("roleID");
                     int status=rs.getInt("status");
-                    String stuid=rs.getString("stuID");
-                    String semid=rs.getString("semID");
-                    String semname=rs.getString("semName");
-                    String majorid=rs.getString("majorID");
-                    String majorname=rs.getString("majorName");
-                    acc=new AccountDTO(accid, Email, Password, name, phone, avatar, cv, birthday, roleid, status, createdate, stuid, semid, semname, majorid, majorname);
+                    acc=new AccountDTO(accid, Email, Password, name, phone, avatar, cv, birthday, roleid, status, createdate);
                 }
             }
         } catch (Exception e) {

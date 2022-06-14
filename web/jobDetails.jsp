@@ -99,7 +99,7 @@
         </nav>
         <c:set var="job" value="${requestScope.job}"/>
         <c:set var="com" value="${requestScope.com}"/>
-
+        <c:set var="acc" value="${requestScope.acc}"/>
 
         <!-- job post company Start -->
         <div class="job-post-company pt-120 pb-120">
@@ -111,7 +111,7 @@
                         <div class="single-job-items mb-50">
                             <div class="job-items">
                                 <div class="company-img company-img-details">
-                                    <a href="#"><img src="${job.getComImage()}" style="height: 70px; width: 70px;"></a>
+                                    <a href="#"><img src="${acc.getAvatar()}" style="height: 70px; width: 70px;"></a>
                                 </div>
                                 <div class="job-tittle">
 
@@ -173,18 +173,18 @@
                                 <a href="#" class="btn">Apply Now</a>
                             </div>
                         </div>
-                            <div class="post-details4  mb-50">
+                        <div class="post-details4  mb-50">
                             <!-- Small Section Tittle -->
                             <div class="small-section-tittle">
                                 <h4>Company Information</h4>
                             </div>
-                            <span>${com.getComName()}</span>
+                            <span>${acc.getName()}</span>
                             <p>${com.getComDescription()}</p>
-                            
-                                <img src="${com.getComImage()}" style="height: 225px; width: 225px;">
-                                
 
-                            
+                            <img src="${acc.getAvatar()}" style="height: 225px; width: 225px;">
+
+
+
                         </div>
                     </div>
                 </div>

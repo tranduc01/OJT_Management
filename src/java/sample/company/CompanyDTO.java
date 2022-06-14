@@ -11,20 +11,18 @@ package sample.company;
  */
 public class CompanyDTO {
     private int comID;
-    private String comName;
     private String comDescription;
     private String comAddress;
-    private String comImage;
+    private int accID;
 
     public CompanyDTO() {
     }
 
-    public CompanyDTO(int comID, String comName, String comDescription, String comAddress, String comImage) {
+    public CompanyDTO(int comID, String comDescription, String comAddress, int accID) {
         this.comID = comID;
-        this.comName = comName;
         this.comDescription = comDescription;
         this.comAddress = comAddress;
-        this.comImage = comImage;
+        this.accID = accID;
     }
 
     public int getComID() {
@@ -33,14 +31,6 @@ public class CompanyDTO {
 
     public void setComID(int comID) {
         this.comID = comID;
-    }
-
-    public String getComName() {
-        return comName;
-    }
-
-    public void setComName(String comName) {
-        this.comName = comName;
     }
 
     public String getComDescription() {
@@ -59,18 +49,19 @@ public class CompanyDTO {
         this.comAddress = comAddress;
     }
 
-    public String getComImage() {
-        return comImage;
+    public int getAccID() {
+        return accID;
     }
 
-    public void setComImage(String comImage) {
-        this.comImage = comImage;
+    public void setAccID(int accID) {
+        this.accID = accID;
     }
 
     @Override
     public String toString() {
-        return "CompanyDTO{" + "comID=" + comID + ", comName=" + comName + ", comDescription=" + comDescription + ", comAddress=" + comAddress + ", comImage=" + comImage + '}';
+        return "CompanyDTO{" + "comID=" + comID + ", comDescription=" + comDescription + ", comAddress=" + comAddress + ", accID=" + accID + '}';
     }
+
     
     
 }

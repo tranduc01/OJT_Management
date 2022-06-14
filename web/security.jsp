@@ -4,6 +4,7 @@
     Author     : Tranduc
 --%>
 
+<%@page import="sample.student.StudentDTO"%>
 <%@page import="sample.account.AccountDTO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -40,7 +41,9 @@
         <title>Security</title>
     </head>
     <body>       
-        <% AccountDTO acc = (AccountDTO) session.getAttribute("acc");%>
+        <% AccountDTO acc = (AccountDTO) session.getAttribute("acc");
+           StudentDTO stu = (StudentDTO) session.getAttribute("student");
+        %>
         <nav class="navbar navbar-dark navbar-expand-md fixed-top">
             <div class="container">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#Navbar">
@@ -56,7 +59,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="mainController?action=GetApplication&stuID=${ acc.getStuID() }">
+                            <a class="nav-link" href="mainController?action=GetApplication&stuID=<%= stu.getStudentID() %>">
                                 <span class="far fa-file-alt"></span>
                                 Application
                             </a>
@@ -89,7 +92,7 @@
                                 <!-- Profile picture image-->
                                 <img class="img-account-profile rounded-circle mb-2" src="<%= acc.getAvatar()%>" alt="">
                                 <p><%= acc.getName()%></p>
-                                <p><%= acc.getStuID()%></p>
+                                <p><%= stu.getStudentID() %></p>
                             </div>
                         </div>
                     </div>

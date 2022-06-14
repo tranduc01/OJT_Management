@@ -25,8 +25,8 @@
 
         <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
         <script src="https://kit.fontawesome.com/12c372e324.js" crossorigin="anonymous"></script>
-         <link rel="shortcut icon" href="img/FPT-logoo.jpg">
-    
+        <link rel="shortcut icon" href="img/FPT-logoo.jpg">
+
         <title>FPT OJT</title>
     </head>
     <body>
@@ -58,36 +58,36 @@
                         </li>
                     </ul>
                 </div>
-                <% String email=(String)session.getAttribute("accEmail");
-                    if(email!=null){
-                        %> 
-                
+                <% String email = (String) session.getAttribute("accEmail");
+                    if (email != null) {
+                %> 
+
                 <span class="navbar-text ml-auto">
-                <a  href="student_profile.jsp">
-                    <span class="fa fa-user-o fa-lg"></span> ${sessionScope.name}               
-                </a>
+                    <a  href="student_profile.jsp">
+                        <span class="fa fa-user-o fa-lg"></span> ${sessionScope.name}               
+                    </a>
                 </span>
                 <span class="navbar-text ml-auto">
                     <a href="mainController?action=logout"><span class="fa fa-sign-out"></span> Logout</a>
-              </span>
-                <%    
-                    }else{
-                    %>
+                </span>
+                <%
+                } else {
+                %>
                 <span class="navbar-text ml-auto">
                     <a href="login.jsp">
                         <span class="fa fa-sign-in"></span> Login</a>
                 </span>
                 <%
-}
+                    }
                 %>
-                
-                
-                
+
+
+
             </div>
         </nav>
 
 
-        
+
 
 
 
@@ -135,26 +135,34 @@
 
             <h3 style="padding-top: 50px;">Hot Deals</h3>
             <div class="row">
-            <c:forEach var="job" items="${requestScope.jobList}">                                
-                 <div class="col-sm-6 col-md-3">
-                    <div class="card " style="width:300px">
-                        <input type="hidden" name="jobid" value="${job.getJobID()}">
-                        <img class="card-img-top" src="${job.getComImage()}" alt="Card image" style="width:298px; height: 250px;">
-                        <div class="card-body">
-                            <h4 class="card-title">${job.getJobName()}</h4>
-                            <p>Create date: 2022/12/12 - Remain: 2 days</p> 
-                            <p><i class="fas fa-map-marker-alt"></i> ${job.getComAddress()}</p>
-                            <a href="mainController?action=jobDetails&jobid=${job.getJobID()}" class="btn btn-primary btn-block">Detail</a>
-                        </div>
-                    </div>
-                </div>            
+                <c:forEach var="job" items="${requestScope.jobList}">
+                    <c:forEach var="com" items="${requestScope.companyList}">
+                        <c:forEach var="acc" items="${requestScope.accList}">
+                            <c:if test="${job.getComID() eq com.getComID()}">
+                                <c:if test="${com.getAccID() eq acc.getAccId()}">
+                                    <div class="col-sm-6 col-md-3">
+                                        <div class="card " style="width:300px">
+                                            <input type="hidden" name="jobid" value="${job.getJobID()}">
+                                            <img class="card-img-top" src="${acc.getAvatar()}" alt="Card image" style="width:298px; height: 250px;">
+                                            <div class="card-body">
+                                                <h4 class="card-title">${job.getJobName()}</h4>
+                                                <p>Create date: 2022/12/12 - Remain: 2 days</p> 
+                                                <p><i class="fas fa-map-marker-alt"></i> ${com.getComAddress()}</p>
+                                                <a href="mainController?action=jobDetails&jobid=${job.getJobID()}" class="btn btn-primary btn-block">Detail</a>
+                                            </div>
+                                        </div>
+                                    </div>   
+                                </c:if>
+                            </c:if>
+                        </c:forEach>
+                    </c:forEach>
                 </c:forEach>
             </div>
         </div>               
 
-                <footer>
-                    <%@include file="footer.jsp" %>
-                </footer>
+        <footer>
+            <%@include file="footer.jsp" %>
+        </footer>
         <script src="node_modules/jquery/dist/jquery.slim.min.js"></script>
         <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
         <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>

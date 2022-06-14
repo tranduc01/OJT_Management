@@ -94,36 +94,40 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <c:forEach items="${requestScope.appList}" var="app">
-                                        <c:forEach items="${requestScope.comList}" var="com">
-                                            <c:forEach items="${requestScope.jobList}" var="job">
-                                                <c:if test="${app.getJobID() eq job.getJobID()}">
-                                                    <c:if test="${job.getComID()eq com.getComID()}">
-                                                        <tr>
-                                                            <td>
-                                                                <img src="${com.getComImage()}" style="height: 50px; width: 50px;">
-                                                                <span><a href="#" class="user-link" style="padding-top: 11px;">${com.getComName()}</a></span>
+                                    
+                                    <c:forEach items="${requestScope.appList}" var="app">   
+                                        <c:forEach items="${requestScope.jobList}" var="job">  
+                                        <c:forEach items="${requestScope.comList}" var="com">                                                                                                   
+                                                    <c:forEach items="${requestScope.accList}" var="acc">
+                                                        <c:if test="${app.getJobID() eq job.getJobID()}">
+                                                        <c:if test="${job.getComID() eq com.getComID()}">
+                                                            <c:if test="${acc.getAccId() eq com.getAccID()}">                                                                                                                                                                                                                                         
+                                                                <tr>
+                                                                    <td>
+                                                                        <img src="${acc.getAvatar()}" style="height: 50px; width: 50px;">
+                                                                        <span><a href="#" class="user-link" style="padding-top: 11px;">${acc.getName()}</a></span>
+                                                                    </td>
+                                                                    <td>
+                                                                        ${app.getApplyDate()}
+                                                                    </td>
+                                                                    <td class="text-center">
+                                                                        <c:if test="${app.getStatus() eq 3}"><h5><span class="badge badge-danger">Rejected</span></h5></c:if>
+                                                                        <c:if test="${app.getStatus() eq 2}"><h5><span class="badge badge-warning">Pending</span></h5></c:if>
+                                                                        <c:if test="${app.getStatus() eq 1}"><h5><span class="badge badge-success">Accepted</span></h5></c:if>
 
-                                                            </td>
-                                                            <td>
-                                                                ${app.getApplyDate()}
-                                                            </td>
-                                                            <td class="text-center">
-                                                                <c:if test="${app.getStatus() eq 1}"><h5><span class="badge badge-danger">Rejected</span></h5></c:if>
-                                                                <c:if test="${app.getStatus() eq 2}"><h5><span class="badge badge-warning">Pending</span></h5></c:if>
-                                                                <c:if test="${app.getStatus() eq 3}"><h5><span class="badge badge-success">Accepted</span></h5></c:if>
 
-
-                                                                </td>
-                                                                <td>
-                                                                    Spring 2022
-                                                                </td>
-                                                                <td style="width: 20%;">
-                                                                    ${job.getJobName()}
-                                                                </td>
-                                                            </tr>
+                                                                        </td>
+                                                                        <td>
+                                                                            Spring 2022
+                                                                        </td>
+                                                                        <td style="width: 20%;">
+                                                                        ${job.getJobName()}
+                                                                    </td>
+                                                                </tr>
+                                                            </c:if>
+                                                        </c:if>
                                                     </c:if>
-                                                </c:if>
+                                                </c:forEach>
                                             </c:forEach>
                                         </c:forEach>
                                     </c:forEach>

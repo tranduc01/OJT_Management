@@ -10,49 +10,47 @@ package sample.student;
  * @author Tranduc
  */
 public class StudentDTO {
-     private String name;
-    private String id;
-    private int semester;
+    private String studentName;
+    private String studentID;
+    private String semesterID;
     private String email;
-    private String major;
-    private String status;
+    private String majorID;
+    private int accID;
 
     public StudentDTO() {
     }
 
-    public StudentDTO(String name, String id, int semester, String email, String major, String status) {
-        this.name = name;
-        this.id = id;
-        this.semester = semester;
+    public StudentDTO(String studentName, String studentID, String semesterID, String email, String majorID, int accID) {
+        this.studentName = studentName;
+        this.studentID = studentID;
+        this.semesterID = semesterID;
         this.email = email;
-        this.major = major;
-        this.status = status;
+        this.majorID = majorID;
+        this.accID = accID;
     }
 
-    public String getName() {
-        return name;
+    public String getStudentName() {
+        return studentName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setStudentName(String studentName) {
+        this.studentName = studentName;
     }
 
-    public String getId() {
-        return id;
+    public String getStudentID() {
+        return studentID;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setStudentID(String studentID) {
+        this.studentID = studentID;
     }
 
-   
-
-    public int getSemester() {
-        return semester;
+    public String getSemesterID() {
+        return semesterID;
     }
 
-    public void setSemester(int semester) {
-        this.semester = semester;
+    public void setSemesterID(String semesterID) {
+        this.semesterID = semesterID;
     }
 
     public String getEmail() {
@@ -63,21 +61,28 @@ public class StudentDTO {
         this.email = email;
     }
 
-    public String getMajor() {
-        return major;
+    public String getMajorID() {
+        return majorID;
     }
 
-    public void setMajor(String major) {
-        this.major = major;
+    public void setMajorID(String majorID) {
+        this.majorID = majorID;
     }
 
-    public String getStatus() {
-        return status;
+    public int getAccID() {
+        return accID;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setAccID(int accID) {
+        this.accID = accID;
     }
 
+    @Override
+    public String toString() {
+        return "StudentDTO{" + "studentName=" + studentName + ", studentID=" + studentID + ", semesterID=" + semesterID + ", email=" + email + ", majorID=" + majorID + ", accID=" + accID + '}';
+    }
+
+    
+    
   
 }

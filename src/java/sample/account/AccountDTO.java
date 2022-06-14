@@ -23,16 +23,12 @@ public class AccountDTO {
     private int role;
     private int status;
     private Date crateDate;
-    private String stuID;
-    private String semID;
-    private String semName;
-    private String majorID;
-    private String majorName;
+
 
     public AccountDTO() {
     }
 
-    public AccountDTO(int accId, String email, String password, String name, String phone, String avatar, String cvPath, Date birthday, int role, int status, Date crateDate, String stuID, String semID, String semName, String majorID, String majorName) {
+    public AccountDTO(int accId, String email, String password, String name, String phone, String avatar, String cvPath, Date birthday, int role, int status, Date crateDate) {
         this.accId = accId;
         this.email = email;
         this.password = password;
@@ -44,12 +40,9 @@ public class AccountDTO {
         this.role = role;
         this.status = status;
         this.crateDate = crateDate;
-        this.stuID = stuID;
-        this.semID = semID;
-        this.semName = semName;
-        this.majorID = majorID;
-        this.majorName = majorName;
     }
+
+    
 
     
     public String getCvPath() {
@@ -72,46 +65,7 @@ public class AccountDTO {
 
     
 
-    public String getStuID() {
-        return stuID;
-    }
-
-    public void setStuID(String stuID) {
-        this.stuID = stuID;
-    }
-
-    public String getSemID() {
-        return semID;
-    }
-
-    public void setSemID(String semID) {
-        this.semID = semID;
-    }
-
-    public String getSemName() {
-        return semName;
-    }
-
-    public void setSemName(String semName) {
-        this.semName = semName;
-    }
-
-    public String getMajorID() {
-        return majorID;
-    }
-
-    public void setMajorID(String majorID) {
-        this.majorID = majorID;
-    }
-
-    public String getMajorName() {
-        return majorName;
-    }
-
-    public void setMajorName(String majorName) {
-        this.majorName = majorName;
-    }
-
+    
     
 
     public int getAccId() {

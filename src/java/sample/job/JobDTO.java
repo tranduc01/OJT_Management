@@ -24,14 +24,12 @@ public class JobDTO {
     private int status;
     private int amount;
     private int comID;
-    private String comImage;
-    private String comAddress;
     private String majorID;
 
     public JobDTO() {
     }
 
-    public JobDTO(int jobID, String jobName, String jobTitle, String jobDescription, String jobRequirement, String jobBenefits, int jobSalary, Date jobCreateDate, Date jobEndDate, int status, int amount, int comID, String comImage, String comAddress, String majorID) {
+    public JobDTO(int jobID, String jobName, String jobTitle, String jobDescription, String jobRequirement, String jobBenefits, int jobSalary, Date jobCreateDate, Date jobEndDate, int status, int amount, int comID, String majorID) {
         this.jobID = jobID;
         this.jobName = jobName;
         this.jobTitle = jobTitle;
@@ -44,42 +42,8 @@ public class JobDTO {
         this.status = status;
         this.amount = amount;
         this.comID = comID;
-        this.comImage = comImage;
-        this.comAddress = comAddress;
         this.majorID = majorID;
     }
-
-    public int getAmount() {
-        return amount;
-    }
-
-    public void setAmount(int amount) {
-        this.amount = amount;
-    }
-
-    
-
-    public String getComImage() {
-        return comImage;
-    }
-
-    public void setComImage(String comImage) {
-        this.comImage = comImage;
-    }
-
-    public String getComAddress() {
-        return comAddress;
-    }
-
-    public void setComAddress(String comAddress) {
-        this.comAddress = comAddress;
-    }
-
-    
-
-    
-
-    
 
     public int getJobID() {
         return jobID;
@@ -161,6 +125,14 @@ public class JobDTO {
         this.status = status;
     }
 
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
+
     public int getComID() {
         return comID;
     }
@@ -168,8 +140,6 @@ public class JobDTO {
     public void setComID(int comID) {
         this.comID = comID;
     }
-
-
 
     public String getMajorID() {
         return majorID;
@@ -181,9 +151,10 @@ public class JobDTO {
 
     @Override
     public String toString() {
-        return "JobDTO{" + "jobID=" + jobID + ", jobName=" + jobName + ", jobTitle=" + jobTitle + ", jobDescription=" + jobDescription + ", jobRequirement=" + jobRequirement + ", jobBenefits=" + jobBenefits + ", jobSalary=" + jobSalary + ", jobCreateDate=" + jobCreateDate + ", jobEndDate=" + jobEndDate + ", status=" + status + ", comID=" + comID + ", comImage=" + comImage + ", comAddress=" + comAddress + ", majorID=" + majorID + '}';
+        return "JobDTO{" + "jobID=" + jobID + ", jobName=" + jobName + ", jobTitle=" + jobTitle + ", jobDescription=" + jobDescription + ", jobRequirement=" + jobRequirement + ", jobBenefits=" + jobBenefits + ", jobSalary=" + jobSalary + ", jobCreateDate=" + jobCreateDate + ", jobEndDate=" + jobEndDate + ", status=" + status + ", amount=" + amount + ", comID=" + comID + ", majorID=" + majorID + '}';
     }
 
+    
    
 
    

@@ -17,17 +17,51 @@ public class ApplicationDTO {
     private String stuID;
     private int jobID;
     private int status;
+    private int stu_confirm;
+    private int com_conirm;
+    private int resultID;
 
     public ApplicationDTO() {
     }
 
-    public ApplicationDTO(int applyID, Date applyDate, String stuID, int jobID, int status) {
+    public ApplicationDTO(int applyID, Date applyDate, String stuID, int jobID, int status, int stu_confirm, int com_conirm, int resultID) {
         this.applyID = applyID;
         this.applyDate = applyDate;
         this.stuID = stuID;
         this.jobID = jobID;
         this.status = status;
+        this.stu_confirm = stu_confirm;
+        this.com_conirm = com_conirm;
+        this.resultID = resultID;
     }
+
+    public int getResultID() {
+        return resultID;
+    }
+
+    public void setResultID(int resultID) {
+        this.resultID = resultID;
+    }
+
+   
+
+    public int getStu_confirm() {
+        return stu_confirm;
+    }
+
+    public void setStu_confirm(int stu_confirm) {
+        this.stu_confirm = stu_confirm;
+    }
+
+    public int getCom_conirm() {
+        return com_conirm;
+    }
+
+    public void setCom_conirm(int com_conirm) {
+        this.com_conirm = com_conirm;
+    }
+
+    
 
     public int getApplyID() {
         return applyID;

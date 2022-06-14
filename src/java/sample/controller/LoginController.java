@@ -16,6 +16,8 @@ import sample.account.AccountDAO;
 import sample.account.AccountDTO;
 import sample.major.MajorDAO;
 import sample.major.MajorDTO;
+import sample.student.StudentDAO;
+import sample.student.StudentDTO;
 
 /**
  *
@@ -40,24 +42,28 @@ public class LoginController extends HttpServlet {
             String email=request.getParameter("txtemail");
             String password=request.getParameter("txtpassword");
             AccountDTO acc=AccountDAO.loginAccount(email, password);
-            ArrayList<MajorDTO> list=MajorDAO.getMajors();
+            ArrayList<MajorDTO> list=MajorDAO.getMajors();           
             if(acc!=null){
                 if(acc.getRole()==0){
                     HttpSession session=request.getSession();
                     session.setAttribute("accEmail", acc.getEmail());
                     session.setAttribute("name", acc.getName());
                     request.getRequestDispatcher("admin_page.jsp").forward(request, response);
-                }else{
+                }else if(acc.getRole()==1){
                     HttpSession session=request.getSession();
                     session.setAttribute("accEmail", acc.getEmail());
                     session.setAttribute("name", acc.getName());                  
                     session.setAttribute("acc", acc);
+                    StudentDTO student=StudentDAO.getStudentByAccount(acc.getAccId());
+                    session.setAttribute("student", student);
                     for (MajorDTO majorDTO : list) {
-                        if(majorDTO.getMajorID().equals(acc.getMajorID())){
+                        if(majorDTO.getMajorID().equals(student.getMajorID())){
                             session.setAttribute("majorName", majorDTO.getMajorName());
                         }
                     }
                     request.getRequestDispatcher("JobListController").forward(request, response);
+                }else{
+                    request.getRequestDispatcher("comany_page.jsp").forward(request, response);
                 }
             }else{
                 String loginError="Invalid Email or Password !!!";

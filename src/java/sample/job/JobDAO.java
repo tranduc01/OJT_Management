@@ -28,8 +28,8 @@ public class JobDAO {
         try {
             cn=DBUtils.makeConnection();
             if(cn!=null){
-                String sql = "select [jobID],[jobName],[jobTitle],[jobDescription],[jobRequirements],[jobBenefits],[jobSalary],[jobCreateDate],[jobEndDate],[status],amount,majorID,Company.comID as 'comID',Company.comAddress as 'comAddress',Company.comImage as 'comImage'\n"
-                        + "from Job join Company on Job.comID=Company.comID\n"
+                String sql = "select [jobID],[jobName],[jobTitle],[jobDescription],[jobRequirements],[jobBenefits],[jobSalary],[jobCreateDate],[jobEndDate],[status],amount,majorID,comID\n"
+                        + "from Job\n"
                         + "where job.status=1";
                 st=cn.createStatement();
                 rs=st.executeQuery(sql);
@@ -45,11 +45,9 @@ public class JobDAO {
                     Date enddate=rs.getDate("jobEndDate");
                     int status=rs.getInt("status");
                     int amount=rs.getInt("amount");
-                    String comaddress=rs.getString("comAddress");
-                    String comimg=rs.getString("comImage");
                     int comid=rs.getInt("comID");          
                     String majorID=rs.getString("majorID");
-                    JobDTO job=new JobDTO(jobid, jobname, jobtitle, jobdescription, jobrequirement, jobbenefit, salary, createdate, enddate, status, amount, comid, comimg, comaddress, majorID);
+                    JobDTO job=new JobDTO(jobid, jobname, jobtitle, jobdescription, jobrequirement, jobbenefit, salary, createdate, enddate, status, amount, comid, majorID);
                     list.add(job);                                      
                 }
             }
@@ -70,8 +68,8 @@ public class JobDAO {
         try {
             cn=DBUtils.makeConnection();
             if(cn!=null){
-                String sql = "select [jobID],[jobName],[jobTitle],[jobDescription],[jobRequirements],[jobBenefits],[jobSalary],[jobCreateDate],[jobEndDate],[status],amount,majorID,Company.comID as 'comID',Company.comAddress as 'comAddress',Company.comImage as 'comImage'\n"
-                        + "from Job join Company on Job.comID=Company.comID\n"
+                String sql = "select [jobID],[jobName],[jobTitle],[jobDescription],[jobRequirements],[jobBenefits],[jobSalary],amount,[jobCreateDate],[jobEndDate],[status],majorID,comID\n"
+                        + "from Job\n"
                         + "where job.status=1 and jobID=?";
                 pst=cn.prepareStatement(sql);
                 pst.setInt(1, jobID);
@@ -88,11 +86,9 @@ public class JobDAO {
                     Date enddate=rs.getDate("jobEndDate");
                     int status=rs.getInt("status");
                     int amount=rs.getInt("amount");
-                    String comaddress=rs.getString("comAddress");
-                    String comimg=rs.getString("comImage");
                     int comid=rs.getInt("comID");          
                     String majorID=rs.getString("majorID");
-                    job=new JobDTO(jobid, jobname, jobtitle, jobdescription, jobrequirement, jobbenefit, salary, createdate, enddate, status, amount, comid, comimg, comaddress, majorID);
+                    job=new JobDTO(jobid, jobname, jobtitle, jobdescription, jobrequirement, jobbenefit, salary, createdate, enddate, status, amount, comid, majorID);
                                                         
                 }
             }

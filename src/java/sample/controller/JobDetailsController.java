@@ -11,6 +11,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import sample.account.AccountDAO;
+import sample.account.AccountDTO;
 import sample.company.CompanyDAO;
 import sample.company.CompanyDTO;
 import sample.job.JobDAO;
@@ -39,8 +41,10 @@ public class JobDetailsController extends HttpServlet {
             int jobID=Integer.parseInt(request.getParameter("jobid"));
             JobDTO job=JobDAO.getJobByID(jobID);
             CompanyDTO com=CompanyDAO.getCompanyByID(job.getComID());
+            AccountDTO acc=AccountDAO.getAccountByID(com.getAccID());
             request.setAttribute("com", com);
             request.setAttribute("job", job);
+            request.setAttribute("acc", acc);
             request.getRequestDispatcher("jobDetails.jsp").forward(request, response);
         }catch(Exception e){
             e.printStackTrace();
