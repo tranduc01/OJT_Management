@@ -40,6 +40,10 @@
         <servlet-name>GetApplicationController</servlet-name>
         <servlet-class>sample.controller.GetApplicationController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>JobsPageController</servlet-name>
+        <servlet-class>sample.controller.JobsPageController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>mainController</servlet-name>
         <url-pattern>/mainController</url-pattern>
@@ -79,6 +83,10 @@
     <servlet-mapping>
         <servlet-name>GetApplicationController</servlet-name>
         <url-pattern>/GetApplicationController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>JobsPageController</servlet-name>
+        <url-pattern>/JobsPageController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

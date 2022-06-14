@@ -45,7 +45,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="jobs.jsp">
+                            <a class="nav-link" href="JobsPageController">
                                 <span class="fa fa-briefcase fa-lg"></span>
                                 Jobs
                             </a>
@@ -93,25 +93,31 @@
             </form>
 
 
-            <div class="job-container">
-                <h3>Jobs for you</h3>
-                <div class="card" style="width:90%; height:240px; border-radius: 10px;">
-                    <div class="card-body row">
-                        <div class="col-3"><img src="img/dell-logo.jpg" style="width:80%; height: 90%;"></div>
-                        <div class="col-md">
-                            <p class="title">Dell</p>
-                            <p>front end developer</p>
-                            <p><i class="fa fa-map-marker"></i> Q9, TPHCM</p>
-                            <p>$1000</p>
-                        </div>
-                    </div>
-                </div>
-
-
-
-            </div>
-
-
+            <h3>Jobs for you</h3>
+            
+            <c:forEach var="job" items="${requestScope.jobList}">
+                <c:forEach var="com" items="${requestScope.companyList}">
+                    <c:forEach var="acc" items="${requestScope.accList}">
+                        <c:if test="${job.getComID() eq com.getComID()}">
+                            <c:if test="${com.getAccID() eq acc.getAccId()}">
+                                <div class="job-container">
+                                    <div class="card" style="width:90%; height:240px; border-radius: 10px;">
+                                        <div class="card-body row">
+                                            <div class="col-3"><a href="mainController?action=jobDetails&jobid=${job.getJobID()}"><img src="${acc.getAvatar()}" style="width:80%; height: 90%;"></a></div>
+                                            <div class="col-md">
+                                                <p class="title">${acc.getName()}</p>
+                                                <p>${job.getJobName()}</p>
+                                                <p><i class="fa fa-map-marker"></i> ${com.getComAddress()}</p>
+                                                <p>$${job.getJobSalary()}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
+                            </c:if>
+                        </c:if>
+                    </c:forEach>
+                </c:forEach>
+            </c:forEach>                
         </div>
         <footer>
             <%@include file="footer.jsp" %>

@@ -57,15 +57,15 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="jobs.html">
+                            <a class="nav-link" href="JobsPageController">
                                 <span class="fa fa-briefcase fa-lg"></span>
                                 Jobs
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="companies.html">
-                                <span class="fa fa-building-o fa-lg"></span>
-                                Companies
+                            <a class="nav-link" href="about.jsp">
+                                <span class="fas fa-graduation-cap"></span>
+                                About
                             </a>
                         </li>
                     </ul>

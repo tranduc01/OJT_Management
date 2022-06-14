@@ -46,7 +46,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="jobs.jsp">
+                            <a class="nav-link" href="JobsPageController">
                                 <span class="fa fa-briefcase fa-lg"></span>
                                 Jobs
                             </a>
@@ -91,14 +91,14 @@
         </nav>
         <h1>Hello World!</h1>
         <div class="row justify-content-center mt-5">
-            <div class="col-12 col-md-8">
+            <div class="col-12 col-md-6">
                 <h1 class="display-4" style="top:100px">
                     TRƯỜNG ĐẠI HỌC FPT
                 </h1>
                 <div class="row align-items-center border-top border-bottom mb-4">
 
                 </div>
-                <div class="ck-content text-justify col-md-8">
+                <div class="ck-content text-justify col-md-12">
                     <p>Trường Đại học FPT chính thức thành lập ngày 08/09/2006 theo quyết định số 208/2006/QĐ-TTg của Thủ tướng Chính phủ. Thời điểm đó, Đại học FPT là trường đại học đầu tiên của Việt Nam do một doanh nghiệp thành lập với 100% vốn đầu tư từ Công ty Cổ phần FPT - tập đoàn tiên phong trong lĩnh vực Công nghệ thông tin của Việt Nam.</p>
                     <figure class="image"><img src="img/fpt-star.png"><figcaption>Trụ sở chính Đại học FPT tại Hà Nội</figcaption></figure>
                     <p>Sứ mệnh của trường Đại học FPT là xây dựng mô hình của một trường Đại học thế hệ mới, có triết lý giáo dục hiện đại, gắn liền đào tạo với thực tiễn cuộc sống và nhu cầu nhân lực của đất nước, góp phần đưa giáo dục Việt nam lên ngang tầm các nước tiên tiến trên thế giới. Sự khác biệt trong phương pháp đào tạo của trường Đại học FPT là gắn kết chặt chẽ với các doanh nghiệp, đào tạo theo chương trình chuẩn công nghệ quốc tế, sinh viên thành thạo hai ngoại ngữ, được rèn luyện kỹ năng mềm, được chú trọng phát triển con người toàn diện, hài hòa.</p>
@@ -107,7 +107,7 @@
                     <figure class="image"><img src="img/fpt-hcm.jpg"><figcaption>Phân hiệu Đại học FPT tại TP. Hồ Chí Minh</figcaption></figure>
                 </div>
             </div>
-            <div class="col-12 col-md-4 d-none d-md-block">
+            <div class="col-12 col-md-2 d-none d-md-block">
                 <div class="sticky-container">
                     <img src="img/hiring.jpg" style="height: 800px; width:400px; "/>
                 
