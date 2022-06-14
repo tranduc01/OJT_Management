@@ -26,22 +26,7 @@ public class test {
     public static void main(String[] args) {
         try {
 
-            ArrayList<ApplicationDTO> listApp = ApplicationDAO.getApplicationByID("SE151204");
-            ArrayList<JobDTO> listJob = new ArrayList<>();
-            ArrayList<CompanyDTO> listCom = new ArrayList<>();
-            ArrayList<AccountDTO> listAcc = new ArrayList<>();
-            for (ApplicationDTO app : listApp) {
-                JobDTO job = JobDAO.getJobByID(app.getJobID());
-                listJob.add(job);
-                CompanyDTO com = CompanyDAO.getCompanyByID(job.getComID());
-                if(job.getJobID()==com.getComID()){
-                    listCom.add(com);
-                }             
-            }
-            for (CompanyDTO com : listCom) {
-                 AccountDTO acc = AccountDAO.getAccountByID(com.getAccID());
-                listAcc.add(acc);
-            }
+            
 //            System.out.println(listAcc.size());
 //            System.out.println(listApp.size());
 //            System.out.println(listCom.size());
