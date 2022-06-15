@@ -42,11 +42,15 @@
         <title>Student's Profile</title>
     </head>
     <body>
+        
+        <div id="preloader">
+            <img src="img/loader.gif"/>
+        </div>
         <% AccountDTO acc = (AccountDTO) session.getAttribute("acc");
            StudentDTO stu = (StudentDTO) session.getAttribute("student");
         %>
 
-        <nav class="navbar navbar-dark navbar-expand-md fixed-top">
+        <nav class="navbar navbar-dark navbar-expand-md">
             <div class="container">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#Navbar">
                     <span class="navbar-toggler-icon"></span>
@@ -235,6 +239,12 @@
         <script src="node_modules/jquery/dist/jquery.slim.min.js"></script>
         <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
         <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script>
+            var loader=document.getElementById("preloader");
+            window.addEventListener("load",function (){
+                loader.style.display="none";
+            });
+        </script>
     </body>
 </html>
 <%}

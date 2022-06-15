@@ -31,7 +31,10 @@
         <title>FPT OJT</title>
     </head>
     <body>
-        <nav class="navbar navbar-dark navbar-expand-md fixed-top">
+        <div id="preloader">
+            <img src="img/loader.gif"/>
+        </div>
+        <nav class="navbar navbar-dark navbar-expand-md">
             <div class="container">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#Navbar">
                     <span class="navbar-toggler-icon"></span>
@@ -89,7 +92,6 @@
 
             </div>
         </nav>
-        <h1>Hello World!</h1>
         <div class="row justify-content-center mt-5">
             <div class="col-12 col-md-6">
                 <h1 class="display-4" style="top:100px">
@@ -122,5 +124,11 @@
         <footer>
             <%@include file="footer.jsp" %>
         </footer>
+        <script>
+            var loader=document.getElementById("preloader");
+            window.addEventListener("load",function (){
+                loader.style.display="none";
+            });
+        </script>
     </body>
 </html>

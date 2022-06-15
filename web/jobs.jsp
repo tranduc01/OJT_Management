@@ -30,7 +30,11 @@
         <title>Jobs</title>
     </head>
     <body>
-        <nav class="navbar navbar-dark navbar-expand-md fixed-top">
+        
+        <div id="preloader">
+            <img src="img/loader.gif"/>
+        </div>
+        <nav class="navbar navbar-dark navbar-expand-md">
             <div class="container">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#Navbar">
                     <span class="navbar-toggler-icon"></span>
@@ -122,5 +126,11 @@
         <footer>
             <%@include file="footer.jsp" %>
         </footer>
+        <script>
+            var loader=document.getElementById("preloader");
+            window.addEventListener("load",function (){
+                loader.style.display="none";
+            });
+        </script>
     </body>
 </html>
