@@ -30,11 +30,11 @@
         <title>FPT OJT</title>
     </head>
     <body>
-        
+
         <div id="preloader">
             <img src="img/loader.gif"/>
         </div>
-        
+
         <nav class="navbar navbar-dark navbar-expand-md">
             <div class="container">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#Navbar">
@@ -163,7 +163,49 @@
                     </c:forEach>
                 </c:forEach>
             </div>
-        </div>               
+            <!-- Swiper -->
+            <div class="container">
+                <div class="swiper card_slider">
+                    <!-- Additional required wrapper -->
+                    <div class="swiper-wrapper">
+                        <!-- Slides -->
+                        <div class="swiper-slide">              
+                            <img style="width:100% ;" src="img/fpt-logo.png">               
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="img_box">
+                                <img style="width:100% ; " src="img/fpt-logo.png">
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="img_box">
+                                <img style="width:100% ; " src="img/fpt-logo.png">
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="img_box">
+                                <img style="width:100% ;" src="img/fpt-logo.png">
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="img_box">
+                                <img style="width:100% ;" src="img/fpt-logo.png">
+                            </div>                       
+                        </div>         
+                    </div>
+
+
+
+                    <!-- If we need navigation buttons -->
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+
+
+                </div>
+            </div>
+        </div>  
+
+
 
         <footer>
             <%@include file="footer.jsp" %>
@@ -172,11 +214,45 @@
         <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
         <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
         <script>
-            var loader=document.getElementById("preloader");
-            window.addEventListener("load",function (){
-                loader.style.display="none";
-            });
+                    var loader = document.getElementById("preloader");
+                    window.addEventListener("load", function () {
+                        loader.style.display = "none";
+                    });
         </script>
+        <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
+        <script type="text/javascript">
+                        var swiper = new Swiper(".card_slider", {
+                            spaceBetween: 30,
+                            loop: true,
+                            speed: 1000,
+                            autoplay: {
+                                delay: 2000,
+                            },
+                            pagination: {
+                                el: ".swiper-pagination",
+                                clickable: true,
+                            },
+                            navigation: {
+                                nextEl: ".swiper-button-next",
+                                prevEl: ".swiper-button-prev"
+                            },
+                            breakpoints: {
+                                1200: {
+                                    slidesPerView: 4,
+                                },
+                                768: {
+                                    slidesPerView: 3,
+                                },
+                                480: {
+                                    slidesPerView: 2,
+                                },
+                                320: {
+                                    slidesPerView: 1,
+                                },
+                            },
+                        });
+        </script>
+
     </body>
 
 </html>

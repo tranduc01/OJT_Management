@@ -239,5 +239,20 @@ form.search-container input[type=text] {
     align-items: center;
     
 }
+.swiper {
+  width: 100%;
+  height: 300px;
+}
+
+.swiper-slide{
+  display: flex;
+  align-items: center;
+  padding: 50px;
+}
+
+.img_box{
+  display: flex;
+  align-items: center;
+}
 
 

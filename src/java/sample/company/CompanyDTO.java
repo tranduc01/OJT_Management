@@ -14,16 +14,28 @@ public class CompanyDTO {
     private String comDescription;
     private String comAddress;
     private int accID;
+    private String website;
 
     public CompanyDTO() {
     }
 
-    public CompanyDTO(int comID, String comDescription, String comAddress, int accID) {
+    public CompanyDTO(int comID, String comDescription, String comAddress, int accID, String website) {
         this.comID = comID;
         this.comDescription = comDescription;
         this.comAddress = comAddress;
         this.accID = accID;
+        this.website = website;
     }
+
+    public String getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(String website) {
+        this.website = website;
+    }
+
+   
 
     public int getComID() {
         return comID;

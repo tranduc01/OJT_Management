@@ -26,7 +26,7 @@ public class CompanyDAO {
         try {
             cn=DBUtils.makeConnection();
             if(cn!=null){
-                String sql = "select [comID],[comDescription],[comAddress],[accID]\n"
+                String sql = "select [comID],[comDescription],[comAddress],website,[accID]\n"
                         + "from [Company]\n"
                         + "where comID=?";
                 pst=cn.prepareStatement(sql);
@@ -37,7 +37,8 @@ public class CompanyDAO {
                     String comdescription=rs.getString("comDescription");
                     String comaddress=rs.getString("comAddress");
                     int accid=rs.getInt("accID");
-                    com=new CompanyDTO(comid, comdescription, comaddress, accid);
+                    String website=rs.getString("website");
+                    com=new CompanyDTO(comid, comdescription, comaddress, accid, website);
                 }
             }
             
@@ -59,7 +60,7 @@ public class CompanyDAO {
         try {
             cn=DBUtils.makeConnection();
             if(cn!=null){
-                String sql = "select [comID],[comDescription],[comAddress],[accID]\n"
+                String sql = "select [comID],[comDescription],[comAddress],website,[accID]\n"
                         + "from [Company]";
                         
                 st=cn.createStatement();
@@ -70,7 +71,8 @@ public class CompanyDAO {
                     String comdescription=rs.getString("comDescription");
                     String comaddress=rs.getString("comAddress");
                     int accid=rs.getInt("accID");
-                    CompanyDTO com=new CompanyDTO(comid, comdescription, comaddress, accid);
+                    String website=rs.getString("website");
+                    CompanyDTO com=new CompanyDTO(comid, comdescription, comaddress, accid, website);
                     list.add(com);
                 }
             }
