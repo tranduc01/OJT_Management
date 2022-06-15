@@ -44,6 +44,10 @@
         <servlet-name>JobsPageController</servlet-name>
         <servlet-class>sample.controller.JobsPageController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CompanyDetailsController</servlet-name>
+        <servlet-class>sample.controller.CompanyDetailsController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>mainController</servlet-name>
         <url-pattern>/mainController</url-pattern>
@@ -87,6 +91,10 @@
     <servlet-mapping>
         <servlet-name>JobsPageController</servlet-name>
         <url-pattern>/JobsPageController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CompanyDetailsController</servlet-name>
+        <url-pattern>/CompanyDetailsController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

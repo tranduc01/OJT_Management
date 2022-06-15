@@ -25,6 +25,7 @@
 
         <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
         <script src="https://kit.fontawesome.com/12c372e324.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css"/>
         <link rel="shortcut icon" href="img/FPT-logoo.jpg">
 
         <title>FPT OJT</title>
@@ -93,50 +94,51 @@
 
 
 
+        <div id="demo" class="carousel slide" data-ride="carousel">
 
+            <!-- Indicators -->
+            <ul class="carousel-indicators">
+                <li data-target="#demo" data-slide-to="0" class="active"></li>
+                <li data-target="#demo" data-slide-to="1"></li>
+                <li data-target="#demo" data-slide-to="2"></li>
+            </ul>
 
+            <!-- The slideshow -->
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img style="width: 1550px; height: 500px;" src="img/slide-1.jpg">
+                </div>
+                <div class="carousel-item">
+                    <img style="width: 1550px; height: 500px;" src="img/slide-2.jpg">
+                </div>
+                <div class="carousel-item">
+                    <img style="width: 1550px; height: 500px;" src="img/slider-3.jpg">
+                </div>
+            </div>
+            <script>
+                $(document).ready(function () {
+                    $(".carousel-inner").carousel({interval: 2000});
+                });
+            </script>
+            <!-- Left and right controls -->
+            <a class="carousel-control-prev" href="#demo" data-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </a>
+            <a class="carousel-control-next" href="#demo" data-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </a>
+
+        </div>
 
         <div class="jumbotron">
-            <form class="search-container">
-                <input class="search-item col-5" type="text" placeholder="Search company.." name="search">
-                <button class="search-item col-1" type="submit"><i class="fa fa-search"></i></button>
-            </form>
 
-            <div id="demo" class="carousel slide" data-ride="carousel">
+            <!--<div>
+                <form action="">
+                    <input type="search" placeholder="Search here ...">
+                    <i class="fa fa-search"></i>
+                </form>
+            </div>-->
 
-                <!-- Indicators -->
-                <ul class="carousel-indicators">
-                    <li data-target="#demo" data-slide-to="0" class="active"></li>
-                    <li data-target="#demo" data-slide-to="1"></li>
-                    <li data-target="#demo" data-slide-to="2"></li>
-                </ul>
-
-                <!-- The slideshow -->
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <img style="width: 1550px; height: 500px;" src="img/slide-1.jpg">
-                    </div>
-                    <div class="carousel-item">
-                        <img style="width: 1550px; height: 500px;" src="img/slide-2.jpg">
-                    </div>
-                    <div class="carousel-item">
-                        <img style="width: 1550px; height: 500px;" src="img/slider-3.jpg">
-                    </div>
-                </div>
-                <script>
-                    $(document).ready(function () {
-                        $(".carousel-inner").carousel({interval: 2000});
-                    });
-                </script>
-                <!-- Left and right controls -->
-                <a class="carousel-control-prev" href="#demo" data-slide="prev">
-                    <span class="carousel-control-prev-icon"></span>
-                </a>
-                <a class="carousel-control-next" href="#demo" data-slide="next">
-                    <span class="carousel-control-next-icon"></span>
-                </a>
-
-            </div>
 
             <h3 style="padding-top: 50px;">Hot Deals</h3>
             <div class="row">
@@ -169,29 +171,15 @@
                     <!-- Additional required wrapper -->
                     <div class="swiper-wrapper">
                         <!-- Slides -->
-                        <div class="swiper-slide">              
-                            <img style="width:100% ;" src="img/fpt-logo.png">               
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="img_box">
-                                <img style="width:100% ; " src="img/fpt-logo.png">
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="img_box">
-                                <img style="width:100% ; " src="img/fpt-logo.png">
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="img_box">
-                                <img style="width:100% ;" src="img/fpt-logo.png">
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="img_box">
-                                <img style="width:100% ;" src="img/fpt-logo.png">
-                            </div>                       
-                        </div>         
+                        <c:forEach var="com" items="${requestScope.companyList}">
+                            <c:forEach var="acc" items="${requestScope.accList}">
+                                <c:if test="${com.getAccID() eq acc.getAccId()}">
+                                    <div class="swiper-slide">              
+                                        <a href="mainController?action=companyDetails&comID=${com.getComID()}"><img style="width:100% ;" src="${acc.getAvatar()}"></a>            
+                                    </div>
+                                </c:if>
+                            </c:forEach>
+                        </c:forEach>
                     </div>
 
 
@@ -221,36 +209,36 @@
         </script>
         <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
         <script type="text/javascript">
-                        var swiper = new Swiper(".card_slider", {
-                            spaceBetween: 30,
-                            loop: true,
-                            speed: 1000,
-                            autoplay: {
-                                delay: 2000,
+                    var swiper = new Swiper(".card_slider", {
+                        spaceBetween: 30,
+                        loop: true,
+                        speed: 1000,
+                        autoplay: {
+                            delay: 2000,
+                        },
+                        pagination: {
+                            el: ".swiper-pagination",
+                            clickable: true,
+                        },
+                        navigation: {
+                            nextEl: ".swiper-button-next",
+                            prevEl: ".swiper-button-prev"
+                        },
+                        breakpoints: {
+                            1200: {
+                                slidesPerView: 4,
                             },
-                            pagination: {
-                                el: ".swiper-pagination",
-                                clickable: true,
+                            768: {
+                                slidesPerView: 3,
                             },
-                            navigation: {
-                                nextEl: ".swiper-button-next",
-                                prevEl: ".swiper-button-prev"
+                            480: {
+                                slidesPerView: 2,
                             },
-                            breakpoints: {
-                                1200: {
-                                    slidesPerView: 4,
-                                },
-                                768: {
-                                    slidesPerView: 3,
-                                },
-                                480: {
-                                    slidesPerView: 2,
-                                },
-                                320: {
-                                    slidesPerView: 1,
-                                },
+                            320: {
+                                slidesPerView: 1,
                             },
-                        });
+                        },
+                    });
         </script>
 
     </body>

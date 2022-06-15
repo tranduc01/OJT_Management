@@ -115,7 +115,7 @@ public class JobDAO {
                 pst=cn.prepareStatement(sql);
                 pst.setInt(1, comID);
                 rs=pst.executeQuery();
-                if(rs!=null && rs.next()){
+                while(rs!=null && rs.next()){
                     int jobid=rs.getInt("jobID");
                     String jobname=rs.getString("jobName");
                     String jobtitle=rs.getString("jobTitle");

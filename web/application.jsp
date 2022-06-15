@@ -18,6 +18,15 @@
 %>
 <%
 } else {
+    int role = (int) session.getAttribute("role");
+    if (role == 0 || role == 2) {
+%>
+<script>
+    window.alert("You don't have permission to access this site !!!");
+    window.location.href = "JobListController";
+</script>
+%><%
+} else {
 %>
 <html>
     <head>
@@ -41,11 +50,11 @@
         <title>Application</title>
     </head>
     <body>
-        
+
         <div id="preloader">
             <img src="img/loader.gif"/>
         </div>
-        
+
         <nav class="navbar navbar-dark navbar-expand-md">
             <div class="container">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#Navbar">
@@ -99,12 +108,12 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    
+
                                     <c:forEach items="${requestScope.appList}" var="app">   
                                         <c:forEach items="${requestScope.jobList}" var="job">  
-                                        <c:forEach items="${requestScope.comList}" var="com">                                                                                                   
-                                                    <c:forEach items="${requestScope.accList}" var="acc">
-                                                        <c:if test="${app.getJobID() eq job.getJobID()}">
+                                            <c:forEach items="${requestScope.comList}" var="com">                                                                                                   
+                                                <c:forEach items="${requestScope.accList}" var="acc">
+                                                    <c:if test="${app.getJobID() eq job.getJobID()}">
                                                         <c:if test="${job.getComID() eq com.getComID()}">
                                                             <c:if test="${acc.getAccId() eq com.getAccID()}">                                                                                                                                                                                                                                         
                                                                 <tr>
@@ -148,14 +157,15 @@
         <footer>
             <%@include file="footer.jsp" %>
         </footer>
-        
+
         <script>
-            var loader=document.getElementById("preloader");
-            window.addEventListener("load",function (){
-                loader.style.display="none";
-            });
+    var loader = document.getElementById("preloader");
+    window.addEventListener("load", function () {
+        loader.style.display = "none";
+    });
         </script>
     </body>
 </html>
 <%}
+    }
 %>

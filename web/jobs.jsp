@@ -42,13 +42,13 @@
                 <a class="navbar-brand mr-auto" href="JobListController"><img src="img/logo.png" height="30" width="41"></a>
                 <div class="collapse navbar-collapse" id="Navbar">
                     <ul class="navbar-nav">
-                        <li class="nav-item active">
+                        <li class="nav-item">
                             <a class="nav-link" href="JobListController">
                                 <span class="fa fa-home fa-lg"></span>
                                 Home
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item active">
                             <a class="nav-link" href="JobsPageController">
                                 <span class="fa fa-briefcase fa-lg"></span>
                                 Jobs
@@ -91,10 +91,10 @@
         </nav>
 
         <div class="jumbotron">
-            <form class="search-container">
+            <!--<form class="search-container">
                 <input class="search-item" type="text" placeholder="Search company.." name="search">
                 <button class="search-item" type="submit"><i class="fa fa-search"></i></button>
-            </form>
+            </form>-->
 
 
             <h3>Jobs for you</h3>

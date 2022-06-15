@@ -120,7 +120,7 @@
                                 </div>
                                 <div class="job-tittle">
 
-                                    <h4>${job.getJobName()}</h4>
+                                    <h4 style="font-weight: bold;">${job.getJobName()}</h4>
 
                                     <ul>
                                         <li>${job.getJobTitle()}</li>                                       
@@ -137,21 +137,21 @@
                             <div class="post-details1 mb-50">
                                 <!-- Small Section Tittle -->
                                 <div class="small-section-tittle">
-                                    <h4>Job Description</h4>
+                                    <h4 style="font-weight: bold;">Job Description</h4>
                                 </div>
                                 <p>${job.getJobDescription()}</p>
                             </div>
                             <div class="post-details2  mb-50">
                                 <!-- Small Section Tittle -->
                                 <div class="small-section-tittle">
-                                    <h4>Requirements</h4>
+                                    <h4 style="font-weight: bold;">Requirements</h4>
                                 </div>
                                 <p>${job.getJobRequirement()}</p>
                             </div>
                             <div class="post-details2  mb-50">
                                 <!-- Small Section Tittle -->
                                 <div class="small-section-tittle">
-                                    <h4>Benefits</h4>
+                                    <h4 style="font-weight: bold;">Benefits</h4>
                                 </div>
                                 <p>${job.getJobBenefits()}</p>
                             </div>
@@ -163,7 +163,7 @@
                         <div class="post-details3  mb-50">
                             <!-- Small Section Tittle -->
                             <div class="small-section-tittle">
-                                <h4>Job Overview</h4>
+                                <h4 style="font-weight: bold;">Job Overview</h4>
                             </div>
                             <ul>
                                 <li>Posted date : <span>${job.getJobCreateDate()}</span></li>
@@ -184,10 +184,10 @@
                                 <h4>Company Information</h4>
                             </div>
                             <span>${acc.getName()}</span>
-                            <p>${com.getComDescription()}</p>
+                            
 
-                            <img src="${acc.getAvatar()}" style="height: 225px; width: 225px;">
-
+                            <img src="${acc.getAvatar()}" style="height: 225px; width: 225px;"></br>
+                            Website:<a href="${com.getWebsite()}"> ${com.getWebsite()}</a>
 
 
                         </div>

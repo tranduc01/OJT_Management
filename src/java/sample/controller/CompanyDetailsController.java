@@ -7,35 +7,23 @@ package sample.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import sample.account.AccountDAO;
+import sample.account.AccountDTO;
+import sample.company.CompanyDAO;
+import sample.company.CompanyDTO;
+import sample.job.JobDAO;
+import sample.job.JobDTO;
 
 /**
  *
  * @author Tranduc
  */
-public class mainController extends HttpServlet {
-
-    private static final String ERROR = "error.jsp";
-    private static final String LOGIN = "Log In";
-    private static final String LOGIN_CONTROLLER = "LoginController";
-    private static final String UPDATE="updateInfor";
-    private static final String UPDATE_CONTROLLER="UpdateInforController";
-    private static final String LOGOUT="logout";
-    private static final String LOGOUT_CONTROLLER="LogoutController";
-    private static final String JOBDETAILS="jobDetails";
-    private static final String JOBDETAILS_CONTROLLER="JobDetailsController";
-    private static final String CHANGEPASSWORD="ChangePassword";
-    private static final String CHANGEPASSWORD_CONTROLLER="ChangePasswordController"; 
-    private static final String GETAPPLICATION="GetApplication";
-    private static final String GETAPPLICATION_CONTROLLER="GetApplicationController";
-    private static final String COMPANYDETAILS="companyDetails";
-    private static final String COMPANYDETAILS_CONTROLLER="CompanyDetailsController";
-    
-
+public class CompanyDetailsController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -48,36 +36,20 @@ public class mainController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         response.setContentType("text/html;charset=UTF-8");
-        String url = ERROR;
-       
+        try{
             /* TODO output your page here. You may use following sample code. */
-
-            try {
-                String action = request.getParameter("action");
-                if(LOGIN.equals(action)){
-                    url=LOGIN_CONTROLLER;
-                }else if(UPDATE.equals(action)){
-                    url=UPDATE_CONTROLLER;
-                }else if(LOGOUT.equals(action)){
-                    url=LOGOUT_CONTROLLER;
-                }else if(JOBDETAILS.equals(action)){
-                    url=JOBDETAILS_CONTROLLER;
-                }else if(CHANGEPASSWORD.equals(action)){
-                    url=CHANGEPASSWORD_CONTROLLER;
-                }else if(GETAPPLICATION.equals(action)){
-                    url=GETAPPLICATION_CONTROLLER;
-                }else if(COMPANYDETAILS.equals(action)){
-                    url=COMPANYDETAILS_CONTROLLER;
-                }
-            } catch (Exception e) {
-                log("Error at mainController: " + e.toString());
-            } finally {
-                RequestDispatcher rd = request.getRequestDispatcher(url);
-                rd.forward(request, response);
-            }
-        
+            int comID=Integer.parseInt(request.getParameter("comID"));
+            CompanyDTO com=CompanyDAO.getCompanyByID(comID);
+            ArrayList<JobDTO> jobList=JobDAO.getJobByComID(comID);
+            AccountDTO acc=AccountDAO.getAccountByID(com.getAccID());
+            request.setAttribute("jobList", jobList);
+            request.setAttribute("com", com);
+            request.setAttribute("acc", acc);
+            request.getRequestDispatcher("companyDetails.jsp").forward(request, response);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

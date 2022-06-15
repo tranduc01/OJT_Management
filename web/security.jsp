@@ -10,15 +10,24 @@
 <!DOCTYPE html>
 <%
     String email = (String) session.getAttribute("accEmail");
-    if (email == null) {
+    if (email==null) {
 %>
 <script>
     window.alert("You need to login first !!");
-    window.location.href = "index.jsp";
+    window.location.href = "login.jsp";
 </script>
 %>
 <%
 } else {
+int role=(int) session.getAttribute("role");
+if(role==0 || role==2){
+%>
+<script>
+    window.alert("You don't have permission to access this site !!!");
+    window.location.href = "JobListController";
+</script>
+%><%
+}else{
 %>
 <html>
     <head>
@@ -158,4 +167,5 @@
     </body>
 </html>
 <%}
+}
 %>
