@@ -255,6 +255,10 @@ form.search-container input[type=text] {
   align-items: center;
 }
 
+pre{
+    white-space: pre-wrap;
+    
+}
 /* search css */
 
 

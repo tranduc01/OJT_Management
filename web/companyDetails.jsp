@@ -96,11 +96,11 @@
                 <div class="col-lg-7">
                     <!-- Featured blog post-->
                     <div class="card1 mb-4">
-                        <a href="#!"><img class="card1-img-top" src="https://dummyimage.com/850x350/dee2e6/6c757d.jpg" alt="..." /></a>
+                        <a href="#!"><img class="card1-img-top" src="${com.getBannerImage()}" alt="..." /></a>
                         <div class="card1-body">
 
                             <h2 class="card1-title">About Us</h2>
-                            <p class="card1-text">${com.getComDescription()}</p>
+                            <pre class="card1-text">${com.getComDescription()}</pre>
                             
                         </div>
                     </div>

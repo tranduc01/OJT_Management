@@ -139,21 +139,21 @@
                                 <div class="small-section-tittle">
                                     <h4 style="font-weight: bold;">Job Description</h4>
                                 </div>
-                                <p>${job.getJobDescription()}</p>
+                                <div class="long-text"><pre>${job.getJobDescription()}</pre></div>
                             </div>
                             <div class="post-details2  mb-50">
                                 <!-- Small Section Tittle -->
                                 <div class="small-section-tittle">
                                     <h4 style="font-weight: bold;">Requirements</h4>
                                 </div>
-                                <p>${job.getJobRequirement()}</p>
+                                <pre>${job.getJobRequirement()}</pre>
                             </div>
                             <div class="post-details2  mb-50">
                                 <!-- Small Section Tittle -->
                                 <div class="small-section-tittle">
                                     <h4 style="font-weight: bold;">Benefits</h4>
                                 </div>
-                                <p>${job.getJobBenefits()}</p>
+                                <pre>${job.getJobBenefits()}</pre>
                             </div>
                         </div>
 
