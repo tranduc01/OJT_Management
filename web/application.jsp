@@ -60,13 +60,13 @@
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#Navbar">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <a class="navbar-brand mr-auto" href="index.jsp"><img src="img/logo.png" height="30" width="41"></a>
+                <a class="navbar-brand mr-auto" href="JobListController"><img src="img/logo.png" height="30" width="41"></a>
                 <div class="collapse navbar-collapse" id="Navbar">
                     <ul class="navbar-nav">
                         <li class="nav-item">
                             <a class="nav-link" href="student_profile.jsp">
                                 <span class="fas fa-id-card"></span>
-                                Home
+                                Profile
                             </a>
                         </li>
                         <li class="nav-item active">

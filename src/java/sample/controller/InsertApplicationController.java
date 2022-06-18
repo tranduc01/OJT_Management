@@ -7,25 +7,18 @@ package sample.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import sample.account.AccountDAO;
-import sample.account.AccountDTO;
-import sample.company.CompanyDAO;
-import sample.company.CompanyDTO;
-import sample.job.JobDAO;
-import sample.job.JobDTO;
-import sample.student.StudentDAO;
-import sample.student.StudentDTO;
+import sample.application.ApplicationDAO;
 
 /**
  *
  * @author Tranduc
  */
-public class JobDetailsController extends HttpServlet {
+public class InsertApplicationController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,20 +32,17 @@ public class JobDetailsController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try  {
+        try {
             /* TODO output your page here. You may use following sample code. */
-            HttpSession session=request.getSession();
-            AccountDTO accStu=(AccountDTO) session.getAttribute("acc");
-            int jobID=Integer.parseInt(request.getParameter("jobid"));
-            JobDTO job=JobDAO.getJobByID(jobID);
-            CompanyDTO com=CompanyDAO.getCompanyByID(job.getComID());
-            AccountDTO acc=AccountDAO.getAccountByID(com.getAccID());
-            StudentDTO stu=StudentDAO.getStudentByAccount(accStu.getAccId());
-            request.setAttribute("com", com);
-            request.setAttribute("job", job);
-            request.setAttribute("acc", acc);
-            request.setAttribute("stu", stu);
-            request.getRequestDispatcher("jobDetails.jsp").forward(request, response);
+            int jobID=Integer.parseInt(request.getParameter("jobID"));
+            String stuID=request.getParameter("stuID");
+            System.out.println(stuID);
+            int stu_confirm=1;
+            int com_confirm=0;
+            int status=2;
+            Date applyDate=new Date(System.currentTimeMillis());
+            int result=ApplicationDAO.insertApplication(status, applyDate, stu_confirm, com_confirm, stuID, jobID);
+            request.getRequestDispatcher("mainController?action=jobDetails&jobid="+jobID).forward(request, response);
         }catch(Exception e){
             e.printStackTrace();
         }

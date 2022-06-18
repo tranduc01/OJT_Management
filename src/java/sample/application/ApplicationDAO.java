@@ -56,4 +56,32 @@ public class ApplicationDAO {
         }
         return list;
     }
+    public static int insertApplication(int status, Date appllyDate,int stu_confirm, int com_comfirm, String stuID,int jobID) throws SQLException{     
+        Connection cn=null;
+        PreparedStatement pst=null;
+        int result=0;
+        try {
+            cn=DBUtils.makeConnection();
+            if(cn!=null){
+                String sql="insert into [Application]([status],[applyDate],[stu_confirm],[com_comfirm],[stuID],[jobID]) "
+                        + "values (?,?,?,?,?,?)";
+                pst=cn.prepareStatement(sql);
+                pst.setInt(1, status);
+                pst.setDate(2, appllyDate);
+                pst.setInt(3, stu_confirm);
+                pst.setInt(4, com_comfirm);
+                pst.setString(5, stuID);
+                pst.setInt(6, jobID);
+                pst.executeUpdate();
+                
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally{
+            if(cn!=null) cn.close();
+            if(pst!=null) pst.close();
+            
+        }
+        return result;
+    }
 }

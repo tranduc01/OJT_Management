@@ -51,7 +51,7 @@ public class LoginController extends HttpServlet {
                     session.setAttribute("accEmail", acc.getEmail());
                     session.setAttribute("name", acc.getName());
                     session.setAttribute("role", acc.getRole());
-                    
+                    session.setAttribute("acc", acc);
                     request.getRequestDispatcher("mainController?action=AdminPage").forward(request, response);
                 } else if (acc.getRole() == 1) {                 
                     session.setAttribute("accEmail", acc.getEmail());

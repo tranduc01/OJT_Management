@@ -70,7 +70,7 @@ if(role==0 || role==2){
                         <li class="nav-item active">
                             <a class="nav-link" href="student_profile.jsp">
                                 <span class="fas fa-id-card"></span>
-                                Home
+                                Profile
                             </a>
                         </li>
                         <li class="nav-item">

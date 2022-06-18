@@ -120,7 +120,8 @@
         <c:set var="job" value="${requestScope.job}"/>
         <c:set var="com" value="${requestScope.com}"/>
         <c:set var="acc" value="${requestScope.acc}"/>
-
+        <c:set var="stuAcc" value="${sessionScope.acc}"/>
+        <c:set var="stu" value="${requestScope.stu}"/>
         <!-- job post company Start -->
         <div class="job-post-company pt-120 pb-120">
             <div class="container">
@@ -190,7 +191,9 @@
                             </ul>
                             <div class="apply-btn2">
                                 <div class="line"></div>
-                                <a href="#" class="btn">Apply Now</a>
+                                <a type="button" class="btn" data-toggle="modal" data-target="#exampleModal" <c:if test="${sessionScope.acc eq null}">onclick="warning()"</c:if>>
+                                    Apply Now
+                                </a>
                             </div>
                         </div>
                         <div class="post-details4  mb-50">
@@ -212,7 +215,39 @@
         </div>
         <!-- job post company End -->
 
+        <!-- Modal -->
+        <form action="mainController" method="post">
+            <input type="hidden" name="jobID" value="${job.getJobID()}">
+            <input type="hidden" name="stuID" value="${stu.getStudentID()}">
+            
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel" style="font-weight: bold;">Application</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <c:if test="${stuAcc.getCvPath() != null}">
+                                Your CV: <a href="${stuAcc.getCvPath()}">View</a>
+                            </c:if>
+                                <c:if test="${stuAcc.getCvPath() == null}">
+                                    <p>Please Upload your CV first !!!</p>
+                            </c:if>
+                            
+                            
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn" data-dismiss="modal" style="font-weight: bold;">Close</button>
+                            <button type="submit" class="btn" style="font-weight: bold;" value="InsertApplication" name="action">Apply</button>
 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
 
 
         <footer>
@@ -223,6 +258,12 @@
             window.addEventListener("load", function () {
                 loader.style.display = "none";
             });
+        </script>
+        <script>
+            function warning() {
+                window.alert("You need to login first !!!");
+                window.location.href="login.jsp";
+}
         </script>
     </body>
 </html>

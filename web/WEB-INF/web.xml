@@ -52,6 +52,10 @@
         <servlet-name>AdminStudentController</servlet-name>
         <servlet-class>sample.controller.AdminStudentController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>InsertApplicationController</servlet-name>
+        <servlet-class>sample.controller.InsertApplicationController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>mainController</servlet-name>
         <url-pattern>/mainController</url-pattern>
@@ -105,11 +109,15 @@
         <url-pattern>/AdminStudentController</url-pattern>
     </servlet-mapping>
     <jsp-config>
-    <jsp-property-group>
-        <url-pattern>*.jsp</url-pattern>
-        <page-encoding>UTF-8</page-encoding>
-    </jsp-property-group>
-</jsp-config>
+        <jsp-property-group>
+            <url-pattern>*.jsp</url-pattern>
+            <page-encoding>UTF-8</page-encoding>
+        </jsp-property-group>
+    </jsp-config>
+    <servlet-mapping>
+        <servlet-name>InsertApplicationController</servlet-name>
+        <url-pattern>/InsertApplicationController</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
