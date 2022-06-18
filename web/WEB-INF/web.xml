@@ -48,6 +48,10 @@
         <servlet-name>CompanyDetailsController</servlet-name>
         <servlet-class>sample.controller.CompanyDetailsController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AdminStudentController</servlet-name>
+        <servlet-class>sample.controller.AdminStudentController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>mainController</servlet-name>
         <url-pattern>/mainController</url-pattern>
@@ -96,6 +100,16 @@
         <servlet-name>CompanyDetailsController</servlet-name>
         <url-pattern>/CompanyDetailsController</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminStudentController</servlet-name>
+        <url-pattern>/AdminStudentController</url-pattern>
+    </servlet-mapping>
+    <jsp-config>
+    <jsp-property-group>
+        <url-pattern>*.jsp</url-pattern>
+        <page-encoding>UTF-8</page-encoding>
+    </jsp-property-group>
+</jsp-config>
     <session-config>
         <session-timeout>
             30

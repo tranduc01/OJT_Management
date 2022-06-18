@@ -331,3 +331,19 @@ input[type=text] {
   transition: width 0.4s ease-in-out;
 }*/
 
+
+.job-container h4{
+    color: red;
+}
+
+.table-applied{
+    color: rgb(23, 229, 23);
+}
+
+.table-not-applied{
+    color: red;
+}
+
+.table-container{
+    padding-top: 50px;
+}

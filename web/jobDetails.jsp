@@ -42,11 +42,11 @@
         <title>FPT OJT</title>
     </head>
     <body>
-        
+
         <div id="preloader">
             <img src="img/loader.gif"/>
         </div>
-        
+
         <nav class="navbar navbar-dark navbar-expand-md">
             <div class="container">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#Navbar">
@@ -76,11 +76,25 @@
                     </ul>
                 </div>
                 <% String email = (String) session.getAttribute("accEmail");
+
                     if (email != null) {
+                        int role = (int) session.getAttribute("role");
+                        String link = "";
+
+                        if (role == 0) {
+                            link = "mainController?action=AdminPage";
+
+                        } else if (role == 1) {
+                            link = "student_profile.jsp";
+
+                        } else {
+                            link = "company_page.jsp";
+
+                        }
                 %> 
 
                 <span class="navbar-text ml-auto">
-                    <a  href="student_profile.jsp">
+                    <a  href="<%= link%> ">
                         <span class="fa fa-user-o fa-lg"></span> ${sessionScope.name}               
                     </a>
                 </span>
@@ -97,6 +111,7 @@
                 <%
                     }
                 %>
+
 
 
 
@@ -184,7 +199,7 @@
                                 <h4>Company Information</h4>
                             </div>
                             <span>${acc.getName()}</span>
-                            
+
 
                             <img src="${acc.getAvatar()}" style="height: 225px; width: 225px;"></br>
                             Website:<a href="${com.getWebsite()}"> ${com.getWebsite()}</a>
@@ -204,9 +219,9 @@
             <%@include file="footer.jsp" %>
         </footer>
         <script>
-            var loader=document.getElementById("preloader");
-            window.addEventListener("load",function (){
-                loader.style.display="none";
+            var loader = document.getElementById("preloader");
+            window.addEventListener("load", function () {
+                loader.style.display = "none";
             });
         </script>
     </body>

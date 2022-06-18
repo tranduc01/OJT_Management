@@ -63,11 +63,25 @@
                     </ul>
                 </div>
                 <% String email = (String) session.getAttribute("accEmail");
+
                     if (email != null) {
+                        int role = (int) session.getAttribute("role");
+                        String link = "";
+
+                        if (role == 0) {
+                            link = "mainController?action=AdminPage";
+
+                        } else if (role == 1) {
+                            link = "student_profile.jsp";
+
+                        } else {
+                            link = "company_page.jsp";
+
+                        }
                 %> 
 
                 <span class="navbar-text ml-auto">
-                    <a  href="student_profile.jsp">
+                    <a  href="<%= link%> ">
                         <span class="fa fa-user-o fa-lg"></span> ${sessionScope.name}               
                     </a>
                 </span>
@@ -84,6 +98,7 @@
                 <%
                     }
                 %>
+
 
 
 
@@ -112,7 +127,7 @@
             <div class="col-12 col-md-2 d-none d-md-block">
                 <div class="sticky-container">
                     <img src="img/hiring.jpg" style="height: 800px; width:400px; "/>
-                
+
 
 
                 </div>
@@ -125,9 +140,9 @@
             <%@include file="footer.jsp" %>
         </footer>
         <script>
-            var loader=document.getElementById("preloader");
-            window.addEventListener("load",function (){
-                loader.style.display="none";
+            var loader = document.getElementById("preloader");
+            window.addEventListener("load", function () {
+                loader.style.display = "none";
             });
         </script>
     </body>

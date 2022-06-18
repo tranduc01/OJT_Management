@@ -9,6 +9,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import sample.utils.DBUtils;
 
 /**
@@ -47,5 +49,38 @@ public class StudentDAO {
             if(rs!=null) rs.close();
         }
         return stu;
+    }
+    public static ArrayList<StudentDTO> getStudents() throws SQLException{
+        ArrayList<StudentDTO> list=new ArrayList<>();
+        Connection cn=null;
+        Statement st=null;
+        ResultSet rs=null;
+        try {
+            cn=DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = "select [stuID],[Student].accID as 'accID',[majorID],[semID],Account.email as 'Email',Account.name as 'stuName'\n"
+                        + "from Student join Account on Student.accID=Account.accID";
+                        
+                st=cn.createStatement();
+                rs=st.executeQuery(sql);
+                while(rs!=null && rs.next()){
+                    String stuid=rs.getString("stuID");
+                    int accid=rs.getInt("accID");
+                    String majorid=rs.getString("majorID");
+                    String semid=rs.getString("semID");
+                    String email=rs.getString("Email");
+                    String stuname=rs.getString("stuName");
+                    StudentDTO stu=new StudentDTO(stuname, stuid, semid, email, majorid, accid);
+                    list.add(stu);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally{
+            if(cn!=null) cn.close();
+            if(st!=null) st.close();
+            if(rs!=null) rs.close();
+        }
+        return list;
     }
 }

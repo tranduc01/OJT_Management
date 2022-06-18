@@ -30,7 +30,7 @@
         <title>Jobs</title>
     </head>
     <body>
-        
+
         <div id="preloader">
             <img src="img/loader.gif"/>
         </div>
@@ -63,11 +63,25 @@
                     </ul>
                 </div>
                 <% String email = (String) session.getAttribute("accEmail");
+
                     if (email != null) {
+                        int role = (int) session.getAttribute("role");
+                        String link = "";
+
+                        if (role == 0) {
+                            link = "mainController?action=AdminPage";
+
+                        } else if (role == 1) {
+                            link = "student_profile.jsp";
+
+                        } else {
+                            link = "company_page.jsp";
+
+                        }
                 %> 
 
                 <span class="navbar-text ml-auto">
-                    <a  href="student_profile.jsp">
+                    <a  href="<%= link%> ">
                         <span class="fa fa-user-o fa-lg"></span> ${sessionScope.name}               
                     </a>
                 </span>
@@ -98,7 +112,7 @@
 
 
             <h3>Jobs for you</h3>
-            
+
             <c:forEach var="job" items="${requestScope.jobList}">
                 <c:forEach var="com" items="${requestScope.companyList}">
                     <c:forEach var="acc" items="${requestScope.accList}">
@@ -109,7 +123,7 @@
                                         <div class="card-body row">
                                             <div class="col-3"><a href="mainController?action=jobDetails&jobid=${job.getJobID()}"><img src="${acc.getAvatar()}" style="width:80%; height: 90%;"></a></div>
                                             <div class="col-md">
-                                                <p class="title">${acc.getName()}</p>
+                                                <p class="title" style="font-weight: bold;">${acc.getName()}</p>
                                                 <p>${job.getJobName()}</p>
                                                 <p><i class="fa fa-map-marker"></i> ${com.getComAddress()}</p>
                                                 <p>$${job.getJobSalary()}</p>
@@ -127,9 +141,9 @@
             <%@include file="footer.jsp" %>
         </footer>
         <script>
-            var loader=document.getElementById("preloader");
-            window.addEventListener("load",function (){
-                loader.style.display="none";
+            var loader = document.getElementById("preloader");
+            window.addEventListener("load", function () {
+                loader.style.display = "none";
             });
         </script>
     </body>

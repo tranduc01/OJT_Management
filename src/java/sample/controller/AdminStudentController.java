@@ -12,22 +12,18 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import sample.account.AccountDAO;
 import sample.account.AccountDTO;
 import sample.application.ApplicationDAO;
 import sample.application.ApplicationDTO;
-import sample.company.CompanyDAO;
-import sample.company.CompanyDTO;
-import sample.job.JobDAO;
-import sample.job.JobDTO;
+import sample.student.StudentDAO;
 import sample.student.StudentDTO;
 
 /**
  *
  * @author Tranduc
  */
-public class GetApplicationController extends HttpServlet {
+public class AdminStudentController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,30 +38,19 @@ public class GetApplicationController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try  {
-            HttpSession session=request.getSession();
-            StudentDTO student=(StudentDTO) session.getAttribute("student");
-            ArrayList<ApplicationDTO> listApp = ApplicationDAO.getApplicationByID(student.getStudentID());
-            ArrayList<JobDTO> listJob = new ArrayList<>();
-            ArrayList<CompanyDTO> listCom = CompanyDAO.getCompanies();
-            ArrayList<AccountDTO> listAcc = new ArrayList<>();
-            for (ApplicationDTO app : listApp) {
-                JobDTO job = JobDAO.getJobByID(app.getJobID());
-                listJob.add(job);
-                            
+            /* TODO output your page here. You may use following sample code. */
+            ArrayList<StudentDTO> studentList=StudentDAO.getStudents();
+            ArrayList<AccountDTO> accList=new ArrayList<>();
+            ArrayList<ApplicationDTO> appList=new ArrayList<>();
+            for (StudentDTO stu : studentList) {
+                AccountDTO acc=AccountDAO.getAccountByID(stu.getAccID());
+                accList.add(acc);
+                //appList=ApplicationDAO.getApplicationByID(stu.getStudentID());
             }
-            for (CompanyDTO com : listCom) {
-                 AccountDTO acc = AccountDAO.getAccountByID(com.getAccID());
-                listAcc.add(acc);
-            }
-            
-            request.setAttribute("jobList", listJob);
-            request.setAttribute("comList", listCom);
-            request.setAttribute("appList", listApp);
-            request.setAttribute("accList", listAcc);
-            
-            request.getRequestDispatcher("application.jsp").forward(request, response);
-            
-            
+            request.setAttribute("stuList", studentList);
+            request.setAttribute("accList", accList);
+            request.setAttribute("appList", appList);
+            request.getRequestDispatcher("admin_page.jsp").forward(request, response);
         }catch(Exception e){
             e.printStackTrace();
         }

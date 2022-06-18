@@ -4,6 +4,8 @@
     Author     : Tranduc
 --%>
 
+<%@page import="sample.student.StudentDTO"%>
+<%@page import="sample.account.AccountDTO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
@@ -62,14 +64,29 @@
                                 About
                             </a>
                         </li>
+                        
                     </ul>
                 </div>
                 <% String email = (String) session.getAttribute("accEmail");
+                  
                     if (email != null) {
+                        int role = (int) session.getAttribute("role");
+                        String link="";
+                       
+                       if(role==0){
+                           link="mainController?action=AdminPage";
+                           
+                       }else if(role==1){
+                           link="student_profile.jsp";
+                           
+                       }else{
+                           link="company_page.jsp";
+                           
+                       }
                 %> 
 
                 <span class="navbar-text ml-auto">
-                    <a  href="student_profile.jsp">
+                    <a  href="<%= link %> ">
                         <span class="fa fa-user-o fa-lg"></span> ${sessionScope.name}               
                     </a>
                 </span>

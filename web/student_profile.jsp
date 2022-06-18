@@ -95,7 +95,7 @@ if(role==0 || role==2){
         </nav>
 
         <div class="container">
-            <h3>Welcome ${sessionScope.name}</h3>
+            <h3>Welcome ${acc.getName()} !!!</h3>
 
             <div class="container-xl px-4 mt-4">
                 <!-- Account page navigation-->

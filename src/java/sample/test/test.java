@@ -16,6 +16,8 @@ import sample.job.JobDAO;
 import sample.job.JobDTO;
 import sample.major.MajorDAO;
 import sample.major.MajorDTO;
+import sample.student.StudentDAO;
+import sample.student.StudentDTO;
 
 /**
  *
@@ -25,24 +27,22 @@ public class test {
 
     public static void main(String[] args) {
         try {
-            ArrayList<ApplicationDTO> listApp = ApplicationDAO.getApplicationByID("SE151204");
-            ArrayList<JobDTO> listJob = new ArrayList<>();
-            ArrayList<CompanyDTO> listCom = CompanyDAO.getCompanies();
-            ArrayList<AccountDTO> listAcc = new ArrayList<>();
-            for (ApplicationDTO app : listApp) {
-                JobDTO job = JobDAO.getJobByID(app.getJobID());
-                listJob.add(job);
-                            
+            ArrayList<StudentDTO> studentList=StudentDAO.getStudents();
+            ArrayList<AccountDTO> accList=new ArrayList<>();
+            ArrayList<ApplicationDTO> appList=new ArrayList<>();
+            for (StudentDTO stu : studentList) {
+                AccountDTO acc=AccountDAO.getAccountByID(stu.getAccID());
+                accList.add(acc);
+                //appList=ApplicationDAO.getApplicationByID(stu.getStudentID());
             }
-            for (CompanyDTO com : listCom) {
-                 AccountDTO acc = AccountDAO.getAccountByID(com.getAccID());
-                listAcc.add(acc);
+            for (StudentDTO stu : studentList) {
+                for (AccountDTO acc : accList) {
+                    if(stu.getAccID()==acc.getAccId()){
+                        
+                    }
+                }
+                
             }
-      
-            System.out.println(listAcc.size());
-            System.out.println(listApp.size());
-            System.out.println(listCom.size());
-            System.out.println(listJob.size());
         } catch (Exception e) {
             e.printStackTrace();
         }
