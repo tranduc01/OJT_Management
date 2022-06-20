@@ -7,6 +7,7 @@ package sample.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import sample.account.AccountDAO;
 import sample.account.AccountDTO;
+import sample.application.ApplicationDAO;
+import sample.application.ApplicationDTO;
 import sample.company.CompanyDAO;
 import sample.company.CompanyDTO;
 import sample.job.JobDAO;
@@ -48,10 +51,23 @@ public class JobDetailsController extends HttpServlet {
             CompanyDTO com=CompanyDAO.getCompanyByID(job.getComID());
             AccountDTO acc=AccountDAO.getAccountByID(com.getAccID());
             StudentDTO stu=StudentDAO.getStudentByAccount(accStu.getAccId());
+            ArrayList<ApplicationDTO> appList=ApplicationDAO.getApplications();
+            for (ApplicationDTO app : appList) {
+                if(stu.getStudentID().equals(app.getStuID())) {
+                       if(job.getJobID()==app.getJobID()){
+                    String availabe="Applied";
+                    request.setAttribute("availabe", availabe);
+                       }
+                }else{
+                    String availabe=null;
+                    request.setAttribute("availabe", availabe);
+                }
+            }
             request.setAttribute("com", com);
             request.setAttribute("job", job);
             request.setAttribute("acc", acc);
             request.setAttribute("stu", stu);
+         
             request.getRequestDispatcher("jobDetails.jsp").forward(request, response);
         }catch(Exception e){
             e.printStackTrace();

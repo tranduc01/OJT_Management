@@ -36,7 +36,6 @@ public class InsertApplicationController extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             int jobID=Integer.parseInt(request.getParameter("jobID"));
             String stuID=request.getParameter("stuID");
-            System.out.println(stuID);
             int stu_confirm=1;
             int com_confirm=0;
             int status=2;

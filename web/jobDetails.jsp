@@ -191,17 +191,27 @@
                             </ul>
                             <div class="apply-btn2">
                                 <div class="line"></div>
-                                <a type="button" class="btn" data-toggle="modal" data-target="#exampleModal" <c:if test="${sessionScope.acc eq null}">onclick="warning()"</c:if>>
-                                    Apply Now
-                                </a>
+                               
+                                <c:if test="${requestScope.availabe == null}">
+                                    <a type="button" class="btn" data-toggle="modal" data-target="#exampleModal" <c:if test="${sessionScope.acc eq null}">onclick="warning()"</c:if>>
+                                        Apply Now
+                                    </a>
+                                </c:if>
+                                <c:if test="${requestScope.availabe !=null}">
+                                    <a type="button" class="btn">
+                                        Applied
+                                    </a>
+                                </c:if>
+                                        
+                                        
+                                </div>
                             </div>
-                        </div>
-                        <div class="post-details4  mb-50">
-                            <!-- Small Section Tittle -->
-                            <div class="small-section-tittle">
-                                <h4>Company Information</h4>
-                            </div>
-                            <span>${acc.getName()}</span>
+                            <div class="post-details4  mb-50">
+                                <!-- Small Section Tittle -->
+                                <div class="small-section-tittle">
+                                    <h4>Company Information</h4>
+                                </div>
+                                <span>${acc.getName()}</span>
 
 
                             <img src="${acc.getAvatar()}" style="height: 225px; width: 225px;"></br>
@@ -219,7 +229,7 @@
         <form action="mainController" method="post">
             <input type="hidden" name="jobID" value="${job.getJobID()}">
             <input type="hidden" name="stuID" value="${stu.getStudentID()}">
-            
+
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -233,16 +243,17 @@
                             <c:if test="${stuAcc.getCvPath() != null}">
                                 Your CV: <a href="${stuAcc.getCvPath()}">View</a>
                             </c:if>
-                                <c:if test="${stuAcc.getCvPath() == null}">
-                                    <p>Please Upload your CV first !!!</p>
+                            <c:if test="${stuAcc.getCvPath() == null}">
+                                <p>Please Upload your CV first !!!</p>
                             </c:if>
-                            
-                            
+
+
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn" data-dismiss="modal" style="font-weight: bold;">Close</button>
-                            <button type="submit" class="btn" style="font-weight: bold;" value="InsertApplication" name="action">Apply</button>
-
+                            <c:if test="${stuAcc.getCvPath() != null}">
+                                <button type="submit" class="btn" style="font-weight: bold;" value="InsertApplication" name="action">Apply</button>
+                            </c:if>
                         </div>
                     </div>
                 </div>
@@ -262,8 +273,8 @@
         <script>
             function warning() {
                 window.alert("You need to login first !!!");
-                window.location.href="login.jsp";
-}
+                window.location.href = "login.jsp";
+            }
         </script>
     </body>
 </html>
