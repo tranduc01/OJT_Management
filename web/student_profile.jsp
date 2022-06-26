@@ -74,7 +74,7 @@ if(role==0 || role==2){
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="mainController?action=GetApplication&stuID=<%=stu.getStudentID()%>">
+                            <a class="nav-link" href="mainController?action=GetApplication">
                                 <span class="far fa-file-alt"></span>
                                 Application
                             </a>

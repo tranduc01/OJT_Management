@@ -24,7 +24,7 @@
 
         <!-- Latest compiled JavaScript -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css" integrity="sha256-3sPp8BkKUE7QyPSl6VfBByBroQbKxKG7tsusY2mhbVY=" crossorigin="anonymous" />
         <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
         <script src="https://kit.fontawesome.com/12c372e324.js" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css"/>
@@ -33,6 +33,7 @@
         <title>FPT OJT</title>
     </head>
     <body>
+
 
         <div id="preloader">
             <img src="img/loader.gif"/>
@@ -64,29 +65,29 @@
                                 About
                             </a>
                         </li>
-                        
+
                     </ul>
                 </div>
                 <% String email = (String) session.getAttribute("accEmail");
-                  
+
                     if (email != null) {
                         int role = (int) session.getAttribute("role");
-                        String link="";
-                       
-                       if(role==0){
-                           link="mainController?action=AdminPage";
-                           
-                       }else if(role==1){
-                           link="student_profile.jsp";
-                           
-                       }else{
-                           link="company_page.jsp";
-                           
-                       }
+                        String link = "";
+
+                        if (role == 0) {
+                            link = "mainController?action=AdminPage";
+
+                        } else if (role == 1) {
+                            link = "student_profile.jsp";
+
+                        } else {
+                            link = "company_page.jsp";
+
+                        }
                 %> 
 
                 <span class="navbar-text ml-auto">
-                    <a  href="<%= link %> ">
+                    <a  href="<%= link%> ">
                         <span class="fa fa-user-o fa-lg"></span> ${sessionScope.name}               
                     </a>
                 </span>
@@ -156,31 +157,90 @@
                 </form>
             </div>-->
 
-
-            <h3 style="padding-top: 50px;">Hot Deals</h3>
             <div class="row">
-                <c:forEach var="job" items="${requestScope.jobList}">
-                    <c:forEach var="com" items="${requestScope.companyList}">
-                        <c:forEach var="acc" items="${requestScope.accList}">
-                            <c:if test="${job.getComID() eq com.getComID()}">
-                                <c:if test="${com.getAccID() eq acc.getAccId()}">
-                                    <div class="col-sm-6 col-md-3">
-                                        <div class="card " style="width:300px">
-                                            <input type="hidden" name="jobid" value="${job.getJobID()}">
-                                            <img class="card-img-top" src="${acc.getAvatar()}" alt="Card image" style="width:298px; height: 250px;">
-                                            <div class="card-body">
-                                                <h4 class="card-title">${job.getJobName()}</h4>
-                                                <p>${job.getJobCreateDate()} - Remain: 2 days</p> 
-                                                <p><i class="fas fa-map-marker-alt"></i> ${com.getComAddress()}</p>
-                                                <a href="mainController?action=jobDetails&jobid=${job.getJobID()}" class="btn btn-primary btn-block">Detail</a>
+
+                <div class="col-lg-10 mx-auto">
+                    <div class="career-search mb-60">
+
+                        <form action="#" class="career-form mb-60">
+                            <div class="row">
+                                <div class="col-md-6 col-lg-4 my-4">
+                                    <div class="input-group position-relative">
+                                        <input type="text" class="form-control" placeholder="Enter Your Keywords" id="keywords">
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6 col-lg-4 my-4">
+                                    <div class="select-container">
+                                        <select class="custom-select">
+                                            <option selected="" style="color: black;">Major</option>
+                                            <c:forEach var="major" items="${requestScope.majorList}">
+                                                <option value="${major.getMajorID()}" style="color: black;">${major.getMajorName()}</option>
+                                            </c:forEach>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-lg-4 my-4">
+                                    <button type="button" class="btn btn-lg btn-block btn-light btn-custom" id="contact-submit">
+                                        Search
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                        <c:forEach var="job" items="${requestScope.jobList}">
+                            <c:forEach var="com" items="${requestScope.companyList}">
+                                <c:forEach var="acc" items="${requestScope.accList}">
+                                    <c:if test="${job.getComID() eq com.getComID()}">
+                                        <c:if test="${com.getAccID() eq acc.getAccId()}">
+                                            <div class="filter-result">                 
+                                                <div class="job-box d-md-flex align-items-center justify-content-between mb-30">
+                                                    <div class="job-left my-4 d-md-flex align-items-center flex-wrap">
+                                                        <div class="img-holder mr-md-4 mb-md-0 mb-4 mx-auto mx-md-0 d-md-none d-lg-flex">
+                                                            <img src="${acc.getAvatar()}" style="height: 100px; width: 150px;">
+                                                        </div>
+                                                        <div class="job-content" style="padding-left: 50px;">
+                                                            <h5 class="text-center text-md-left">${job.getJobName()}</h5>
+                                                            <ul class="d-md-flex flex-wrap text-capitalize ff-open-sans">
+                                                                <li class="mr-md-4">
+                                                                    <i class="zmdi zmdi-pin mr-2"></i> ${com.getComAddress()}
+                                                                </li>
+
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="job-right my-4 flex-shrink-0">
+                                                        <a href="mainController?action=jobDetails&jobid=${job.getJobID()}" class="btn d-block w-100 d-sm-inline-block btn-primary">View Details</a>
+                                                    </div>
+                                                </div>
+
+
+
+
+
+
                                             </div>
-                                        </div>
-                                    </div>   
-                                </c:if>
-                            </c:if>
+                                        </c:if>
+                                    </c:if>
+                                </c:forEach>
+                            </c:forEach>
                         </c:forEach>
-                    </c:forEach>
-                </c:forEach>
+                    </div>
+
+                    <!-- START Pagination -->
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination pagination-reset justify-content-center">
+                            
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item d-none d-md-inline-block"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item d-none d-md-inline-block"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">...</a></li>
+                            <li class="page-item"><a class="page-link" href="#">8</a></li>
+                            
+                        </ul>
+                    </nav>
+                    <!-- END Pagination -->
+                </div>   
+
             </div>
             <!-- Swiper -->
             <div class="container">
@@ -219,43 +279,43 @@
         <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
         <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
         <script>
-                    var loader = document.getElementById("preloader");
-                    window.addEventListener("load", function () {
-                        loader.style.display = "none";
-                    });
+                var loader = document.getElementById("preloader");
+                window.addEventListener("load", function () {
+                    loader.style.display = "none";
+                });
         </script>
         <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
         <script type="text/javascript">
-                    var swiper = new Swiper(".card_slider", {
-                        spaceBetween: 30,
-                        loop: true,
-                        speed: 1000,
-                        autoplay: {
-                            delay: 2000,
+                var swiper = new Swiper(".card_slider", {
+                    spaceBetween: 30,
+                    loop: true,
+                    speed: 1000,
+                    autoplay: {
+                        delay: 2000,
+                    },
+                    pagination: {
+                        el: ".swiper-pagination",
+                        clickable: true,
+                    },
+                    navigation: {
+                        nextEl: ".swiper-button-next",
+                        prevEl: ".swiper-button-prev"
+                    },
+                    breakpoints: {
+                        1200: {
+                            slidesPerView: 4,
                         },
-                        pagination: {
-                            el: ".swiper-pagination",
-                            clickable: true,
+                        768: {
+                            slidesPerView: 3,
                         },
-                        navigation: {
-                            nextEl: ".swiper-button-next",
-                            prevEl: ".swiper-button-prev"
+                        480: {
+                            slidesPerView: 2,
                         },
-                        breakpoints: {
-                            1200: {
-                                slidesPerView: 4,
-                            },
-                            768: {
-                                slidesPerView: 3,
-                            },
-                            480: {
-                                slidesPerView: 2,
-                            },
-                            320: {
-                                slidesPerView: 1,
-                            },
+                        320: {
+                            slidesPerView: 1,
                         },
-                    });
+                    },
+                });
         </script>
 
     </body>

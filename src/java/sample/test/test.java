@@ -5,6 +5,7 @@
  */
 package sample.test;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import sample.account.AccountDAO;
 import sample.account.AccountDTO;
@@ -27,22 +28,9 @@ public class test {
 
     public static void main(String[] args) {
         try {
-            ArrayList<StudentDTO> studentList=StudentDAO.getStudents();
-            ArrayList<AccountDTO> accList=new ArrayList<>();
-            ArrayList<ApplicationDTO> appList=new ArrayList<>();
-            for (StudentDTO stu : studentList) {
-                AccountDTO acc=AccountDAO.getAccountByID(stu.getAccID());
-                accList.add(acc);
-                //appList=ApplicationDAO.getApplicationByID(stu.getStudentID());
-            }
-            for (StudentDTO stu : studentList) {
-                for (AccountDTO acc : accList) {
-                    if(stu.getAccID()==acc.getAccId()){
-                        
-                    }
-                }
-                
-            }
+            Date d=new Date(System.currentTimeMillis());
+            int result=ApplicationDAO.insertApplication(2,d , 1, 0, "SE151204", 2);
+            
         } catch (Exception e) {
             e.printStackTrace();
         }

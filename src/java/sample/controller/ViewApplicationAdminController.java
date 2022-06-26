@@ -12,18 +12,22 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import sample.account.AccountDAO;
 import sample.account.AccountDTO;
 import sample.application.ApplicationDAO;
 import sample.application.ApplicationDTO;
-import sample.student.StudentDAO;
+import sample.company.CompanyDAO;
+import sample.company.CompanyDTO;
+import sample.job.JobDAO;
+import sample.job.JobDTO;
 import sample.student.StudentDTO;
 
 /**
  *
  * @author Tranduc
  */
-public class AdminStudentController extends HttpServlet {
+public class ViewApplicationAdminController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,18 +42,29 @@ public class AdminStudentController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try  {
-            /* TODO output your page here. You may use following sample code. */
-            ArrayList<StudentDTO> studentList=StudentDAO.getStudents();
-            ArrayList<AccountDTO> accList=new ArrayList<>();
-            ArrayList<ApplicationDTO> appList=ApplicationDAO.getApplications();
-            for (StudentDTO stu : studentList) {
-                AccountDTO acc=AccountDAO.getAccountByID(stu.getAccID());
-                accList.add(acc);
+            String stuid=request.getParameter("stuID");
+            ArrayList<ApplicationDTO> listApp = ApplicationDAO.getApplicationByID(stuid);
+            ArrayList<JobDTO> listJob = new ArrayList<>();
+            ArrayList<CompanyDTO> listCom = CompanyDAO.getCompanies();
+            ArrayList<AccountDTO> listAcc = new ArrayList<>();
+            for (ApplicationDTO app : listApp) {
+                JobDTO job = JobDAO.getJobByID(app.getJobID());
+                listJob.add(job);
+                            
             }
-            request.setAttribute("stuList", studentList);
-            request.setAttribute("accList", accList);
-            request.setAttribute("appList", appList);
-            request.getRequestDispatcher("admin_page.jsp").forward(request, response);
+            for (CompanyDTO com : listCom) {
+                 AccountDTO acc = AccountDAO.getAccountByID(com.getAccID());
+                listAcc.add(acc);
+            }
+            
+            request.setAttribute("jobList", listJob);
+            request.setAttribute("comList", listCom);
+            request.setAttribute("appList", listApp);
+            request.setAttribute("accList", listAcc);
+            
+            request.getRequestDispatcher("ViewApplicationAdmin.jsp").forward(request, response);
+            
+            
         }catch(Exception e){
             e.printStackTrace();
         }

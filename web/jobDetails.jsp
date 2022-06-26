@@ -121,7 +121,7 @@
         <c:set var="com" value="${requestScope.com}"/>
         <c:set var="acc" value="${requestScope.acc}"/>
         <c:set var="stuAcc" value="${sessionScope.acc}"/>
-        <c:set var="stu" value="${requestScope.stu}"/>
+        
         <!-- job post company Start -->
         <div class="job-post-company pt-120 pb-120">
             <div class="container">
@@ -228,7 +228,10 @@
         <!-- Modal -->
         <form action="mainController" method="post">
             <input type="hidden" name="jobID" value="${job.getJobID()}">
-            <input type="hidden" name="stuID" value="${stu.getStudentID()}">
+            
+                <c:set var="stu" value="${requestScope.stu}"/>
+            <input type="hidden" name="stuID" value="${stu.getStudentID()}">           
+            
 
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">

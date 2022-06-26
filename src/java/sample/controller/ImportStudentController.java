@@ -7,28 +7,34 @@ package sample.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Random;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import sample.account.AccountDAO;
+import javax.servlet.http.Part;
 import sample.account.AccountDTO;
-import sample.application.ApplicationDAO;
-import sample.application.ApplicationDTO;
-import sample.company.CompanyDAO;
-import sample.company.CompanyDTO;
-import sample.job.JobDAO;
-import sample.job.JobDTO;
-import sample.student.StudentDAO;
 import sample.student.StudentDTO;
+import static sample.readExcel.readExcel.readExcel;
+import sample.student.StudentDAO;
 
 /**
  *
  * @author Tranduc
  */
-public class JobDetailsController extends HttpServlet {
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
+        maxFileSize = 1024 * 1024 * 50, // 50MB
+        maxRequestSize = 1024 * 1024 * 50) // 50MB
+public class ImportStudentController extends HttpServlet {
+      public static final int COLUMN_INDEX_ID = 0;
+    public static final int COLUMN_INDEX_EMAIL = 1;
+    public static final int COLUMN_INDEX_NAME = 2;
+    public static final int COLUMN_INDEX_SEMESTER = 3;
+    public static final int COLUMN_INDEX_MAJOR = 4;
+
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,36 +48,43 @@ public class JobDetailsController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try {
+        try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            HttpSession session = request.getSession();
-            String availabe = null;
-            AccountDTO accStu = (AccountDTO) session.getAttribute("acc");
-            int jobID = Integer.parseInt(request.getParameter("jobid"));
-            JobDTO job = JobDAO.getJobByID(jobID);
-            CompanyDTO com = CompanyDAO.getCompanyByID(job.getComID());
-            AccountDTO acc = AccountDAO.getAccountByID(com.getAccID());
-            if(accStu!=null){
-            StudentDTO stu = StudentDAO.getStudentByAccount(accStu.getAccId());
-            ArrayList<ApplicationDTO> appList = ApplicationDAO.getApplicationByID(stu.getStudentID());
-            for (ApplicationDTO app : appList) {           
-                    if (job.getJobID() == app.getJobID()) {
-                        availabe = "Applied";
-                        request.setAttribute("availabe", availabe);
-                    
-                }
-                   
+            int role = 1;
+            int status = 1;
+            Part filePart = request.getPart("file");
+            String fileName = filePart.getSubmittedFileName();
+            for (Part part : request.getParts()) {
+                part.write("D:\\SWP391\\OJT_Management\\web\\Student\\" + fileName);
             }
-            request.setAttribute("stu", stu);
-            }
-            request.setAttribute("com", com);
-            request.setAttribute("job", job);
-            request.setAttribute("acc", acc);
+            String filePath = "D:\\SWP391\\OJT_Management\\web\\Student\\" + fileName;
+            ArrayList<StudentDTO> list = readExcel(filePath);           
+            Date d = new Date(System.currentTimeMillis());
             
-
-            request.getRequestDispatcher("jobDetails.jsp").forward(request, response);
-        } catch (Exception e) {
-            e.printStackTrace();
+            //insert Account
+            for (StudentDTO student : list) {
+                int leftLimit = 97; // letter 'a'
+            int rightLimit = 122; // letter 'z'
+            int targetStringLength = 10;
+            Random random = new Random();
+            
+            String password = random.ints(leftLimit, rightLimit + 1)
+                    .limit(targetStringLength)
+                    .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+                    .toString();
+                int result = StudentDAO.insertAccount(student.getEmail(), password, status, role, d);
+            }
+            //insert Student
+            for (StudentDTO student : list) {
+                ArrayList<AccountDTO> list1=StudentDAO.getAccounts();
+                for (AccountDTO account : list1) {
+                    if(student.getEmail().equals(account.getEmail())){
+                        int result1=StudentDAO.insertStudent(student.getId(), account.getAccId(), student.getMajor());
+                    }
+                }                
+            }
+            request.setAttribute("stuList", list);
+            request.getRequestDispatcher("index.jsp").forward(request, response);
         }
     }
 

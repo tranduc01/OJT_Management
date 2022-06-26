@@ -53,8 +53,6 @@ public class AccountDTO {
         this.cvPath = cvPath;
     }
 
-    
-
     public Date getBirthday() {
         return birthday;
     }

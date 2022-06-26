@@ -79,11 +79,41 @@
         </nav>
 
         <div class="jumbotron">
+            
+            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" style="margin-bottom: 20px;">Import Student</button>
+            <!-- Modal -->
+            <form action="ImportStudentController" method="post" enctype="multipart/form-data">
+            <div id="myModal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">                           
+                            <h4 class="modal-title">Import Student</h4>
+                        </div>
+                        <div class="modal-body">
+                            <input type="file" name="file" size="60" accept=".xlsx"/><br /><br /> 
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary" name="action" value="ImportStudent">Import</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            </form>
+            
+            <button type="button" class="btn btn-info btn-lg" data-toggle="modal1" data-target="#myModal1" style="margin-bottom: 20px;">Add Student</button>
+           
+            
+            
+            
             <table id="example" class="table table-striped table-bordered" style="width:100%;">
                 <thead>
                     <tr>
                         <th>Student ID</th>
-                        <th>Student Name</th>             
+                        <th>Student Name</th>    
+                        <th>Day Of Birth</th>
                         <th>Major</th>
                         <th>Semester</th>
                         <th>CV Status</th>             
@@ -93,46 +123,32 @@
                 <tbody>
                     <c:forEach var="stu" items="${requestScope.stuList}">
                         <c:forEach var="acc" items="${requestScope.accList}">
+
                             <c:if test="${stu.getAccID() eq acc.getAccId()}">
+
                                 <tr>
                                     <td>${stu.getStudentID()}</td>
                                     <td>${stu.getStudentName()}</td>
+                                    <td>${acc.getBirthday()}</td>
                                     <td>${stu.getMajorID()}</td>
                                     <td>${stu.getSemesterID()}</td>
                                     <td><c:if test="${acc.getCvPath() eq null}"><span class="badge badge-danger">No</span></c:if>
                                         <c:if test="${acc.getCvPath() ne null}"><span class="badge badge-success">Yes</span></c:if>
                                         </td>
-                                        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                                                View Application
-                                            </button>
-                                        </td>
-                                    </tr>  
+                                        <td><a class="btn btn-primary" href="mainController?action=ViewApplicationAdmin&stuID=${stu.getStudentID()}">
+                                            View Application
+                                        </a>                                 
+                                    </td>
+                                </tr>  
                             </c:if>
+
                         </c:forEach>
                     </c:forEach>
+
                 </tbody>
 
             </table>
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Application</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            ...
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
         <script>
             $(document).ready(function () {

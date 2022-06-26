@@ -38,6 +38,8 @@ public class mainController extends HttpServlet {
     private static final String ADMIN_STUDENT_CONTROLLER="AdminStudentController";
     private static final String INSERTAPPLICATION="InsertApplication";
     private static final String INSERTAPPLICATION_CONTROLLER="InsertApplicationController";
+    private static final String VIEWAPPLICATIONADMIN="ViewApplicationAdmin";
+    private static final String VIEWAPPLICATIONADMIN_CONTROLLER="ViewApplicationAdminController";
     
 
 
@@ -78,6 +80,8 @@ public class mainController extends HttpServlet {
                     url=ADMIN_STUDENT_CONTROLLER;
                 }else if(INSERTAPPLICATION.equals(action)){
                     url=INSERTAPPLICATION_CONTROLLER;
+                }else if(VIEWAPPLICATIONADMIN.equals(action)){
+                    url=VIEWAPPLICATIONADMIN_CONTROLLER;
                 }
             } catch (Exception e) {
                 log("Error at mainController: " + e.toString());
