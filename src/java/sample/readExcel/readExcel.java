@@ -16,6 +16,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 import static sample.controller.ImportStudentController.COLUMN_INDEX_EMAIL;
 import static sample.controller.ImportStudentController.COLUMN_INDEX_ID;
 import static sample.controller.ImportStudentController.COLUMN_INDEX_MAJOR;
@@ -23,16 +24,17 @@ import static sample.controller.ImportStudentController.COLUMN_INDEX_NAME;
 import static sample.controller.ImportStudentController.COLUMN_INDEX_SEMESTER;
 import sample.student.StudentDTO;
 
+
 /**
  *
  * @author Tranduc
  */
 public class readExcel {
-     public static ArrayList<StudentDTO> readExcel(String filePath) throws IOException {
-        ArrayList<StudentDTO> list = new ArrayList<>();
+    public static ArrayList<StudentDTO> readExcel(String filePath) throws IOException {
+         ArrayList<StudentDTO> list = new ArrayList<>();
         FileInputStream inputStream = new FileInputStream(new File(filePath));
 
-        Workbook workbook = new XSSFWorkbook(inputStream);
+        XSSFWorkbook workbook = new XSSFWorkbook(inputStream);
 
         Sheet firstSheet = workbook.getSheetAt(0);
 
@@ -67,7 +69,7 @@ public class readExcel {
                     case COLUMN_INDEX_MAJOR:
                         st.setMajorID((String) getCellValue(cell));
                         break;
-                    
+
                     case COLUMN_INDEX_SEMESTER:
                         st.setSemesterID((String) getCellValue(cell));
                         break;
@@ -84,7 +86,7 @@ public class readExcel {
     }
 
     private static Object getCellValue(Cell cell) {
-        CellType cellType = cell.getCellTypeEnum();
+        CellType cellType = cell.getCellType();
         Object cellValue = null;
         switch (cellType) {
             case BOOLEAN:

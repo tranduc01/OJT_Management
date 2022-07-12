@@ -28,8 +28,8 @@ public class test {
 
     public static void main(String[] args) {
         try {
-            Date d=new Date(System.currentTimeMillis());
-            int result=ApplicationDAO.insertApplication(2,d , 1, 0, "SE151204", 2);
+            ArrayList<AccountDTO> list=AccountDAO.getAccounts();
+            System.out.println(list.size());
             
         } catch (Exception e) {
             e.printStackTrace();

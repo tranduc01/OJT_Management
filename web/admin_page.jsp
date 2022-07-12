@@ -95,7 +95,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary" name="action" value="ImportStudent">Import</button>
+                            <button type="submit" class="btn btn-primary" value="ImportStudent">Import</button>
                         </div>
                     </div>
 

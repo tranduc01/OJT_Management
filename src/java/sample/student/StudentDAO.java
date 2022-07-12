@@ -83,4 +83,27 @@ public class StudentDAO {
         }
         return list;
     }
+    public static int insertStudent(String stuID,int accID,String majorID,String semID) throws SQLException{
+        int result=0;
+        Connection cn=null;
+        PreparedStatement pst=null;
+        try {
+            cn=DBUtils.makeConnection();
+            if(cn!=null){
+                String sql = "insert into Student([stuID],[accID],[majorID],[semID]) values(?,?,?,?)";
+                pst=cn.prepareStatement(sql);
+                pst.setString(1, stuID);
+                pst.setInt(2, accID);
+                pst.setString(3, majorID);
+                pst.setString(4, semID);
+                pst.executeUpdate();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally{
+            if(cn!=null) cn.close();
+            if(pst!=null) pst.close();           
+        }
+        return result;
+    }
 }

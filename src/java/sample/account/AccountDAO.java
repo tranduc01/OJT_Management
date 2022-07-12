@@ -10,6 +10,8 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import sample.utils.DBUtils;
 
 /**
@@ -17,6 +19,43 @@ import sample.utils.DBUtils;
  * @author Tranduc
  */
 public class AccountDAO {
+    public static  ArrayList<AccountDTO> getAccounts() throws SQLException{
+        ArrayList<AccountDTO> list=new ArrayList<>();
+        Connection cn=null;
+        Statement st=null;
+        ResultSet rs=null;
+        try{
+            cn=DBUtils.makeConnection();
+            if(cn!=null){
+                String sql = "select [accID],[email],[password],[name],[phone],[birthday],[avatar],[cv],[createDate],[roleID],[status]\n"
+                        + "from Account ";
+                st=cn.createStatement();
+                rs=st.executeQuery(sql);
+                while(rs!=null && rs.next()){
+                    int accid=rs.getInt("accID");
+                    String Email=rs.getString("email");
+                    String Password=rs.getString("password");
+                    String name=rs.getString("name");
+                    String phone=rs.getString("phone");
+                    String avatar=rs.getString("avatar");
+                    String cv=rs.getString("cv");
+                    Date birthday=rs.getDate("birthday");
+                    Date createdate=rs.getDate("createDate");
+                    int roleid=rs.getInt("roleID");
+                    int status=rs.getInt("status");
+                    AccountDTO acc=new AccountDTO(accid, Email, Password, name, phone, avatar, cv, birthday, roleid, status, createdate);
+                    list.add(acc);
+                }
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            if(cn!=null) cn.close();
+            if(st!=null) st.close();
+            if(rs!=null) rs.close();
+        }
+        return list;
+    }
     public static AccountDTO loginAccount(String email, String password) throws SQLException{
         AccountDTO acc=null;
         Connection cn=null;
@@ -217,6 +256,31 @@ public class AccountDAO {
                 pst=cn.prepareStatement(sql);
                 pst.setString(1, newpassword);            
                 pst.setString(2, email);
+                pst.executeUpdate();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally{
+            if(cn!=null) cn.close();
+            if(pst!=null) pst.close();           
+        }
+        return result;
+    }
+    public static int insertAccount(String password,String email,String name,String createDate,int roleID,int status) throws SQLException{
+        int result=0;
+        Connection cn=null;
+        PreparedStatement pst=null;
+        try {
+            cn=DBUtils.makeConnection();
+            if(cn!=null){
+                String sql = "insert into Account([password],[email],[name],[createDate],[roleID],[status]) values(?,?,?,?,?,?)";
+                pst=cn.prepareStatement(sql);
+                pst.setString(1, password);
+                pst.setString(2, email);
+                pst.setString(3, name);
+                pst.setString(4, createDate);
+                pst.setInt(5, roleID);
+                pst.setInt(6, status);
                 pst.executeUpdate();
             }
         } catch (Exception e) {
