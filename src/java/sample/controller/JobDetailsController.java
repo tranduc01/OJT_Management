@@ -53,6 +53,7 @@ public class JobDetailsController extends HttpServlet {
             AccountDTO acc = AccountDAO.getAccountByID(com.getAccID());
             if(accStu!=null){
             StudentDTO stu = StudentDAO.getStudentByAccount(accStu.getAccId());
+            if(stu!=null){
             ArrayList<ApplicationDTO> appList = ApplicationDAO.getApplicationByID(stu.getStudentID());
             for (ApplicationDTO app : appList) {           
                     if (job.getJobID() == app.getJobID()) {
@@ -63,6 +64,7 @@ public class JobDetailsController extends HttpServlet {
                    
             }
             request.setAttribute("stu", stu);
+            }
             }
             request.setAttribute("com", com);
             request.setAttribute("job", job);

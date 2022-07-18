@@ -25,15 +25,12 @@ import sample.student.StudentDTO;
  * @author Tranduc
  */
 public class test {
-
     public static void main(String[] args) {
-        try {
-            ArrayList<AccountDTO> list=AccountDAO.getAccounts();
-            System.out.println(list.size());
-            
-        } catch (Exception e) {
-            e.printStackTrace();
+        int total=0;
+        for(int i=3;i<=30;i=i+3){
+            total=total+i;
+            i=i+2;
         }
-
+        System.out.println(total);
     }
 }

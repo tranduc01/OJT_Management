@@ -45,11 +45,17 @@
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#Navbar">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <a class="navbar-brand mr-auto" href="JobListController"><img src="img/logo.png" height="30" width="41"></a>
+                <a class="navbar-brand mr-auto" href="JobListByPageController"><img src="img/logo.png" height="30" width="41"></a>
                 <div class="collapse navbar-collapse" id="Navbar">
                     <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="postManagement.jsp">
+                                <span class="fa-solid fa-users"></span>
+                                Home
+                            </a>
+                        </li>
                         <li class="nav-item active">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="AdminStudentController">
                                 <span class="fa-solid fa-users"></span>
                                 Students
                             </a>
@@ -82,8 +88,8 @@
         </nav>
 
         <div class="jumbotron">
-            
-            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" style="margin-bottom: 20px;">Import Student</button>
+            <div style="float: top;">
+            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal" style="margin-bottom: 20px; float: right;margin-left: 20px;">Import Student</button>
             <!-- Modal -->
             <form action="ImportStudentController" method="post" enctype="multipart/form-data">
             <div id="myModal" class="modal fade" role="dialog">
@@ -105,7 +111,7 @@
             </div>
             </form>
             
-            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModalAdd" style="margin-bottom: 20px;">Add Student</button>
+            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModalAdd" style="margin-bottom: 20px; float: right;">Add Student</button>
            <!-- Modal -->
             <form action="mainController" method="post">
             <div id="myModalAdd" class="modal fade" role="dialog">
@@ -176,7 +182,7 @@
             </div>
             </form>
             
-            
+            </div>
             
             <table id="example" class="table table-striped table-bordered" style="width:100%;">
                 <thead>
@@ -207,8 +213,7 @@
                                     <td><c:if test="${acc.getCvPath() eq null}"><span class="badge badge-danger">No</span></c:if>
                                         <c:if test="${acc.getCvPath() ne null}"><span class="badge badge-success">Yes</span></c:if>
                                     </td>
-                                    <c:set var="app" scope="request" value="${ApplicationDAO.getApplicationByID(stu.getStudentID())}"/>
-                                    
+                                    <c:set var="app" scope="request" value="${ApplicationDAO.getApplicationByID(stu.getStudentID())}"/>                                   
                                     <td>
                                         <c:if test="${requestScope.app != '[]'}">
                                             <a class="btn btn-primary" href="mainController?action=ViewApplicationAdmin&stuID=${stu.getStudentID()}">
@@ -218,14 +223,10 @@
                                     </td>
                                 </tr>  
                             </c:if>
-
                         </c:forEach>
                     </c:forEach>
-
                 </tbody>
-
             </table>
-
         </div>
         <script>
             $(document).ready(function () {

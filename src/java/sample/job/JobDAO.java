@@ -174,7 +174,7 @@ public class JobDAO {
                 String sql = "select [jobID],[jobName],[jobTitle],[jobDescription],[jobRequirements],[jobBenefits],[jobSalary],[jobCreateDate],[jobEndDate],[status],amount,majorID,comID\n"
                         + "                        from Job\n"
                         + "                        where job.status=1\n"
-                        + "                        order by jobID\n"
+                        + "                        order by jobCreateDate\n"
                         + "                        offset (? -1)* ? rows\n"
                         + "                        fetch next ? rows only";
                 PreparedStatement pst=cn.prepareStatement(sql);

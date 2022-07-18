@@ -52,11 +52,11 @@
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#Navbar">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <a class="navbar-brand mr-auto" href="JobListController"><img src="img/logo.png" height="30" width="41"></a>
+                <a class="navbar-brand mr-auto" href="JobListByPageController"><img src="img/logo.png" height="30" width="41"></a>
                 <div class="collapse navbar-collapse" id="Navbar">
                     <ul class="navbar-nav">
                         <li class="nav-item active">
-                            <a class="nav-link" href="JobListController">
+                            <a class="nav-link" href="JobListByPageController">
                                 <span class="fa fa-home fa-lg"></span>
                                 Home
                             </a>
