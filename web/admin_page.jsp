@@ -4,6 +4,9 @@
     Author     : Tranduc
 --%>
 
+<%@page import="sample.application.ApplicationDAO"%>
+<%@page import="sample.application.ApplicationDTO"%>
+<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
@@ -134,10 +137,15 @@
                                     <td>${stu.getSemesterID()}</td>
                                     <td><c:if test="${acc.getCvPath() eq null}"><span class="badge badge-danger">No</span></c:if>
                                         <c:if test="${acc.getCvPath() ne null}"><span class="badge badge-success">Yes</span></c:if>
-                                        </td>
-                                        <td><a class="btn btn-primary" href="mainController?action=ViewApplicationAdmin&stuID=${stu.getStudentID()}">
+                                    </td>
+                                    <c:set var="app" scope="request" value="${ApplicationDAO.getApplicationByID(stu.getStudentID())}"/>
+                                    
+                                    <td>
+                                        <c:if test="${requestScope.app != '[]'}">
+                                            <a class="btn btn-primary" href="mainController?action=ViewApplicationAdmin&stuID=${stu.getStudentID()}">
                                             View Application
-                                        </a>                                 
+                                        </a> 
+                                        </c:if>
                                     </td>
                                 </tr>  
                             </c:if>
