@@ -73,14 +73,18 @@ public class ImportStudentController extends HttpServlet {
                         .limit(targetStringLength)
                         .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
                         .toString();
-                int result = AccountDAO.insertAccount(password, student.getEmail(), student.getStudentName(), d.toString(), role, status);
-            }
+                if(student.getEmail()!=null){
+                int result = AccountDAO.insertAccount(password, student.getEmail(), student.getStudentName(), null, null, d.toString(), role, status);
+                }
+                }
             //insert Student
             for (StudentDTO student : list) {
                 ArrayList<AccountDTO> list1 = AccountDAO.getAccounts();
                 for (AccountDTO account : list1) {
+                    if(student.getEmail()!=null){
                     if (student.getEmail().equals(account.getEmail())) {
                         int result1 = StudentDAO.insertStudent(student.getStudentID(), account.getAccId(), student.getMajorID(), student.getSemesterID());
+                    }
                     }
                 }
             }

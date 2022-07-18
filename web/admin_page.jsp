@@ -120,13 +120,13 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">Name</label>
                                 <div class="col-sm-10">
-                                    <input class="form-control" name="txtname" type="text">
+                                    <input class="form-control" name="txtname" type="text" required="">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-4 control-label">Student ID</label>
                                 <div class="col-sm-10">
-                                    <input class="form-control" name="txtstudentid" type="text">
+                                    <input class="form-control" name="txtstudentid" type="text" required="">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -159,7 +159,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-4 control-label" >Day Of Birth</label>
+                                <label class="col-sm-4 control-label" >Date Of Birth</label>
                                 <div class="col-sm-10">
                                     <input class="form-control" name="txtdateofbirth" type="date">
                                 </div>

@@ -6,7 +6,6 @@
 package sample.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Date;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
@@ -17,7 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 import sample.account.AccountDAO;
 import sample.account.AccountDTO;
 import sample.student.StudentDAO;
-import sample.student.StudentDTO;
 
 /**
  *
@@ -50,7 +48,7 @@ public class AddStudentController extends HttpServlet {
             int role = 1;
             int status = 1;
             Date d = new Date(System.currentTimeMillis());
-            int result = AccountDAO.insertAccount(stuid, mail, name, d.toString(), role, status);
+            int result = AccountDAO.insertAccount(stuid, mail, name, phone, birthday, d.toString(), role, status);
 
             ArrayList<AccountDTO> list1 = AccountDAO.getAccounts();
             for (AccountDTO account : list1) {

@@ -266,21 +266,23 @@ public class AccountDAO {
         }
         return result;
     }
-    public static int insertAccount(String password,String email,String name,String createDate,int roleID,int status) throws SQLException{
+    public static int insertAccount(String password,String email,String name,String phone,String birthday,String createDate,int roleID,int status) throws SQLException{
         int result=0;
         Connection cn=null;
         PreparedStatement pst=null;
         try {
             cn=DBUtils.makeConnection();
             if(cn!=null){
-                String sql = "insert into Account([password],[email],[name],[createDate],[roleID],[status]) values(?,?,?,?,?,?)";
+                String sql = "insert into Account([password],[email],[name],[phone],[birthday],[createDate],[roleID],[status]) values(?,?,?,?,?,?,?,?)";
                 pst=cn.prepareStatement(sql);
                 pst.setString(1, password);
                 pst.setString(2, email);
                 pst.setString(3, name);
-                pst.setString(4, createDate);
-                pst.setInt(5, roleID);
-                pst.setInt(6, status);
+                pst.setString(4, phone);
+                pst.setString(5, birthday);
+                pst.setString(6, createDate);
+                pst.setInt(7, roleID);
+                pst.setInt(8, status);
                 pst.executeUpdate();
             }
         } catch (Exception e) {
