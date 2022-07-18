@@ -227,13 +227,14 @@
                     <!-- START Pagination -->
                     <nav aria-label="Page navigation">
                         <ul class="pagination pagination-reset justify-content-center">
-                            
+                            <li class="page-item"> <a class="page-link" href="#">Prev</a> </li>
                             <li class="page-item"><a class="page-link" href="mainController?action=viewbypage&page=1">1</a></li>
                             <li class="page-item"><a class="page-link" href="mainController?action=viewbypage&page=2">2</a></li>
                             <li class="page-item"><a class="page-link" href="mainController?action=viewbypage&page=3">3</a></li>
                             <li class="page-item"><a class="page-link" href="mainController?action=viewbypage&page=4">4</a></li>
                             <li class="page-item"><a class="page-link" href="mainController?action=viewbypage&page=5">5</a></li>
                             <li class="page-item"><a class="page-link" href="mainController?action=viewbypage&page=6">6</a></li>
+                            <li class="page-item"> <a class="page-link" href="#">Next</a> </li>
                            <!-- <li class="page-item"><a class="page-link" href="mainController?action=viewbypage&page=6">6</a></li>
                             <li class="page-item"><a class="page-link" href="mainController?action=viewbypage&page=7">7</a></li>
                             <li class="page-item"><a class="page-link" href="#">...</a></li>
