@@ -110,7 +110,7 @@
             </div>
         </nav>
 
-
+        
 
         <div id="demo" class="carousel slide" data-ride="carousel">
 
@@ -187,6 +187,11 @@
                                 </div>
                             </div>
                         </form>
+                        <% 
+            if(request.getAttribute("jobList")!=null){
+        
+        
+        %>
                         <c:forEach var="job" items="${requestScope.jobList}">
                             <c:forEach var="com" items="${requestScope.companyList}">
                                 <c:forEach var="acc" items="${requestScope.accList}">
@@ -267,7 +272,11 @@
                 </div>
             </div>
         </div>  
-
+<% 
+    }else{
+    response.sendRedirect("JobListByPageController");
+}
+%>
 
 
         <footer>

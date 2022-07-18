@@ -42,6 +42,8 @@ public class mainController extends HttpServlet {
     private static final String VIEWAPPLICATIONADMIN_CONTROLLER="ViewApplicationAdminController";
     private static final String VIEWBYPAGE="viewbypage";
     private static final String VIEWBYPAGE_CONTROLLER="JobListByPageController";
+    private static final String ADDSTUDENT="AddStudent";
+    private static final String ADDSTUDENT_CONTROLLER="AddStudentController";
     
 
 
@@ -86,6 +88,8 @@ public class mainController extends HttpServlet {
                     url=VIEWAPPLICATIONADMIN_CONTROLLER;
                 }else if(VIEWBYPAGE.equals(action)){
                     url=VIEWBYPAGE_CONTROLLER;
+                }else if(ADDSTUDENT.equals(action)){
+                    url=ADDSTUDENT_CONTROLLER;
                 }
             } catch (Exception e) {
                 log("Error at mainController: " + e.toString());

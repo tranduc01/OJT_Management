@@ -101,13 +101,80 @@
                             <button type="submit" class="btn btn-primary" value="ImportStudent">Import</button>
                         </div>
                     </div>
-
                 </div>
             </div>
             </form>
             
-            <button type="button" class="btn btn-info btn-lg" data-toggle="modal1" data-target="#myModal1" style="margin-bottom: 20px;">Add Student</button>
-           
+            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModalAdd" style="margin-bottom: 20px;">Add Student</button>
+           <!-- Modal -->
+            <form action="mainController" method="post">
+            <div id="myModalAdd" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">                           
+                            <h4 class="modal-title">Add Student</h4>
+                        </div>
+                        <div class="modal-body">
+                            
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Name</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" name="txtname" type="text">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">Student ID</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" name="txtstudentid" type="text">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" >Email</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" type="email" name="txtemail" required="">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Phone</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control"  type="text" name="txtphone">
+                                </div>
+                            </div>                                                    
+                            
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" >Major</label>
+                                <div class="col-sm-10">
+                                    <select name="txtmajor" class="form-control">
+                                        <c:forEach var="major" items="${requestScope.majorList}">
+                                            <option value="${major.getMajorID()}">${major.getMajorName()}</option>
+                                        </c:forEach>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Semester</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" type="text" name="txtsemester" value="SU2022">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label" >Day Of Birth</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" name="txtdateofbirth" type="date">
+                                </div>
+                            </div>
+                            
+                        
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary" name="action" value="AddStudent">Add</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </form>
             
             
             
@@ -119,6 +186,7 @@
                         <th>Day Of Birth</th>
                         <th>Major</th>
                         <th>Semester</th>
+                        <th>Created Date</th>
                         <th>CV Status</th>             
                         <th>Application</th>
                     </tr>
@@ -135,6 +203,7 @@
                                     <td>${acc.getBirthday()}</td>
                                     <td>${stu.getMajorID()}</td>
                                     <td>${stu.getSemesterID()}</td>
+                                    <td>${acc.getCrateDate()}</td>
                                     <td><c:if test="${acc.getCvPath() eq null}"><span class="badge badge-danger">No</span></c:if>
                                         <c:if test="${acc.getCvPath() ne null}"><span class="badge badge-success">Yes</span></c:if>
                                     </td>

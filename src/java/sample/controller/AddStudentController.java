@@ -7,17 +7,15 @@ package sample.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import sample.account.AccountDAO;
 import sample.account.AccountDTO;
-import sample.application.ApplicationDAO;
-import sample.application.ApplicationDTO;
-import sample.major.MajorDAO;
-import sample.major.MajorDTO;
 import sample.student.StudentDAO;
 import sample.student.StudentDTO;
 
@@ -25,7 +23,8 @@ import sample.student.StudentDTO;
  *
  * @author Tranduc
  */
-public class AdminStudentController extends HttpServlet {
+@WebServlet(name = "AddStudentController", urlPatterns = {"/AddStudentController"})
+public class AddStudentController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,22 +38,28 @@ public class AdminStudentController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try  {
+        try {
             /* TODO output your page here. You may use following sample code. */
-            ArrayList<StudentDTO> studentList=StudentDAO.getStudents();
-            ArrayList<AccountDTO> accList=new ArrayList<>();
-            ArrayList<ApplicationDTO> appList=ApplicationDAO.getApplications();
-            ArrayList<MajorDTO> majorList=MajorDAO.getMajors();
-            for (StudentDTO stu : studentList) {
-                AccountDTO acc=AccountDAO.getAccountByID(stu.getAccID());
-                accList.add(acc);
+            String name = request.getParameter("txtname");
+            String stuid = request.getParameter("txtstudentid");
+            String mail = request.getParameter("txtemail");
+            String phone = request.getParameter("txtphone");
+            String major = request.getParameter("txtmajor");
+            String semester = request.getParameter("txtsemester");
+            String birthday = request.getParameter("txtdateofbirth");
+            int role = 1;
+            int status = 1;
+            Date d = new Date(System.currentTimeMillis());
+            int result = AccountDAO.insertAccount(stuid, mail, name, d.toString(), role, status);
+
+            ArrayList<AccountDTO> list1 = AccountDAO.getAccounts();
+            for (AccountDTO account : list1) {
+                if (mail.equals(account.getEmail())) {
+                    int result1 = StudentDAO.insertStudent(stuid, account.getAccId(), major, semester);
+                }
             }
-            request.setAttribute("stuList", studentList);
-            request.setAttribute("majorList", majorList);
-            request.setAttribute("accList", accList);
-            request.setAttribute("appList", appList);
-            request.getRequestDispatcher("admin_page.jsp").forward(request, response);
-        }catch(Exception e){
+            request.getRequestDispatcher("AdminStudentController").forward(request, response);
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
