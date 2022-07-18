@@ -10,8 +10,7 @@ and open the template in the editor.
 /* USER LIST TABLE */
 
 .user-list tbody td > img {
-    position: relative;
-	max-width: 50px;
+        position: relative;
 	float: left;
 	margin-right: 15px;
 }

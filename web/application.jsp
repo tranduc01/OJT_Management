@@ -118,7 +118,7 @@
                                                             <c:if test="${acc.getAccId() eq com.getAccID()}">                                                                                                                                                                                                                                         
                                                                 <tr>
                                                                     <td class="text-center">
-                                                                        <img src="${acc.getAvatar()}" style="height: 50px; width: 50px;">
+                                                                        <img src="${acc.getAvatar()}" style="height: 60px; width: 100px;">
                                                                         <span><a href="#" class="user-link" style="padding-top: 11px;">${acc.getName()}</a></span>
                                                                     </td>
                                                                     <td class="text-center">
