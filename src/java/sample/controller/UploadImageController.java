@@ -7,6 +7,8 @@ package sample.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -45,22 +47,40 @@ public class UploadImageController extends HttpServlet {
         try {
             HttpSession session = request.getSession();
             String email = (String) session.getAttribute("accEmail");
+            
+//            Part filePart = request.getPart("file");
+//            String fileName = filePart.getSubmittedFileName();
+//            if (!fileName.isEmpty()) {
+//                for (Part part : request.getParts()) {
+//                    part.write("D:\\SWP391\\OJT_Management\\web\\img\\" + fileName);
+//                }
+//                String path = "img\\" + fileName;
             Part filePart = request.getPart("file");
-            String fileName = filePart.getSubmittedFileName();
-            if (!fileName.isEmpty()) {
-                for (Part part : request.getParts()) {
-                    part.write("D:\\SWP391\\OJT_Management\\web\\img\\" + fileName);
+            String realPath = request.getServletContext().getRealPath("/img");
+            String filename = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+            if (!filename.isEmpty()) {
+                if (!Files.exists(Paths.get(realPath))) {
+                    Files.createDirectory(Paths.get(realPath));
                 }
-                String path = "img\\" + fileName;
+
+                String path;
+                if (!"".equals(filename)) {
+                    Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+                    filePart.write(realPath + "/" + filename);
+                    path = "img\\" + filename;
+                } else {
+                    AccountDTO acc = AccountDAO.loginAccount_V2(email);
+                    path = acc.getAvatar();
+                }
                 int result = AccountDAO.updateAvatarPath(email, path);
                 ArrayList<MajorDTO> list = MajorDAO.getMajors();
-                AccountDTO acc = AccountDAO.loginAccount_V2(email);
+AccountDTO acc = AccountDAO.loginAccount_V2(email);
                 session.setAttribute("acc", acc);
                 session.setAttribute("majorList", list);
                 request.getRequestDispatcher("student_profile.jsp").forward(request, response);
             } else {
                 ArrayList<MajorDTO> list = MajorDAO.getMajors();
-                AccountDTO acc = AccountDAO.loginAccount_V2(email);
+AccountDTO acc = AccountDAO.loginAccount_V2(email);
                 String noFile = "No file to upload !!!!";
                 request.setAttribute("noFile", noFile);
                 session.setAttribute("acc", acc);
