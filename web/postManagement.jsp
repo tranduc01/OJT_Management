@@ -45,7 +45,7 @@
                 <div class="collapse navbar-collapse" id="Navbar">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link active" href="JobListController">
+                            <a class="nav-link active" href="postManagement.jsp">
                                 <span class="fa-solid fa-users"></span>
                                 Home
                             </a>
@@ -84,8 +84,6 @@
         </nav>
         <%
             if (request.getAttribute("jobList") != null) {
-
-
         %>
         <div class="container mt-3 mb-4">
             <div class="col-lg-12 mt-4 mt-lg-0">
@@ -133,16 +131,13 @@
                                                                 <c:if test="${job.getStatus() eq 0}"><h5><span class="badge badge-warning">Pending</span></h5></c:if>
                                                                 <c:if test="${job.getStatus() eq 1}"><h5><span class="badge badge-success">Approved</span></h5></c:if>
                                                                 </td>
-                                                                <td>
-                                                                    <ul class="list-unstyled mb-0 d-flex justify-content-end">
-                                                                        <li><a href="mainController?action=PostDetail&id=${job.getJobID()}" class="text-primary" data-toggle="tooltip" title="" data-original-title="view"><i class="far fa-eye"></i></a></li>
-                                                                        <li><a href="#" class="text-info" data-toggle="tooltip" title="" data-original-title="Edit"><i class="fas fa-pencil-alt"></i></a></li>                                            
-                                                                    </ul>
+                                                                <td>                                                                                                         
+                                                                    <h4><a href="mainController?action=PostDetail&id=${job.getJobID()}" class="text-primary" data-toggle="tooltip" title="" data-original-title="view" style="padding-left: 16px;"><i class="far fa-eye"></i></a></h4>                                                                                                                                                                             
                                                                 </td>
                                                                 <td>
                                                                 <c:if test="${job.getStatus()==0}">
-                                                                    <h4><button class="badge badge-success"><i class="fa-solid fa-check"></i></button>
-                                                                        <button class="badge badge-danger"><i class="fa-solid fa-ban"></i></button></h4>
+                                                                    <h4><a href="mainController?action=Approve&jobid=${job.getJobID()}"><button class="badge badge-success"><i class="fa-solid fa-check"></i></button></a>
+                                                                        <a href="mainController?action=Reject&jobid=${job.getJobID()}"><button class="badge badge-danger"><i class="fa-solid fa-ban"></i></button></a></h4>
                                                                 </c:if>
                                                                     <c:if test="${job.getStatus()!=0}">
                                                                     <h4><button ></button>
@@ -177,7 +172,6 @@
         <%            } else {
                 response.sendRedirect("JobsPostController");
             }
-
         %>
         <script>
             var loader = document.getElementById("preloader");

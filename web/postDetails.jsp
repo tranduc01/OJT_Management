@@ -53,7 +53,7 @@
                 <div class="collapse navbar-collapse" id="Navbar">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link active" href="JobListController">
+                            <a class="nav-link active" href="postManagement.jsp">
                                 <span class="fa-solid fa-users"></span>
                                 Home
                             </a>

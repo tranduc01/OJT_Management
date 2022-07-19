@@ -113,7 +113,7 @@ public class JobDAO {
         }
         return job;
     }
-    
+
     public static JobDTO getJobByID_V2(int jobID) throws SQLException {
         JobDTO job = null;
         Connection cn = null;
@@ -223,7 +223,7 @@ public class JobDAO {
                         + "order by jobCreateDate\n"
                         + "offset (? -1)* ? rows\n"
                         + "fetch next ? rows only";
-                PreparedStatement pst=cn.prepareStatement(sql);
+                PreparedStatement pst = cn.prepareStatement(sql);
                 pst.setInt(1, pageNumber);
                 pst.setInt(2, rowOfPage);
                 pst.setInt(3, rowOfPage);
@@ -261,6 +261,7 @@ public class JobDAO {
         }
         return list;
     }
+
     public static ArrayList<JobDTO> getJobsPost(int pageNumber, int rowOfPage) throws SQLException {
         ArrayList<JobDTO> list = new ArrayList<>();
         Connection cn = null;
@@ -270,11 +271,11 @@ public class JobDAO {
             cn = DBUtils.makeConnection();
             if (cn != null) {
                 String sql = "select [jobID],[jobName],[jobTitle],[jobDescription],[jobRequirements],[jobBenefits],[jobSalary],[jobCreateDate],[jobEndDate],[status],amount,majorID,comID\n"
-                        + "from Job\n"                     
+                        + "from Job\n"
                         + "order by jobCreateDate\n"
                         + "offset (? -1)* ? rows\n"
                         + "fetch next ? rows only";
-                PreparedStatement pst=cn.prepareStatement(sql);
+                PreparedStatement pst = cn.prepareStatement(sql);
                 pst.setInt(1, pageNumber);
                 pst.setInt(2, rowOfPage);
                 pst.setInt(3, rowOfPage);
@@ -311,5 +312,33 @@ public class JobDAO {
             }
         }
         return list;
+    }
+
+    public static int updateJobStatus(int jobID, int status) throws SQLException {
+        int result = 0;
+        Connection cn = null;
+        PreparedStatement pst = null;
+        try {
+            cn = DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = "update [Job]\n"
+                        + "set status=?\n"
+                        + "where jobID=?";
+                pst = cn.prepareStatement(sql);
+                pst.setInt(1, status);
+                pst.setInt(2, jobID);
+                pst.executeUpdate();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (cn != null) {
+                cn.close();
+            }
+            if (pst != null) {
+                pst.close();
+            }
+        }
+        return result;
     }
 }
