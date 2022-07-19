@@ -1,11 +1,11 @@
 <%-- 
-    Document   : jobDetails
-    Created on : Jun 7, 2022, 1:46:35 PM
+    Document   : postDetails
+    Created on : Jul 19, 2022, 9:39:58 PM
     Author     : Tranduc
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib  uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -38,15 +38,12 @@
         <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
         <script src="https://kit.fontawesome.com/12c372e324.js" crossorigin="anonymous"></script>
         <link rel="shortcut icon" href="img/FPT-logoo.jpg">
-
-        <title>FPT OJT</title>
+        <title>Adminastor</title>
     </head>
     <body>
-
         <div id="preloader">
             <img src="img/loader.gif"/>
         </div>
-
         <nav class="navbar navbar-dark navbar-expand-md">
             <div class="container">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#Navbar">
@@ -55,68 +52,48 @@
                 <a class="navbar-brand mr-auto" href="JobListByPageController"><img src="img/logo.png" height="30" width="41"></a>
                 <div class="collapse navbar-collapse" id="Navbar">
                     <ul class="navbar-nav">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="JobListByPageController">
-                                <span class="fa fa-home fa-lg"></span>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="JobListController">
+                                <span class="fa-solid fa-users"></span>
                                 Home
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="JobsPageController">
-                                <span class="fa fa-briefcase fa-lg"></span>
-                                Jobs
+                            <a class="nav-link" href="AdminStudentController">
+                                <span class="fa-solid fa-users"></span>
+                                Students
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="about.jsp">
-                                <span class="fas fa-graduation-cap"></span>
-                                About
+                            <a class="nav-link" href="#">
+                                <span class="fa-solid fa-building"></span>
+                                Companies
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <span class="fa-solid fa-square-poll-vertical"></span>
+                                Results
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <span class="fa-solid fa-user-group"></span>
+                                Accounts
                             </a>
                         </li>
                     </ul>
                 </div>
-                <% String email = (String) session.getAttribute("accEmail");
-
-                    if (email != null) {
-                        int role = (int) session.getAttribute("role");
-                        String link = "";
-
-                        if (role == 0) {
-                            link = "mainController?action=AdminPage";
-
-                        } else if (role == 1) {
-                            link = "student_profile.jsp";
-
-                        } else {
-                            link = "company_page.jsp";
-
-                        }
-                %> 
-
                 <span class="navbar-text ml-auto">
-                    <a  href="<%= link%> ">
-                        <span class="fa fa-user-o fa-lg"></span> ${sessionScope.name}               
-                    </a>
+                    <a href="mainController?action=logout">
+                        <span class="fa fa-sign-in"></span> Logout</a>
                 </span>
-                <span class="navbar-text ml-auto">
-                    <a href="mainController?action=logout"><span class="fa fa-sign-out"></span> Logout</a>
-                </span>
-                <%
-                } else {
-                %>
-                <span class="navbar-text ml-auto">
-                    <a href="login.jsp">
-                        <span class="fa fa-sign-in"></span> Login</a>
-                </span>
-                <%
-                    }
-                %>
             </div>
         </nav>
-        <c:set var="job" value="${requestScope.job}"/>
+        
+         <c:set var="job" value="${requestScope.job}"/>
         <c:set var="com" value="${requestScope.com}"/>
         <c:set var="acc" value="${requestScope.acc}"/>
-        <c:set var="stuAcc" value="${sessionScope.acc}"/>
         
         <!-- job post company Start -->
         <div class="job-post-company pt-120 pb-120">
@@ -186,20 +163,10 @@
                                 <li>End date : <span>${job.getJobEndDate()}</span></li>
                             </ul>
                             <div class="apply-btn2">
-                                <div class="line"></div>
-                               
-                                <c:if test="${requestScope.availabe == null}">
-                                    <a type="button" class="btn" data-toggle="modal" data-target="#exampleModal" <c:if test="${sessionScope.acc eq null}">onclick="warning()"</c:if>>
+                                <div class="line"></div>                                                             
+                                    <a type="button" class="btn" data-toggle="modal" data-target="#exampleModal" >
                                         Apply Now
-                                    </a>
-                                </c:if>
-                                <c:if test="${requestScope.availabe !=null}">
-                                    <a type="button" class="btn">
-                                        Applied
-                                    </a>
-                                </c:if>
-                                        
-                                        
+                                    </a>                                                                                                                                       
                                 </div>
                             </div>
                             <div class="post-details4  mb-50">
@@ -208,72 +175,18 @@
                                     <h4>Company Information</h4>
                                 </div>
                                 <span>${acc.getName()}</span>
-
-
                             <img src="${acc.getAvatar()}" style="height: 225px; width: 225px;"></br>
                             Website:<a href="${com.getWebsite()}"> ${com.getWebsite()}</a>
-
-
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- job post company End -->
-
-        <!-- Modal -->
-        <form action="mainController" method="post">
-            <input type="hidden" name="jobID" value="${job.getJobID()}">
-            
-                <c:set var="stu" value="${requestScope.stu}"/>
-            <input type="hidden" name="stuID" value="${stu.getStudentID()}">           
-            
-
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel" style="font-weight: bold;">Application</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <c:if test="${stuAcc.getCvPath() != null}">
-                                Your CV: <a href="${stuAcc.getCvPath()}">View</a>
-                            </c:if>
-                            <c:if test="${stuAcc.getCvPath() == null}">
-                                <p>Please Upload your CV first !!!</p>
-                            </c:if>
-
-
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn" data-dismiss="modal" style="font-weight: bold;">Close</button>
-                            <c:if test="${stuAcc.getCvPath() != null}">
-                                <button type="submit" class="btn" style="font-weight: bold;" value="InsertApplication" name="action">Apply</button>
-                            </c:if>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
-
-
-        <footer>
-            <%@include file="footer.jsp" %>
-        </footer>
+        </div>                                                               
         <script>
             var loader = document.getElementById("preloader");
             window.addEventListener("load", function () {
                 loader.style.display = "none";
             });
-        </script>
-        <script>
-            function warning() {
-                window.alert("You need to login first !!!");
-                window.location.href = "login.jsp";
-            }
         </script>
     </body>
 </html>

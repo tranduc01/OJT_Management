@@ -7,28 +7,24 @@ package sample.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import sample.account.AccountDAO;
 import sample.account.AccountDTO;
-import sample.application.ApplicationDAO;
-import sample.application.ApplicationDTO;
 import sample.company.CompanyDAO;
 import sample.company.CompanyDTO;
 import sample.job.JobDAO;
 import sample.job.JobDTO;
-import sample.student.StudentDAO;
-import sample.student.StudentDTO;
 
 /**
  *
  * @author Tranduc
  */
-public class JobDetailsController extends HttpServlet {
+@WebServlet(name = "PostDetailController", urlPatterns = {"/PostDetailController"})
+public class PostDetailController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,34 +38,19 @@ public class JobDetailsController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try {
+        try  {
             /* TODO output your page here. You may use following sample code. */
-            HttpSession session = request.getSession();
-            String availabe = null;
-            AccountDTO accStu = (AccountDTO) session.getAttribute("acc");
-            int jobID = Integer.parseInt(request.getParameter("jobid"));
-            JobDTO job = JobDAO.getJobByID(jobID);
+            int id=Integer.parseInt(request.getParameter("id"));
+            JobDTO job = JobDAO.getJobByID_V2(id);
             CompanyDTO com = CompanyDAO.getCompanyByID(job.getComID());
             AccountDTO acc = AccountDAO.getAccountByID(com.getAccID());
-            if(accStu!=null){
-            StudentDTO stu = StudentDAO.getStudentByAccount(accStu.getAccId());
-            if(stu!=null){
-            ArrayList<ApplicationDTO> appList = ApplicationDAO.getApplicationByID(stu.getStudentID());
-            for (ApplicationDTO app : appList) {           
-                    if (job.getJobID() == app.getJobID()) {
-                        availabe = "Applied";
-                        request.setAttribute("availabe", availabe);
-                    
-                }                   
-            }
-            request.setAttribute("stu", stu);
-            }
-            }
             request.setAttribute("com", com);
             request.setAttribute("job", job);
             request.setAttribute("acc", acc);          
-            request.getRequestDispatcher("jobDetails.jsp").forward(request, response);
-        } catch (Exception e) {
+            request.getRequestDispatcher("postDetails.jsp").forward(request, response);
+            
+            
+        }catch(Exception e){
             e.printStackTrace();
         }
     }

@@ -44,6 +44,8 @@ public class mainController extends HttpServlet {
     private static final String VIEWBYPAGE_CONTROLLER="JobListByPageController";
     private static final String ADDSTUDENT="AddStudent";
     private static final String ADDSTUDENT_CONTROLLER="AddStudentController";
+    private static final String POSTDETAIL="PostDetail";
+    private static final String POSTDETAIL_CONTROLLER="PostDetailController";
     
 
 
@@ -90,6 +92,8 @@ public class mainController extends HttpServlet {
                     url=VIEWBYPAGE_CONTROLLER;
                 }else if(ADDSTUDENT.equals(action)){
                     url=ADDSTUDENT_CONTROLLER;
+                }else if(POSTDETAIL.equals(action)){
+                    url=POSTDETAIL_CONTROLLER;
                 }
             } catch (Exception e) {
                 log("Error at mainController: " + e.toString());
