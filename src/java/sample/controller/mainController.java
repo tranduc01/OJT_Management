@@ -50,6 +50,8 @@ public class mainController extends HttpServlet {
     private static final String REJECT_CONTROLLER="RejectPostController";
     private static final String APPROVE="Approve";
     private static final String APPROVE_CONTROLLER="ApprovePostController";
+    private static final String SEARCHJOB="SearchJob";
+    private static final String SEARCHJOB_CONTROLLER="SearchJobController";
     
 
 
@@ -102,6 +104,8 @@ public class mainController extends HttpServlet {
                     url=REJECT_CONTROLLER;
                 }else if(APPROVE.equals(action)){
                     url=APPROVE_CONTROLLER;
+                }else if(SEARCHJOB.equals(action)){
+                    url=SEARCHJOB_CONTROLLER;
                 }
             } catch (Exception e) {
                 log("Error at mainController: " + e.toString());

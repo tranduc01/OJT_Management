@@ -43,7 +43,7 @@
                 <div class="collapse navbar-collapse" id="Navbar">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="JobListController">
+                            <a class="nav-link" href="JobListByPageController">
                                 <span class="fa fa-home fa-lg"></span>
                                 Home
                             </a>

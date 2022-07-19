@@ -105,15 +105,10 @@
                     }
                 %>
 
-
-
             </div>
         </nav>
 
-        
-
         <div id="demo" class="carousel slide" data-ride="carousel">
-
             <!-- Indicators -->
             <ul class="carousel-indicators">
                 <li data-target="#demo" data-slide-to="0" class="active"></li>
@@ -133,11 +128,7 @@
                     <img style="width: 1550px; height: 500px;" src="img/slider-3.jpg">
                 </div>
             </div>
-            <script>
-                $(document).ready(function () {
-                    $(".carousel-inner").carousel({interval: 2000});
-                });
-            </script>
+
             <!-- Left and right controls -->
             <a class="carousel-control-prev" href="#demo" data-slide="prev">
                 <span class="carousel-control-prev-icon"></span>
@@ -145,35 +136,25 @@
             <a class="carousel-control-next" href="#demo" data-slide="next">
                 <span class="carousel-control-next-icon"></span>
             </a>
-
         </div>
 
-        <div class="jumbotron">
-
-            <!--<div>
-                <form action="">
-                    <input type="search" placeholder="Search here ...">
-                    <i class="fa fa-search"></i>
-                </form>
-            </div>-->
-
+        <div class="jumbotron">            
             <div class="row">
-
                 <div class="col-lg-10 mx-auto">
                     <div class="career-search mb-60">
 
-                        <form action="#" class="career-form mb-60">
+                        <form action="mainController" class="career-form mb-60">
                             <div class="row">
                                 <div class="col-md-6 col-lg-4 my-4">
                                     <div class="input-group position-relative">
-                                        <input type="text" class="form-control" placeholder="Enter Your Keywords" id="keywords">
+                                        <input type="text" class="form-control" placeholder="Enter Your Keywords" id="keywords" name="keyword">
                                     </div>
                                 </div>
-                                
+
                                 <div class="col-md-6 col-lg-4 my-4">
                                     <div class="select-container">
-                                        <select class="custom-select">
-                                            <option selected="" style="color: black;">Major</option>
+                                        <select class="custom-select" name="txtmajor">
+                                            <option selected="" style="color: black;">All Majors</option>
                                             <c:forEach var="major" items="${requestScope.majorList}">
                                                 <option value="${major.getMajorID()}" style="color: black;">${major.getMajorName()}</option>
                                             </c:forEach>
@@ -181,17 +162,15 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-lg-4 my-4">
-                                    <button type="button" class="btn btn-lg btn-block btn-light btn-custom" id="contact-submit">
+                                    <button type="submit" class="btn btn-lg btn-block btn-light btn-custom" id="contact-submit" name="action" value="SearchJob">
                                         Search
                                     </button>
                                 </div>
                             </div>
                         </form>
-                        <% 
-            if(request.getAttribute("jobList")!=null){
-        
-        
-        %>
+                        <%
+                            if (request.getAttribute("jobList") != null) {
+                        %>
                         <c:forEach var="job" items="${requestScope.jobList}">
                             <c:forEach var="com" items="${requestScope.companyList}">
                                 <c:forEach var="acc" items="${requestScope.accList}">
@@ -235,11 +214,7 @@
                             <li class="page-item"><a class="page-link" href="mainController?action=viewbypage&page=5">5</a></li>
                             <li class="page-item"><a class="page-link" href="mainController?action=viewbypage&page=6">6</a></li>
                             <li class="page-item"> <a class="page-link" href="#">Next</a> </li>
-                           <!-- <li class="page-item"><a class="page-link" href="mainController?action=viewbypage&page=6">6</a></li>
-                            <li class="page-item"><a class="page-link" href="mainController?action=viewbypage&page=7">7</a></li>
-                            <li class="page-item"><a class="page-link" href="#">...</a></li>
-                            <li class="page-item"><a class="page-link" href="JobListByPageController?page=${requestScope.totalPage}">${requestScope.totalPage}</a></li>
-                            -->
+
                         </ul>
                     </nav>
                     <!-- END Pagination -->
@@ -263,22 +238,18 @@
                         </c:forEach>
                     </div>
 
-
-
                     <!-- If we need navigation buttons -->
                     <div class="swiper-button-prev"></div>
                     <div class="swiper-button-next"></div>
 
-
                 </div>
             </div>
         </div>  
-<% 
-    }else{
-    response.sendRedirect("JobListByPageController");
-}
-%>
-
+        <%
+            } else {
+                response.sendRedirect("JobListByPageController");
+            }
+        %>
 
         <footer>
             <%@include file="footer.jsp" %>
@@ -287,45 +258,48 @@
         <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
         <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
         <script>
-                var loader = document.getElementById("preloader");
-                window.addEventListener("load", function () {
-                    loader.style.display = "none";
-                });
+            var loader = document.getElementById("preloader");
+            window.addEventListener("load", function () {
+                loader.style.display = "none";
+            });
+        </script>
+        <script>
+            $(document).ready(function () {
+                $(".carousel-inner").carousel({interval: 2000});
+            });
         </script>
         <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
         <script type="text/javascript">
-                var swiper = new Swiper(".card_slider", {
-                    spaceBetween: 30,
-                    loop: true,
-                    speed: 1000,
-                    autoplay: {
-                        delay: 2000,
+            var swiper = new Swiper(".card_slider", {
+                spaceBetween: 30,
+                loop: true,
+                speed: 1000,
+                autoplay: {
+                    delay: 2000,
+                },
+                pagination: {
+                    el: ".swiper-pagination",
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: ".swiper-button-next",
+                    prevEl: ".swiper-button-prev"
+                },
+                breakpoints: {
+                    1200: {
+                        slidesPerView: 4,
                     },
-                    pagination: {
-                        el: ".swiper-pagination",
-                        clickable: true,
+                    768: {
+                        slidesPerView: 3,
                     },
-                    navigation: {
-                        nextEl: ".swiper-button-next",
-                        prevEl: ".swiper-button-prev"
+                    480: {
+                        slidesPerView: 2,
                     },
-                    breakpoints: {
-                        1200: {
-                            slidesPerView: 4,
-                        },
-                        768: {
-                            slidesPerView: 3,
-                        },
-                        480: {
-                            slidesPerView: 2,
-                        },
-                        320: {
-                            slidesPerView: 1,
-                        },
+                    320: {
+                        slidesPerView: 1,
                     },
-                });
+                },
+            });
         </script>
-
     </body>
-
 </html>
