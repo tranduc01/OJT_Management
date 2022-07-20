@@ -1,11 +1,9 @@
 <%-- 
-    Document   : index
-    Created on : Jun 6, 2022, 9:59:41 AM
+    Document   : viewSearch
+    Created on : Jul 20, 2022, 10:55:15 AM
     Author     : Tranduc
 --%>
 
-<%@page import="sample.student.StudentDTO"%>
-<%@page import="sample.account.AccountDTO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
@@ -168,9 +166,7 @@
                                 </div>
                             </div>
                         </form>
-                        <%
-                            if (request.getAttribute("jobList") != null) {
-                        %>
+                        
                         <c:forEach var="job" items="${requestScope.jobList}">
                             <c:forEach var="com" items="${requestScope.companyList}">
                                 <c:forEach var="acc" items="${requestScope.accList}">
@@ -204,20 +200,7 @@
                     </div>
 
                     <!-- START Pagination -->
-                    <nav aria-label="Page navigation">
-                        <ul class="pagination pagination-reset justify-content-center">
-                            <li class="page-item"> <a class="page-link" href="#">Prev</a> </li>
-                            <li class="page-item"><a class="page-link" href="mainController?action=viewbypage&page=1">1</a></li>
-                            <li class="page-item"><a class="page-link" href="mainController?action=viewbypage&page=2">2</a></li>
-                            <li class="page-item"><a class="page-link" href="mainController?action=viewbypage&page=3">3</a></li>
-                            <li class="page-item"><a class="page-link" href="mainController?action=viewbypage&page=4">4</a></li>
-                            <li class="page-item"><a class="page-link" href="mainController?action=viewbypage&page=5">5</a></li>
-                            <li class="page-item"><a class="page-link" href="mainController?action=viewbypage&page=6">6</a></li>
-                            <li class="page-item"> <a class="page-link" href="#">Next</a> </li>
-
-                        </ul>
-                    </nav>
-                    <!-- END Pagination -->
+                    
                 </div>   
 
             </div>
@@ -245,11 +228,7 @@
                 </div>
             </div>
         </div>  
-        <%
-            } else {
-                response.sendRedirect("JobListByPageController");
-            }
-        %>
+        
 
         <footer>
             <%@include file="footer.jsp" %>

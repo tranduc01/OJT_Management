@@ -341,4 +341,60 @@ public class JobDAO {
         }
         return result;
     }
+
+    public static ArrayList<JobDTO> JobListBySeach(String keyword, String majorID) throws SQLException {
+        ArrayList<JobDTO> list = new ArrayList<>();
+        Connection cn = null;
+        Statement st = null;
+        ResultSet rs = null;
+        try {
+            cn = DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = "select [jobID],[jobName],[jobTitle],[jobDescription],[jobRequirements],[jobBenefits],[jobSalary],[jobCreateDate],[jobEndDate],[status],amount,majorID,comID\n"
+                        + "from Job\n";
+                if(majorID.equals("all")){
+                    sql=sql+ "where status=1 and jobName like ?";
+                    PreparedStatement pst = cn.prepareStatement(sql);
+                    pst.setString(1, "%"+keyword+"%");
+                    rs = pst.executeQuery();
+                }else{
+                    sql=sql+ "where status=1 and jobName like ? and majorID = ?";
+                    PreparedStatement pst = cn.prepareStatement(sql);
+                    pst.setString(1, "%"+keyword+"%");
+                    pst.setString(2, majorID);
+                    rs = pst.executeQuery();
+                }                                                                                 
+                while (rs != null && rs.next()) {
+                    int jobid = rs.getInt("jobID");
+                    String jobname = rs.getString("jobName");
+                    String jobtitle = rs.getString("jobTitle");
+                    String jobdescription = rs.getString("jobDescription");
+                    String jobrequirement = rs.getString("jobRequirements");
+                    String jobbenefit = rs.getString("jobBenefits");
+                    int salary = rs.getInt("jobSalary");
+                    Date createdate = rs.getDate("jobCreateDate");
+                    Date enddate = rs.getDate("jobEndDate");
+                    int status = rs.getInt("status");
+                    int amount = rs.getInt("amount");
+                    int comid = rs.getInt("comID");
+                    String majorid = rs.getString("majorID");
+                    JobDTO job = new JobDTO(jobid, jobname, jobtitle, jobdescription, jobrequirement, jobbenefit, salary, createdate, enddate, status, amount, comid, majorID);
+                    list.add(job);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (cn != null) {
+                cn.close();
+            }
+            if (st != null) {
+                st.close();
+            }
+            if (rs != null) {
+                rs.close();
+            }
+        }
+        return list;
+    }
 }

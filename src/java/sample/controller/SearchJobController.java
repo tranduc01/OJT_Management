@@ -7,11 +7,20 @@ package sample.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import sample.account.AccountDAO;
+import sample.account.AccountDTO;
+import sample.company.CompanyDAO;
+import sample.company.CompanyDTO;
+import sample.job.JobDAO;
+import sample.job.JobDTO;
+import sample.major.MajorDAO;
+import sample.major.MajorDTO;
 
 /**
  *
@@ -37,6 +46,25 @@ public class SearchJobController extends HttpServlet {
             String keyword=request.getParameter("keyword");
             String major=request.getParameter("txtmajor");
             
+            ArrayList<JobDTO> listJob1 = JobDAO.JobListBySeach(keyword, major);
+            ArrayList<JobDTO> listJob = JobDAO.getJobs();
+            ArrayList<CompanyDTO> listCompany = CompanyDAO.getCompanies();
+            ArrayList<AccountDTO> listAccount=new ArrayList<>();
+            ArrayList<MajorDTO> listMajor=MajorDAO.getMajors();
+                
+            int total=listJob.size()/10;
+            for (CompanyDTO com : listCompany) {
+                AccountDTO account=AccountDAO.getAccountByID(com.getAccID());
+                if(account.getAccId()==com.getAccID()){
+                listAccount.add(account);
+                }
+            }
+                request.setAttribute("totalPage", total);
+                request.setAttribute("companyList", listCompany);
+                request.setAttribute("jobList", listJob1);
+                request.setAttribute("accList", listAccount);
+                request.setAttribute("majorList", listMajor);
+                request.getRequestDispatcher("viewSearch.jsp").forward(request, response);
             
         }catch(Exception e){
             e.printStackTrace();
