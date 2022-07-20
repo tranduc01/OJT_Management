@@ -147,7 +147,7 @@
                             <div class="row">
                                 <div class="col-md-6 col-lg-4 my-4">
                                     <div class="input-group position-relative">
-                                        <input type="text" class="form-control" placeholder="Enter Your Keywords" id="keywords" name="keyword">
+                                        <input type="text" class="form-control" placeholder="Enter Your Keywords" id="keywords" name="keyword" value="<%= (request.getParameter("keyword")==null)?"":(request.getParameter("keyword")) %>">
                                     </div>
                                 </div>
 
