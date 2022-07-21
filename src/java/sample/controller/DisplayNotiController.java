@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,7 +28,8 @@ import sample.student.StudentDTO;
  *
  * @author Tranduc
  */
-public class GetApplicationController extends HttpServlet {
+@WebServlet(name = "DisplayNotiController", urlPatterns = {"/DisplayNotiController"})
+public class DisplayNotiController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,37 +40,47 @@ public class GetApplicationController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try  {
+        String url = "";
+         try  {
             HttpSession session=request.getSession();
-            StudentDTO student=(StudentDTO) session.getAttribute("student");
-            ArrayList<ApplicationDTO> listApp = ApplicationDAO.getApplicationByID(student.getStudentID());
-            ArrayList<JobDTO> listJob = new ArrayList<>();
-            ArrayList<CompanyDTO> listCom = CompanyDAO.getCompanies();
-            ArrayList<AccountDTO> listAcc = new ArrayList<>();
-            for (ApplicationDTO app : listApp) {
+            StudentDTO student=(StudentDTO) session.getAttribute("student");          
+            ArrayList<ApplicationDTO> listApp1 = ApplicationDAO.getApplicationByID(student.getStudentID());
+            ArrayList<JobDTO> listJob1 = new ArrayList<>();
+            ArrayList<CompanyDTO> listCom1 = CompanyDAO.getCompanies();
+            ArrayList<AccountDTO> listAcc1 = new ArrayList<>();
+            for (ApplicationDTO app : listApp1) {
                 JobDTO job = JobDAO.getJobByID(app.getJobID());
-                listJob.add(job);
+                listJob1.add(job);
                             
             }
-            for (CompanyDTO com : listCom) {
+            for (CompanyDTO com : listCom1) {
                  AccountDTO acc = AccountDAO.getAccountByID(com.getAccID());
-                listAcc.add(acc);
+                listAcc1.add(acc);
+            }
+            String action=request.getParameter("action");
+            request.setAttribute("jobList1", listJob1);
+            request.setAttribute("comList1", listCom1);
+            request.setAttribute("appList1", listApp1);
+            request.setAttribute("accList1", listAcc1);
+            if("Log In".equals(action)
+                    ) {
+                url = "index.jsp";
+            }else if("StudentProfilePage".equals(action)){
+                url="student_profile.jsp";
             }
             
-            request.setAttribute("jobList1", listJob);
-            request.setAttribute("comList1", listCom);
-            request.setAttribute("appList1", listApp);
-            request.setAttribute("accList1", listAcc);
             
-            request.getRequestDispatcher("application.jsp").forward(request, response);
             
             
         }catch(Exception e){
             e.printStackTrace();
-        }
+        }finally{
+             request.getRequestDispatcher(url).forward(request, response);
+         }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

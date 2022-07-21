@@ -22,38 +22,38 @@ public class mainController extends HttpServlet {
     private static final String ERROR = "error.jsp";
     private static final String LOGIN = "Log In";
     private static final String LOGIN_CONTROLLER = "LoginController";
-    private static final String UPDATE="updateInfor";
-    private static final String UPDATE_CONTROLLER="UpdateInforController";
-    private static final String LOGOUT="logout";
-    private static final String LOGOUT_CONTROLLER="LogoutController";
-    private static final String JOBDETAILS="jobDetails";
-    private static final String JOBDETAILS_CONTROLLER="JobDetailsController";
-    private static final String CHANGEPASSWORD="ChangePassword";
-    private static final String CHANGEPASSWORD_CONTROLLER="ChangePasswordController"; 
-    private static final String GETAPPLICATION="GetApplication";
-    private static final String GETAPPLICATION_CONTROLLER="GetApplicationController";
-    private static final String COMPANYDETAILS="companyDetails";
-    private static final String COMPANYDETAILS_CONTROLLER="CompanyDetailsController";
-    private static final String ADMIN_STUDENT="AdminPage";
-    private static final String ADMIN_STUDENT_CONTROLLER="AdminStudentController";
-    private static final String INSERTAPPLICATION="InsertApplication";
-    private static final String INSERTAPPLICATION_CONTROLLER="InsertApplicationController";
-    private static final String VIEWAPPLICATIONADMIN="ViewApplicationAdmin";
-    private static final String VIEWAPPLICATIONADMIN_CONTROLLER="ViewApplicationAdminController";
-    private static final String VIEWBYPAGE="viewbypage";
-    private static final String VIEWBYPAGE_CONTROLLER="JobListByPageController";
-    private static final String ADDSTUDENT="AddStudent";
-    private static final String ADDSTUDENT_CONTROLLER="AddStudentController";
-    private static final String POSTDETAIL="PostDetail";
-    private static final String POSTDETAIL_CONTROLLER="PostDetailController";
-    private static final String REJECT="Reject";
-    private static final String REJECT_CONTROLLER="RejectPostController";
-    private static final String APPROVE="Approve";
-    private static final String APPROVE_CONTROLLER="ApprovePostController";
-    private static final String SEARCHJOB="SearchJob";
-    private static final String SEARCHJOB_CONTROLLER="SearchJobController";
-    
-
+    private static final String UPDATE = "updateInfor";
+    private static final String UPDATE_CONTROLLER = "UpdateInforController";
+    private static final String LOGOUT = "logout";
+    private static final String LOGOUT_CONTROLLER = "LogoutController";
+    private static final String JOBDETAILS = "jobDetails";
+    private static final String JOBDETAILS_CONTROLLER = "JobDetailsController";
+    private static final String CHANGEPASSWORD = "ChangePassword";
+    private static final String CHANGEPASSWORD_CONTROLLER = "ChangePasswordController";
+    private static final String GETAPPLICATION = "GetApplication";
+    private static final String GETAPPLICATION_CONTROLLER = "GetApplicationController";
+    private static final String COMPANYDETAILS = "companyDetails";
+    private static final String COMPANYDETAILS_CONTROLLER = "CompanyDetailsController";
+    private static final String ADMIN_STUDENT = "AdminPage";
+    private static final String ADMIN_STUDENT_CONTROLLER = "AdminStudentController";
+    private static final String INSERTAPPLICATION = "InsertApplication";
+    private static final String INSERTAPPLICATION_CONTROLLER = "InsertApplicationController";
+    private static final String VIEWAPPLICATIONADMIN = "ViewApplicationAdmin";
+    private static final String VIEWAPPLICATIONADMIN_CONTROLLER = "ViewApplicationAdminController";
+    private static final String VIEWBYPAGE = "viewbypage";
+    private static final String VIEWBYPAGE_CONTROLLER = "JobListByPageController";
+    private static final String ADDSTUDENT = "AddStudent";
+    private static final String ADDSTUDENT_CONTROLLER = "AddStudentController";
+    private static final String POSTDETAIL = "PostDetail";
+    private static final String POSTDETAIL_CONTROLLER = "PostDetailController";
+    private static final String REJECT = "Reject";
+    private static final String REJECT_CONTROLLER = "RejectPostController";
+    private static final String APPROVE = "Approve";
+    private static final String APPROVE_CONTROLLER = "ApprovePostController";
+    private static final String SEARCHJOB = "SearchJob";
+    private static final String SEARCHJOB_CONTROLLER = "SearchJobController";
+    private static final String STUDENTPROFILE = "StudentProfilePage";
+    private static final String STUDENTPROFILE_CONTROLLER = "StudentProfileController";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -69,51 +69,52 @@ public class mainController extends HttpServlet {
 
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
-       
-            /* TODO output your page here. You may use following sample code. */
 
-            try {
-                String action = request.getParameter("action");
-                if(LOGIN.equals(action)){
-                    url=LOGIN_CONTROLLER;
-                }else if(UPDATE.equals(action)){
-                    url=UPDATE_CONTROLLER;
-                }else if(LOGOUT.equals(action)){
-                    url=LOGOUT_CONTROLLER;
-                }else if(JOBDETAILS.equals(action)){
-                    url=JOBDETAILS_CONTROLLER;
-                }else if(CHANGEPASSWORD.equals(action)){
-                    url=CHANGEPASSWORD_CONTROLLER;
-                }else if(GETAPPLICATION.equals(action)){
-                    url=GETAPPLICATION_CONTROLLER;
-                }else if(COMPANYDETAILS.equals(action)){
-                    url=COMPANYDETAILS_CONTROLLER;
-                }else if(ADMIN_STUDENT.equals(action)){
-                    url=ADMIN_STUDENT_CONTROLLER;
-                }else if(INSERTAPPLICATION.equals(action)){
-                    url=INSERTAPPLICATION_CONTROLLER;
-                }else if(VIEWAPPLICATIONADMIN.equals(action)){
-                    url=VIEWAPPLICATIONADMIN_CONTROLLER;
-                }else if(VIEWBYPAGE.equals(action)){
-                    url=VIEWBYPAGE_CONTROLLER;
-                }else if(ADDSTUDENT.equals(action)){
-                    url=ADDSTUDENT_CONTROLLER;
-                }else if(POSTDETAIL.equals(action)){
-                    url=POSTDETAIL_CONTROLLER;
-                }else if(REJECT.equals(action)){
-                    url=REJECT_CONTROLLER;
-                }else if(APPROVE.equals(action)){
-                    url=APPROVE_CONTROLLER;
-                }else if(SEARCHJOB.equals(action)){
-                    url=SEARCHJOB_CONTROLLER;
-                }
-            } catch (Exception e) {
-                log("Error at mainController: " + e.toString());
-            } finally {
-                RequestDispatcher rd = request.getRequestDispatcher(url);
-                rd.forward(request, response);
+        /* TODO output your page here. You may use following sample code. */
+        try {
+            String action = request.getParameter("action");
+            if (LOGIN.equals(action)) {
+                url = LOGIN_CONTROLLER;
+            } else if (UPDATE.equals(action)) {
+                url = UPDATE_CONTROLLER;
+            } else if (LOGOUT.equals(action)) {
+                url = LOGOUT_CONTROLLER;
+            } else if (JOBDETAILS.equals(action)) {
+                url = JOBDETAILS_CONTROLLER;
+            } else if (CHANGEPASSWORD.equals(action)) {
+                url = CHANGEPASSWORD_CONTROLLER;
+            } else if (GETAPPLICATION.equals(action)) {
+                url = GETAPPLICATION_CONTROLLER;
+            } else if (COMPANYDETAILS.equals(action)) {
+                url = COMPANYDETAILS_CONTROLLER;
+            } else if (ADMIN_STUDENT.equals(action)) {
+                url = ADMIN_STUDENT_CONTROLLER;
+            } else if (INSERTAPPLICATION.equals(action)) {
+                url = INSERTAPPLICATION_CONTROLLER;
+            } else if (VIEWAPPLICATIONADMIN.equals(action)) {
+                url = VIEWAPPLICATIONADMIN_CONTROLLER;
+            } else if (VIEWBYPAGE.equals(action)) {
+                url = VIEWBYPAGE_CONTROLLER;
+            } else if (ADDSTUDENT.equals(action)) {
+                url = ADDSTUDENT_CONTROLLER;
+            } else if (POSTDETAIL.equals(action)) {
+                url = POSTDETAIL_CONTROLLER;
+            } else if (REJECT.equals(action)) {
+                url = REJECT_CONTROLLER;
+            } else if (APPROVE.equals(action)) {
+                url = APPROVE_CONTROLLER;
+            } else if (SEARCHJOB.equals(action)) {
+                url = SEARCHJOB_CONTROLLER;
+            }else if(STUDENTPROFILE.equals(action)){
+                url=STUDENTPROFILE_CONTROLLER;
             }
-        
+        } catch (Exception e) {
+            log("Error at mainController: " + e.toString());
+        } finally {
+            RequestDispatcher rd = request.getRequestDispatcher(url);
+            rd.forward(request, response);
+        }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

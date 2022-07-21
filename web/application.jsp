@@ -82,11 +82,69 @@
                             </a>
                         </li>
                     </ul>
+                    <ul class="navbar-nav navbar-nav-right ml-auto align-items-center">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
+                                <i class="fa-regular fa-bell mx-0"></i>
+                                <span class="count"></span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
+                                <p class="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
+                                
+                                <c:forEach items="${requestScope.appList1}" var="app">   
+                                <c:forEach items="${requestScope.jobList1}" var="job">  
+                                    <c:forEach items="${requestScope.comList1}" var="com">                                                                                                   
+                                        <c:forEach items="${requestScope.accList1}" var="acc">
+                                            <c:if test="${app.getJobID() eq job.getJobID()}">
+                                                <c:if test="${job.getComID() eq com.getComID()}">
+                                                    <c:if test="${acc.getAccId() eq com.getAccID()}">   
+                                                        <a class="dropdown-item preview-item" href="mainController?action=GetApplication">
+                                                            <div class="preview-thumbnail">
+                                                                <div class="preview-icon">
+                                                                    <img src="${acc.getAvatar()}" style="object-fit: cover;
+                                                                         overflow: hidden;
+                                                                         height: 100%;
+                                                                         width: 80px;
+                                                                         padding-right: 20px;"/>
+                                                                </div>
+                                                            </div>
+                                                            <div class="preview-item-content">
+                                                                <h5 class="preview-subject font-weight-normal">${acc.getName()}</h5>
+                                                                <h6 class="preview-subject font-weight-normal">${job.getJobName()}</h6>
+
+                                                                <p class="font-weight-light small-text mb-0 text-muted">
+                                                                    ${app.getApplyDate()}
+                                                                </p>
+                                                            </div>
+                                                        </a>
+                                                    </c:if>
+                                                </c:if>
+                                            </c:if>
+                                        </c:forEach>
+                                    </c:forEach>
+                                </c:forEach>
+                            </c:forEach>
+                                
+                                
+                            </div>
+                        </li>
+                        <li class="nav-item nav-profile dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
+                                <img src="${sessionScope.acc.getAvatar()}" style="width: 40px;
+                                     height: 40px;
+                                     border-radius: 100%;"/>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
+                               
+                                <a class="dropdown-item" href="mainController?action=logout">
+                                    <i class="fa fa-power-off" style="color: #f27229;"></i>
+                                    Logout
+                                </a>
+                            </div>
+                        </li>       
+                    </ul>
                 </div>
-                <span class="navbar-text ml-auto">
-                    <a href="mainController?action=logout">
-                        <span class="fa fa-sign-in"></span> Logout</a>
-                </span>
+
             </div>
         </nav>
 
@@ -109,10 +167,10 @@
                                 </thead>
                                 <tbody>
 
-                                    <c:forEach items="${requestScope.appList}" var="app">   
-                                        <c:forEach items="${requestScope.jobList}" var="job">  
-                                            <c:forEach items="${requestScope.comList}" var="com">                                                                                                   
-                                                <c:forEach items="${requestScope.accList}" var="acc">
+                                    <c:forEach items="${requestScope.appList1}" var="app">   
+                                        <c:forEach items="${requestScope.jobList1}" var="job">  
+                                            <c:forEach items="${requestScope.comList1}" var="com">                                                                                                   
+                                                <c:forEach items="${requestScope.accList1}" var="acc">
                                                     <c:if test="${app.getJobID() eq job.getJobID()}">
                                                         <c:if test="${job.getComID() eq com.getComID()}">
                                                             <c:if test="${acc.getAccId() eq com.getAccID()}">                                                                                                                                                                                                                                         
@@ -128,15 +186,15 @@
                                                                         <c:if test="${app.getStatus() eq 3}"><h5><span class="badge badge-danger">Rejected</span></h5></c:if>
                                                                         <c:if test="${app.getStatus() eq 2}"><h5><span class="badge badge-warning">Pending</span></h5></c:if>
                                                                         <c:if test="${app.getStatus() eq 1}"><h5><span class="badge badge-success">Accepted</span></h5></c:if>
-                                                                    </td>                             
-                                                                    <td class="text-center">
+                                                                        </td>                             
+                                                                        <td class="text-center">
                                                                         ${job.getJobName()}
                                                                     </td>
                                                                     <td class="text-center">
                                                                         <c:if test="${app.getStu_confirm()==0 && app.getCom_conirm()==1}">
                                                                             <h4><button class="badge badge-success"><i class="fa-solid fa-check"></i></button>
-                                                                            <button class="badge badge-danger"><i class="fa-solid fa-ban"></i></button></h4>
-                                                                        </c:if>
+                                                                                <button class="badge badge-danger"><i class="fa-solid fa-ban"></i></button></h4>
+                                                                                </c:if>
                                                                     </td>
                                                                 </tr>
                                                             </c:if>
@@ -155,9 +213,7 @@
             </div>
         </div>
 
-        <footer>
-            <%@include file="footer.jsp" %>
-        </footer>
+
 
         <script>
     var loader = document.getElementById("preloader");

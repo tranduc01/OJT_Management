@@ -9,25 +9,23 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import sample.account.AccountDAO;
 import sample.account.AccountDTO;
-import sample.application.ApplicationDAO;
-import sample.application.ApplicationDTO;
-import sample.company.CompanyDAO;
-import sample.company.CompanyDTO;
-import sample.job.JobDAO;
-import sample.job.JobDTO;
+import sample.major.MajorDAO;
+import sample.major.MajorDTO;
+import sample.student.StudentDAO;
 import sample.student.StudentDTO;
 
 /**
  *
  * @author Tranduc
  */
-public class GetApplicationController extends HttpServlet {
+@WebServlet(name = "StudentProfileController", urlPatterns = {"/StudentProfileController"})
+public class StudentProfileController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,30 +40,16 @@ public class GetApplicationController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try  {
+            /* TODO output your page here. You may use following sample code. */
             HttpSession session=request.getSession();
-            StudentDTO student=(StudentDTO) session.getAttribute("student");
-            ArrayList<ApplicationDTO> listApp = ApplicationDAO.getApplicationByID(student.getStudentID());
-            ArrayList<JobDTO> listJob = new ArrayList<>();
-            ArrayList<CompanyDTO> listCom = CompanyDAO.getCompanies();
-            ArrayList<AccountDTO> listAcc = new ArrayList<>();
-            for (ApplicationDTO app : listApp) {
-                JobDTO job = JobDAO.getJobByID(app.getJobID());
-                listJob.add(job);
-                            
-            }
-            for (CompanyDTO com : listCom) {
-                 AccountDTO acc = AccountDAO.getAccountByID(com.getAccID());
-                listAcc.add(acc);
-            }
-            
-            request.setAttribute("jobList1", listJob);
-            request.setAttribute("comList1", listCom);
-            request.setAttribute("appList1", listApp);
-            request.setAttribute("accList1", listAcc);
-            
-            request.getRequestDispatcher("application.jsp").forward(request, response);
-            
-            
+            StudentDTO student = (StudentDTO) session.getAttribute("student");
+            ArrayList<MajorDTO> list = MajorDAO.getMajors();
+            for (MajorDTO majorDTO : list) {
+                        if (majorDTO.getMajorID().equals(student.getMajorID())) {
+                            session.setAttribute("majorName", majorDTO.getMajorName());
+                        }
+                    }           
+            request.getRequestDispatcher("DisplayNotiController").forward(request, response);
         }catch(Exception e){
             e.printStackTrace();
         }

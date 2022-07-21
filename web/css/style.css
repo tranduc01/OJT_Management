@@ -520,3 +520,33 @@ ul {
 .mb-30 {
     margin-bottom: 30px;
 }
+
+.navbar-dropdown {
+    position: absolute;
+    font-size: 0.9rem;
+    margin-top: 0px;
+    right: 0px;
+    left: auto;
+    top: 70px;
+}
+.dropdown-header {
+    display: block;
+    margin-bottom: 0px;
+    font-size: 0.875rem;
+    color: rgb(31, 31, 31);
+    white-space: nowrap;
+    padding: 0.5rem 1.5rem;
+    font-weight: bolder;
+}
+.dropdown-item {
+    margin-bottom: 0px;
+    cursor: pointer;
+    padding: 0.687rem 1.562rem;
+}
+.nav-item.dropdown .navbar-dropdown .dropdown-item, .navbar .navbar-menu-wrapper .navbar-nav.navbar-nav-right .nav-item {
+    align-items: center !important;
+}
+.preview-list .preview-item {
+    display: flex;
+    flex-direction: row;
+}

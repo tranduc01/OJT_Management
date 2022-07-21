@@ -57,15 +57,10 @@ public class LoginController extends HttpServlet {
                     session.setAttribute("accEmail", acc.getEmail());
                     session.setAttribute("name", acc.getName());
                     session.setAttribute("acc", acc);
-                    session.setAttribute("role", acc.getRole());
+                    session.setAttribute("role", acc.getRole());   
                     StudentDTO student = StudentDAO.getStudentByAccount(acc.getAccId());
                     session.setAttribute("student", student);
-                    for (MajorDTO majorDTO : list) {
-                        if (majorDTO.getMajorID().equals(student.getMajorID())) {
-                            session.setAttribute("majorName", majorDTO.getMajorName());
-                        }
-                    }
-                    request.getRequestDispatcher("JobListController").forward(request, response);
+                    request.getRequestDispatcher("JobListByPageController").forward(request, response);
                 } else {
                     session.setAttribute("accEmail", acc.getEmail());
                     session.setAttribute("name", acc.getName());
