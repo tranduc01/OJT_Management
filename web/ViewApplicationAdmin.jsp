@@ -84,9 +84,6 @@
         </div>
         <style>
             @import url('https://fonts.googleapis.com/css?family=Assistant');
-
-
-
             body {
                 font-family: "Poppins", sans-serif;
                 height: 100vh;

@@ -49,7 +49,7 @@ public class StudentProfileController extends HttpServlet {
                             session.setAttribute("majorName", majorDTO.getMajorName());
                         }
                     }           
-            request.getRequestDispatcher("DisplayNotiController").forward(request, response);
+            request.getRequestDispatcher("student_profile.jsp").forward(request, response);
         }catch(Exception e){
             e.printStackTrace();
         }

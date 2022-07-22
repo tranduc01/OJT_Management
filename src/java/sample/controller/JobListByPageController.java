@@ -67,7 +67,7 @@ public class JobListByPageController extends HttpServlet {
                 request.setAttribute("jobList", listJob1);
                 request.setAttribute("accList", listAccount);
                 request.setAttribute("majorList", listMajor);
-                request.getRequestDispatcher("DisplayNotiController").forward(request, response);
+                request.getRequestDispatcher("index.jsp").forward(request, response);
             } catch (Exception ex) {
                 ex.printStackTrace();
             }

@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.ArrayList;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -16,6 +17,17 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import sample.account.AccountDAO;
+import sample.account.AccountDTO;
+import sample.application.ApplicationDAO;
+import sample.application.ApplicationDTO;
+import sample.company.CompanyDAO;
+import sample.company.CompanyDTO;
+import sample.job.JobDAO;
+import sample.job.JobDTO;
+import sample.student.StudentDTO;
 
 /**
  *
@@ -100,6 +112,32 @@ public class Utf8Filter implements Filter {
             FilterChain chain)
             throws IOException, ServletException {
         request.setCharacterEncoding("UTF-8");
+        try{
+            HttpServletRequest httpReq = (HttpServletRequest) request;
+            HttpSession session = httpReq.getSession();
+            StudentDTO student=(StudentDTO) session.getAttribute("student");     
+            if(student!=null){
+            ArrayList<ApplicationDTO> listApp1 = ApplicationDAO.getApplicationByID(student.getStudentID());
+            ArrayList<JobDTO> listJob1 = new ArrayList<>();
+            ArrayList<CompanyDTO> listCom1 = CompanyDAO.getCompanies();
+            ArrayList<AccountDTO> listAcc1 = new ArrayList<>();
+            for (ApplicationDTO app : listApp1) {
+                JobDTO job = JobDAO.getJobByID(app.getJobID());
+                listJob1.add(job);
+                            
+            }
+            for (CompanyDTO com : listCom1) {
+                 AccountDTO acc = AccountDAO.getAccountByID(com.getAccID());
+                listAcc1.add(acc);
+            }
+            request.setAttribute("jobList1", listJob1);
+            request.setAttribute("comList1", listCom1);
+            request.setAttribute("appList1", listApp1);
+            request.setAttribute("accList1", listAcc1);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
         chain.doFilter(request, response);
         
         

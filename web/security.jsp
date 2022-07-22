@@ -7,10 +7,11 @@
 <%@page import="sample.student.StudentDTO"%>
 <%@page import="sample.account.AccountDTO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <%
     String email = (String) session.getAttribute("accEmail");
-    if (email==null) {
+    if (email == null) {
 %>
 <script>
     window.alert("You need to login first !!");
@@ -19,15 +20,15 @@
 %>
 <%
 } else {
-int role=(int) session.getAttribute("role");
-if(role==0 || role==2){
+    int role = (int) session.getAttribute("role");
+    if (role == 0 || role == 2) {
 %>
 <script>
     window.alert("You don't have permission to access this site !!!");
     window.location.href = "JobListController";
 </script>
 %><%
-}else{
+} else {
 %>
 <html>
     <head>
@@ -50,12 +51,12 @@ if(role==0 || role==2){
         <title>Security</title>
     </head>
     <body>     
-        
+
         <div id="preloader">
             <img src="img/loader.gif"/>
         </div>
         <% AccountDTO acc = (AccountDTO) session.getAttribute("acc");
-           StudentDTO stu = (StudentDTO) session.getAttribute("student");
+            StudentDTO stu = (StudentDTO) session.getAttribute("student");
         %>
         <nav class="navbar navbar-dark navbar-expand-md">
             <div class="container">
@@ -72,7 +73,7 @@ if(role==0 || role==2){
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="mainController?action=GetApplication&stuID=<%= stu.getStudentID() %>">
+                            <a class="nav-link" href="mainController?action=GetApplication&stuID=<%= stu.getStudentID()%>">
                                 <span class="far fa-file-alt"></span>
                                 Application
                             </a>
@@ -84,7 +85,7 @@ if(role==0 || role==2){
                             </a>
                         </li>
                     </ul>
-                                <ul class="navbar-nav navbar-nav-right ml-auto align-items-center">
+                    <ul class="navbar-nav navbar-nav-right ml-auto align-items-center">
                         <li class="nav-item dropdown">
                             <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
                                 <i class="fa-regular fa-bell mx-0"></i>
@@ -92,50 +93,44 @@ if(role==0 || role==2){
                             </a>
                             <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
                                 <p class="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
-                                <a class="dropdown-item preview-item">
-                                    <div class="preview-thumbnail">
-                                        <div class="preview-icon bg-success">
-                                            <i class="ti-info-alt mx-0"></i>
-                                        </div>
-                                    </div>
-                                    <div class="preview-item-content">
-                                        <h6 class="preview-subject font-weight-normal">Application Error</h6>
-                                        <p class="font-weight-light small-text mb-0 text-muted">
-                                            Just now
-                                        </p>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item preview-item">
-                                    <div class="preview-thumbnail">
-                                        <div class="preview-icon bg-warning">
-                                            <i class="ti-settings mx-0"></i>
-                                        </div>
-                                    </div>
-                                    <div class="preview-item-content">
-                                        <h6 class="preview-subject font-weight-normal">Settings</h6>
-                                        <p class="font-weight-light small-text mb-0 text-muted">
-                                            Private message
-                                        </p>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item preview-item">
-                                    <div class="preview-thumbnail">
-                                        <div class="preview-icon bg-info">
-                                            <i class="ti-user mx-0"></i>
-                                        </div>
-                                    </div>
-                                    <div class="preview-item-content">
-                                        <h6 class="preview-subject font-weight-normal">New user registration</h6>
-                                        <p class="font-weight-light small-text mb-0 text-muted">
-                                            2 days ago
-                                        </p>
-                                    </div>
-                                </a>
+                                <c:forEach items="${requestScope.appList1}" var="app">   
+                                <c:forEach items="${requestScope.jobList1}" var="job">  
+                                    <c:forEach items="${requestScope.comList1}" var="com">                                                                                                   
+                                        <c:forEach items="${requestScope.accList1}" var="acc">
+                                            <c:if test="${app.getJobID() eq job.getJobID()}">
+                                                <c:if test="${job.getComID() eq com.getComID()}">
+                                                    <c:if test="${acc.getAccId() eq com.getAccID()}">   
+                                                        <a class="dropdown-item preview-item" href="mainController?action=GetApplication">
+                                                            <div class="preview-thumbnail">
+                                                                <div class="preview-icon">
+                                                                    <img src="${acc.getAvatar()}" style="object-fit: cover;
+                                                                         overflow: hidden;
+                                                                         height: 100%;
+                                                                         width: 80px;
+                                                                         padding-right: 20px;"/>
+                                                                </div>
+                                                            </div>
+                                                            <div class="preview-item-content">
+                                                                <h5 class="preview-subject font-weight-normal">${acc.getName()}</h5>
+                                                                <h6 class="preview-subject font-weight-normal">${job.getJobName()}</h6>
+
+                                                                <p class="font-weight-light small-text mb-0 text-muted">
+                                                                    ${app.getApplyDate()}
+                                                                </p>
+                                                            </div>
+                                                        </a>
+                                                    </c:if>
+                                                </c:if>
+                                            </c:if>
+                                        </c:forEach>
+                                    </c:forEach>
+                                </c:forEach>
+                            </c:forEach>
                             </div>
                         </li>
                         <li class="nav-item nav-profile dropdown">
                             <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-                                <img src="${sessionScope.acc.getAvatar()}" style="width: 40px;
+                                <img src="<%= acc.getAvatar()%>" style="width: 40px;
                                      height: 40px;
                                      border-radius: 100%;"/>
                             </a>
@@ -149,7 +144,7 @@ if(role==0 || role==2){
                         </li>       
                     </ul>
                 </div>
-                
+
             </div>
         </nav>
 
@@ -166,7 +161,7 @@ if(role==0 || role==2){
                                 <!-- Profile picture image-->
                                 <img class="img-account-profile rounded-circle mb-2" src="<%= acc.getAvatar()%>" alt="">
                                 <p><%= acc.getName()%></p>
-                                <p><%= stu.getStudentID() %></p>
+                                <p><%= stu.getStudentID()%></p>
                             </div>
                         </div>
                     </div>
@@ -198,8 +193,8 @@ if(role==0 || role==2){
                                 %>
 
                                 <script>
-                                        window.alert("Password change successfully !!!");
-                                        window.location.href = "student_profile.jsp";
+                                    window.alert("Password change successfully !!!");
+                                    window.location.href = "student_profile.jsp";
                                 </script>
                                 %>
                                 <%
@@ -216,15 +211,15 @@ if(role==0 || role==2){
             </div>
         </div>
 
-       
+
         <script>
-            var loader=document.getElementById("preloader");
-            window.addEventListener("load",function (){
-                loader.style.display="none";
+            var loader = document.getElementById("preloader");
+            window.addEventListener("load", function () {
+                loader.style.display = "none";
             });
         </script>
     </body>
 </html>
 <%}
-}
+    }
 %>
