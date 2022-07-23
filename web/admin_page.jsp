@@ -49,7 +49,7 @@
                 <div class="collapse navbar-collapse" id="Navbar">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="postManagement.jsp">
+                            <a class="nav-link" href="JobsPostController">
                                 <span class="fa-solid fa-users"></span>
                                 Home
                             </a>
@@ -200,12 +200,10 @@
                 <tbody>
                     <c:forEach var="stu" items="${requestScope.stuList}">
                         <c:forEach var="acc" items="${requestScope.accList}">
-
                             <c:if test="${stu.getAccID() eq acc.getAccId()}">
-
                                 <tr>
                                     <td>${stu.getStudentID()}</td>
-                                    <td>${stu.getStudentName()}</td>
+                                    <td><a data-toggle="modal" data-target="#myModalAddInfor">${stu.getStudentName()}</a></td>
                                     <td>${acc.getBirthday()}</td>
                                     <td>${stu.getMajorID()}</td>
                                     <td>${stu.getSemesterID()}</td>

@@ -108,7 +108,7 @@
                 <div class="col-lg-7">
                     <!-- Featured blog post-->
                     <div class="card1 mb-4">
-                        <a href="#!"><img class="card1-img-top" src="${com.getBannerImage()}" alt="..." /></a>
+                        <img class="card1-img-top" src="${com.getBannerImage()}" />
                         <div class="card1-body">
 
                             <h2 class="card1-title">About Us</h2>

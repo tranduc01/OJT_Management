@@ -28,7 +28,7 @@ public class AccountDAO {
             cn=DBUtils.makeConnection();
             if(cn!=null){
                 String sql = "select [accID],[email],[password],[name],[phone],[birthday],[avatar],[cv],[createDate],[roleID],[status]\n"
-                        + "from Account ";
+                        + "from Account";
                 st=cn.createStatement();
                 rs=st.executeQuery(sql);
                 while(rs!=null && rs.next()){

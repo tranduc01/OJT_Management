@@ -53,6 +53,40 @@ public class CompanyDAO {
         return com;
     }
     
+    public static CompanyDTO getCompanyByAccID(int accID) throws SQLException{
+        CompanyDTO com=null;
+        Connection cn=null;
+        PreparedStatement pst=null;
+        ResultSet rs=null;
+        try {
+            cn=DBUtils.makeConnection();
+            if(cn!=null){
+                String sql = "select [comID],[comDescription],[comAddress],website,bannerImage,[accID]\n"
+                        + "from [Company]\n"
+                        + "where accID=?";
+                pst=cn.prepareStatement(sql);
+                pst.setInt(1, accID);
+                rs=pst.executeQuery();
+                if(rs!=null && rs.next()){
+                    int comid=rs.getInt("comID");
+                    String comdescription=rs.getString("comDescription");
+                    String comaddress=rs.getString("comAddress");
+                    int accid=rs.getInt("accID");
+                    String website=rs.getString("website");
+                    String banner=rs.getString("bannerImage");
+                    com=new CompanyDTO(comid, comdescription, comaddress, accid, website, banner);
+                }
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally{
+            if(cn!=null) cn.close();
+            if(pst!=null) pst.close();
+            if(rs!=null) rs.close();
+        }
+        return com;
+    }
     public static ArrayList<CompanyDTO> getCompanies() throws SQLException{
     ArrayList<CompanyDTO> list=new ArrayList<>();
         Connection cn=null;

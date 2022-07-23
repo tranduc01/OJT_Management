@@ -69,14 +69,13 @@
                         String link = "";
 
                         if (role == 0) {
-                            link = "mainController?action=AdminPage";
+                            link = "JobsPostController";
 
                         } else if (role == 1) {
-                            link = "student_profile.jsp";
+                            link = "mainController?action=StudentProfilePage";
 
                         } else {
-                            link = "company_page.jsp";
-
+                            link = "CompanyHomePageController";
                         }
                 %> 
 

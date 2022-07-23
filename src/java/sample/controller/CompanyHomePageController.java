@@ -6,24 +6,29 @@
 package sample.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import sample.account.AccountDAO;
 import sample.account.AccountDTO;
+import sample.company.CompanyDAO;
+import sample.company.CompanyDTO;
+import sample.job.JobDAO;
+import sample.job.JobDTO;
 import sample.major.MajorDAO;
 import sample.major.MajorDTO;
-import sample.student.StudentDAO;
-import sample.student.StudentDTO;
 
 /**
  *
  * @author Tranduc
  */
-public class LoginController extends HttpServlet {
+@WebServlet(name = "CompanyHomePageController", urlPatterns = {"/CompanyHomePageController"})
+public class CompanyHomePageController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,46 +42,33 @@ public class LoginController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
-        try {
+        try  {
+            /* TODO output your page here. You may use following sample code. */
             HttpSession session=request.getSession();
-            String email = request.getParameter("txtemail");
-            String password = request.getParameter("txtpassword");
-            AccountDTO acc = AccountDAO.loginAccount(email, password);
-          
-            
-            ArrayList<MajorDTO> list = MajorDAO.getMajors();
-            if (acc != null) {
-                if (acc.getRole() == 0) {                   
-                    session.setAttribute("accEmail", acc.getEmail());
-                    session.setAttribute("name", acc.getName());
-                    session.setAttribute("role", acc.getRole());
-                    session.setAttribute("acc", acc);
-                    request.getRequestDispatcher("JobsPostController").forward(request, response);
-                } else if (acc.getRole() == 1) {                 
-                    session.setAttribute("accEmail", acc.getEmail());
-                    session.setAttribute("name", acc.getName());
-                    session.setAttribute("acc", acc);
-                    session.setAttribute("role", acc.getRole());   
-                    StudentDTO student = StudentDAO.getStudentByAccount(acc.getAccId());
-                    session.setAttribute("student", student);
-                    request.getRequestDispatcher("JobListByPageController").forward(request, response);
-                } else {
-                    session.setAttribute("accEmail", acc.getEmail());
-                    session.setAttribute("name", acc.getName());
-                    session.setAttribute("role", acc.getRole());
-                    session.setAttribute("acc", acc);
-                    request.getRequestDispatcher("CompanyHomePageController").forward(request, response);
+            AccountDTO acc=(AccountDTO) session.getAttribute("acc");
+            CompanyDTO company=CompanyDAO.getCompanyByAccID(acc.getAccId());
+            ArrayList<JobDTO> listJob1 = JobDAO.getJobByComID(company.getComID());
+            ArrayList<JobDTO> listJob = JobDAO.getJobs();
+            ArrayList<CompanyDTO> listCompany = CompanyDAO.getCompanies();
+            ArrayList<AccountDTO> listAccount=new ArrayList<>();
+            ArrayList<MajorDTO> listMajor=MajorDAO.getMajors();
+                
+            for (CompanyDTO com : listCompany) {
+                AccountDTO account=AccountDAO.getAccountByID(com.getAccID());
+                if(account.getAccId()==com.getAccID()){
+                listAccount.add(account);
                 }
-            } else {
-                String loginError = "Invalid Email or Password !!!";
-                request.setAttribute("loginError", loginError);
-                request.getRequestDispatcher("login.jsp").forward(request, response);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+                request.setAttribute("companyList", listCompany);
+                request.setAttribute("jobList", listJob1);
+                request.setAttribute("accList", listAccount);
+                request.setAttribute("majorList", listMajor);
+                request.getRequestDispatcher("company_page.jsp").forward(request, response);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+            
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

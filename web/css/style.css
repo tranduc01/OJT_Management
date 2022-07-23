@@ -549,4 +549,6 @@ ul {
 .preview-list .preview-item {
     display: flex;
     flex-direction: row;
+    border-bottom: 2px;
+    color: black;
 }
