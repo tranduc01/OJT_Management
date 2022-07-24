@@ -33,8 +33,6 @@
         <title>FPT OJT</title>
     </head>
     <body>
-
-
         <div id="preloader">
             <img src="img/loader.gif"/>
         </div>
