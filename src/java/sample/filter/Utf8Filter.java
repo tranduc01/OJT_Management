@@ -27,6 +27,7 @@ import sample.company.CompanyDAO;
 import sample.company.CompanyDTO;
 import sample.job.JobDAO;
 import sample.job.JobDTO;
+import sample.student.StudentDAO;
 import sample.student.StudentDTO;
 
 /**
@@ -115,7 +116,9 @@ public class Utf8Filter implements Filter {
         try{
             HttpServletRequest httpReq = (HttpServletRequest) request;
             HttpSession session = httpReq.getSession();
-            StudentDTO student=(StudentDTO) session.getAttribute("student");     
+            AccountDTO account = (AccountDTO) session.getAttribute("acc");
+            if(account!=null){
+            StudentDTO student = StudentDAO.getStudentByAccount(account.getAccId());
             if(student!=null){
             ArrayList<ApplicationDTO> listApp1 = ApplicationDAO.getApplicationByID(student.getStudentID());
             ArrayList<JobDTO> listJob1 = new ArrayList<>();
@@ -134,7 +137,7 @@ public class Utf8Filter implements Filter {
             request.setAttribute("comList1", listCom1);
             request.setAttribute("appList1", listApp1);
             request.setAttribute("accList1", listAcc1);
-            }
+            }}
         }catch(Exception e){
             e.printStackTrace();
         }

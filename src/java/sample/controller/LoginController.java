@@ -52,14 +52,13 @@ public class LoginController extends HttpServlet {
                     session.setAttribute("name", acc.getName());
                     session.setAttribute("role", acc.getRole());
                     session.setAttribute("acc", acc);
-                    request.getRequestDispatcher("JobsPostController").forward(request, response);
+                    request.getRequestDispatcher("admin_statistic.jsp").forward(request, response);
                 } else if (acc.getRole() == 1) {                 
                     session.setAttribute("accEmail", acc.getEmail());
                     session.setAttribute("name", acc.getName());
                     session.setAttribute("acc", acc);
                     session.setAttribute("role", acc.getRole());   
-                    StudentDTO student = StudentDAO.getStudentByAccount(acc.getAccId());
-                    session.setAttribute("student", student);
+                    
                     request.getRequestDispatcher("JobListByPageController").forward(request, response);
                 } else {
                     session.setAttribute("accEmail", acc.getEmail());

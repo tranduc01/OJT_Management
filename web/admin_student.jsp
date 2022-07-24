@@ -49,9 +49,15 @@
                 <div class="collapse navbar-collapse" id="Navbar">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="JobsPostController">
-                                <span class="fa-solid fa-users"></span>
+                            <a class="nav-link" href="admin_statistic.jsp">                            
+                                <span class="fa-solid fa-house"></span>
                                 Home
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="JobsPostController">
+                                <span class="fa-solid fa-briefcase"></span>
+                                Post
                             </a>
                         </li>
                         <li class="nav-item active">
@@ -208,8 +214,8 @@
                                     <td>${stu.getMajorID()}</td>
                                     <td>${stu.getSemesterID()}</td>
                                     <td>${acc.getCrateDate()}</td>
-                                    <td><c:if test="${acc.getCvPath() eq null}"><span class="badge badge-danger">No</span></c:if>
-                                        <c:if test="${acc.getCvPath() ne null}"><span class="badge badge-success">Yes</span></c:if>
+                                    <td><c:if test="${stu.getCvPath() eq null}"><span class="badge badge-danger">No</span></c:if>
+                                        <c:if test="${stu.getCvPath() ne null}"><span class="badge badge-success">Yes</span></c:if>
                                     </td>
                                     <c:set var="app" scope="request" value="${ApplicationDAO.getApplicationByID(stu.getStudentID())}"/>                                   
                                     <td>

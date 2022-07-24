@@ -27,7 +27,7 @@ public class AccountDAO {
         try{
             cn=DBUtils.makeConnection();
             if(cn!=null){
-                String sql = "select [accID],[email],[password],[name],[phone],[birthday],[avatar],[cv],[createDate],[roleID],[status]\n"
+                String sql = "select [accID],[email],[password],[name],[phone],[birthday],[avatar],[createDate],[roleID],[status]\n"
                         + "from Account";
                 st=cn.createStatement();
                 rs=st.executeQuery(sql);
@@ -38,12 +38,11 @@ public class AccountDAO {
                     String name=rs.getString("name");
                     String phone=rs.getString("phone");
                     String avatar=rs.getString("avatar");
-                    String cv=rs.getString("cv");
                     Date birthday=rs.getDate("birthday");
                     Date createdate=rs.getDate("createDate");
                     int roleid=rs.getInt("roleID");
                     int status=rs.getInt("status");
-                    AccountDTO acc=new AccountDTO(accid, Email, Password, name, phone, avatar, cv, birthday, roleid, status, createdate);
+                    AccountDTO acc=new AccountDTO(accid, Email, Password, name, phone, avatar, birthday, roleid, status, createdate);
                     list.add(acc);
                 }
             }
@@ -64,7 +63,7 @@ public class AccountDAO {
         try {
             cn=DBUtils.makeConnection();
             if(cn!=null){
-                String sql = "select [accID],[email],[password],[name],[phone],[birthday],[avatar],[cv],[createDate],[roleID],[status]\n"
+                String sql = "select [accID],[email],[password],[name],[phone],[birthday],[avatar],[createDate],[roleID],[status]\n"
                         + "from Account\n"
                         + "where status=1 and email=? and password=? Collate Latin1_General_CS_AS";
                 pst=cn.prepareStatement(sql);
@@ -78,12 +77,11 @@ public class AccountDAO {
                     String name=rs.getString("name");
                     String phone=rs.getString("phone");
                     String avatar=rs.getString("avatar");
-                    String cv=rs.getString("cv");
                     Date birthday=rs.getDate("birthday");
                     Date createdate=rs.getDate("createDate");
                     int roleid=rs.getInt("roleID");
                     int status=rs.getInt("status");
-                    acc=new AccountDTO(accid, Email, Password, name, phone, avatar, cv, birthday, roleid, status, createdate);
+                    acc=new AccountDTO(accid, Email, Password, name, phone, avatar, birthday, roleid, status, createdate);
                 }
             }
         } catch (Exception e) {
@@ -103,7 +101,7 @@ public class AccountDAO {
         try {
             cn=DBUtils.makeConnection();
             if(cn!=null){
-                String sql = "select [accID],[email],[password],[name],[phone],[birthday],[avatar],[cv],[createDate],[roleID],[status]\n"
+                String sql = "select [accID],[email],[password],[name],[phone],[birthday],[avatar],[createDate],[roleID],[status]\n"
                         + "from Account\n"
                         + "where status=1 and email=?";
                 pst=cn.prepareStatement(sql);
@@ -117,11 +115,10 @@ public class AccountDAO {
                     String phone=rs.getString("phone");
                     String avatar=rs.getString("avatar");
                     Date birthday=rs.getDate("birthday");
-                    String cv=rs.getString("cv");
                     Date createdate=rs.getDate("createDate");
                     int roleid=rs.getInt("roleID");
                     int status=rs.getInt("status");
-                    acc=new AccountDTO(accid, Email, Password, name, phone, avatar, cv, birthday, roleid, status, createdate);
+                    acc=new AccountDTO(accid, Email, Password, name, phone, avatar, birthday, roleid, status, createdate);
                 }
             }
         } catch (Exception e) {
@@ -142,7 +139,7 @@ public class AccountDAO {
         try {
             cn=DBUtils.makeConnection();
             if(cn!=null){
-                String sql = "select [accID],[email],[password],[name],[phone],[birthday],[avatar],[cv],[createDate],[roleID],[status]\n"
+                String sql = "select [accID],[email],[password],[name],[phone],[birthday],[avatar],[createDate],[roleID],[status]\n"
                         + "from Account\n"
                         + "where status=1 and Account.[accID]=?";
                 pst=cn.prepareStatement(sql);
@@ -157,10 +154,9 @@ public class AccountDAO {
                     String avatar=rs.getString("avatar");
                     Date birthday=rs.getDate("birthday");
                     Date createdate=rs.getDate("createDate");
-                    String cv=rs.getString("cv");
                     int roleid=rs.getInt("roleID");
                     int status=rs.getInt("status");
-                    acc=new AccountDTO(accid, Email, Password, name, phone, avatar, cv, birthday, roleid, status, createdate);
+                    acc=new AccountDTO(accid, Email, Password, name, phone, avatar, birthday, roleid, status, createdate);
                 }
             }
         } catch (Exception e) {
@@ -195,29 +191,7 @@ public class AccountDAO {
         }
         return result;
     }
-    public static int updateCVPath(String email,String newPath) throws SQLException{
-        int result=0;
-        Connection cn=null;
-        PreparedStatement pst=null;
-        try {
-            cn=DBUtils.makeConnection();
-            if(cn!=null){
-                String sql = "update [Account]\n"
-                        + "set [cv]=?\n"
-                        + "where email=?";
-                pst=cn.prepareStatement(sql);
-                pst.setString(1, newPath);
-                pst.setString(2, email);
-                pst.executeUpdate();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }finally{
-            if(cn!=null) cn.close();
-            if(pst!=null) pst.close();           
-        }
-        return result;
-    }
+     
     public static int updateProfile(String email,String newName,String newPhone,String newBirthday) throws SQLException{
         int result=0;
         Connection cn=null;

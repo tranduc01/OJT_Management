@@ -56,7 +56,7 @@
             <img src="img/loader.gif"/>
         </div>
         <% AccountDTO acc = (AccountDTO) session.getAttribute("acc");
-            StudentDTO stu = (StudentDTO) session.getAttribute("student");
+            StudentDTO stu = (StudentDTO) request.getAttribute("student");
         %>
 
         <nav class="navbar navbar-dark navbar-expand-md">
@@ -68,7 +68,7 @@
                 <div class="collapse navbar-collapse" id="Navbar">
                     <ul class="navbar-nav">
                         <li class="nav-item active">
-                            <a class="nav-link" href="student_profile.jsp">
+                            <a class="nav-link" href="StudentProfileController">
                                 <span class="fas fa-id-card"></span>
                                 Profile
                             </a>
@@ -94,39 +94,102 @@
                             </a>
                             <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
                                 <p class="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
+                                <c:if test="${sessionScope.role ==1}">
                                 <c:forEach items="${requestScope.appList1}" var="app">   
-                                <c:forEach items="${requestScope.jobList1}" var="job">  
-                                    <c:forEach items="${requestScope.comList1}" var="com">                                                                                                   
-                                        <c:forEach items="${requestScope.accList1}" var="acc">
-                                            <c:if test="${app.getJobID() eq job.getJobID()}">
-                                                <c:if test="${job.getComID() eq com.getComID()}">
-                                                    <c:if test="${acc.getAccId() eq com.getAccID()}">   
-                                                        <a class="dropdown-item preview-item" href="mainController?action=GetApplication">
-                                                            <div class="preview-thumbnail">
-                                                                <div class="preview-icon">
-                                                                    <img src="${acc.getAvatar()}" style="object-fit: cover;
-                                                                         overflow: hidden;
-                                                                         height: 100%;
-                                                                         width: 80px;
-                                                                         padding-right: 20px;"/>
-                                                                </div>
-                                                            </div>
-                                                            <div class="preview-item-content">
-                                                                <h5 class="preview-subject font-weight-normal">${acc.getName()}</h5>
-                                                                <h6 class="preview-subject font-weight-normal">${job.getJobName()}</h6>
-
-                                                                <p class="font-weight-light small-text mb-0 text-muted">
-                                                                    ${app.getApplyDate()}
-                                                                </p>
-                                                            </div>
-                                                        </a>
+                                    <c:forEach items="${requestScope.jobList1}" var="job">  
+                                        <c:forEach items="${requestScope.comList1}" var="com">                                                                                                   
+                                            <c:forEach items="${requestScope.accList1}" var="acc">
+                                                <c:if test="${app.getJobID() eq job.getJobID()}">
+                                                    <c:if test="${job.getComID() eq com.getComID()}">
+                                                        <c:if test="${acc.getAccId() eq com.getAccID()}">   
+                                                            <c:if test="${app.getStu_confirm() eq 1 && app.getCom_conirm() eq 0 }">
+                                                                <a class="dropdown-item preview-item" href="mainController?action=GetApplication">
+                                                                    <div class="preview-thumbnail">
+                                                                        <div class="preview-icon">
+                                                                            <img src="${acc.getAvatar()}" style="object-fit: cover;
+                                                                                 overflow: hidden;
+                                                                                 height: 100%;
+                                                                                 width: 80px;
+                                                                                 padding-right: 20px;"/>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="preview-item-content">
+                                                                        <p class="preview-subject font-weight-normal" style="margin-bottom: 0px;">${acc.getName()}</p>
+                                                                        <p style="color: green;margin-bottom: 0px;">Successfully submitted your application !!!</p>
+                                                                        <p class="font-weight-light small-text mb-0 text-muted" style="margin-bottom: 0px;">
+                                                                            ${app.getApplyDate()}
+                                                                        </p>
+                                                                    </div>
+                                                                </a>
+                                                            </c:if>
+                                                            <c:if test="${app.getStu_confirm() eq 1 && app.getCom_conirm() eq 2 }">
+                                                                <a class="dropdown-item preview-item" href="mainController?action=GetApplication">
+                                                                    <div class="preview-thumbnail">
+                                                                        <div class="preview-icon">
+                                                                            <img src="${acc.getAvatar()}" style="object-fit: cover;
+                                                                                 overflow: hidden;
+                                                                                 height: 100%;
+                                                                                 width: 80px;
+                                                                                 padding-right: 20px;"/>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="preview-item-content">
+                                                                        <p class="preview-subject font-weight-normal" style="margin-bottom: 0px;">${acc.getName()}</p>
+                                                                        <p style="color: tomato;margin-bottom: 0px;">New update on application !!!</p>
+                                                                        <p class="font-weight-light small-text mb-0 text-muted">
+                                                                            ${app.getApplyDate()}
+                                                                        </p>
+                                                                    </div>
+                                                                </a>
+                                                            </c:if>
+                                                            <c:if test="${app.getStu_confirm() eq 1 && app.getCom_conirm() eq 1 }">
+                                                                <a class="dropdown-item preview-item" href="mainController?action=GetApplication">
+                                                                    <div class="preview-thumbnail">
+                                                                        <div class="preview-icon">
+                                                                            <img src="${acc.getAvatar()}" style="object-fit: cover;
+                                                                                 overflow: hidden;
+                                                                                 height: 100%;
+                                                                                 width: 80px;
+                                                                                 padding-right: 20px;"/>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="preview-item-content">
+                                                                        <p class="preview-subject font-weight-normal" style="margin-bottom: 0px;">${acc.getName()}</p>
+                                                                        <p style="color: tomato;margin-bottom: 0px;">New update on application !!!</p>
+                                                                        <p class="font-weight-light small-text mb-0 text-muted">
+                                                                            ${app.getApplyDate()}
+                                                                        </p>
+                                                                    </div>
+                                                                </a>
+                                                            </c:if>
+                                                            <c:if test="${app.getStu_confirm() eq 0 && app.getCom_conirm() eq 1 }">
+                                                                <a class="dropdown-item preview-item" href="mainController?action=GetApplication">
+                                                                    <div class="preview-thumbnail">
+                                                                        <div class="preview-icon">
+                                                                            <img src="${acc.getAvatar()}" style="object-fit: cover;
+                                                                                 overflow: hidden;
+                                                                                 height: 100%;
+                                                                                 width: 80px;
+                                                                                 padding-right: 20px;"/>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="preview-item-content">
+                                                                        <p class="preview-subject font-weight-normal" style="margin-bottom: 0px;">${acc.getName()}</p>
+                                                                        <p style="color: yellowgreen;margin-bottom: 0px;">Received a new offer !!!</p>
+                                                                        <p class="font-weight-light small-text mb-0 text-muted">
+                                                                            ${app.getApplyDate()}
+                                                                        </p>
+                                                                    </div>
+                                                                </a>
+                                                            </c:if>
+                                                        </c:if>
                                                     </c:if>
                                                 </c:if>
-                                            </c:if>
+                                            </c:forEach>
                                         </c:forEach>
                                     </c:forEach>
                                 </c:forEach>
-                            </c:forEach>
+                            </c:if>
                             </div>
                         </li>
                         <li class="nav-item nav-profile dropdown">
@@ -229,9 +292,9 @@
                                 </form>
 
 
-                                <% if (acc.getCvPath() != null) {
+                                <% if (stu.getCvPath() != null) {
                                 %>                     
-                                <a href="<%= acc.getCvPath()%>">View CV</a>
+                                <a href="<%= stu.getCvPath()%>">View CV</a>
                                 <%
                                     }%>
 
@@ -263,7 +326,7 @@
                                         <!-- Form Group (location)-->
                                         <div class="col-md-6">
                                             <label class="small mb-1" for="inputLocation">Major</label>
-                                            <input class="form-control" name="txtmajor" value="${sessionScope.majorName}" readonly="">
+                                            <input class="form-control" name="txtmajor" value="${requestScope.majorName}" readonly="">
 
 
                                         </div>

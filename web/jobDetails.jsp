@@ -358,10 +358,10 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <c:if test="${stuAcc.getCvPath() != null}">
-                                Your CV: <a href="${stuAcc.getCvPath()}">View</a>
+                            <c:if test="${stu.getCvPath() != null}">
+                                Your CV: <a href="${stu.getCvPath()}">View</a>
                             </c:if>
-                            <c:if test="${stuAcc.getCvPath() == null}">
+                            <c:if test="${stu.getCvPath() == null}">
                                 <p>Please Upload your CV first !!!</p>
                             </c:if>
 
@@ -369,7 +369,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn" data-dismiss="modal" style="font-weight: bold;">Close</button>
-                            <c:if test="${stuAcc.getCvPath() != null}">
+                            <c:if test="${stu.getCvPath() != null}">
                                 <button type="submit" class="btn" style="font-weight: bold;" value="InsertApplication" name="action">Apply</button>
                             </c:if>
                         </div>

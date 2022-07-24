@@ -53,7 +53,7 @@ public class AdminStudentController extends HttpServlet {
             request.setAttribute("majorList", majorList);
             request.setAttribute("accList", accList);
             request.setAttribute("appList", appList);
-            request.getRequestDispatcher("admin_page.jsp").forward(request, response);
+            request.getRequestDispatcher("admin_student.jsp").forward(request, response);
         }catch(Exception e){
             e.printStackTrace();
         }

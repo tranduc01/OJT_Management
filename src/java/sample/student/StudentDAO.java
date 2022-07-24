@@ -26,7 +26,7 @@ public class StudentDAO {
         try {
             cn=DBUtils.makeConnection();
             if (cn != null) {
-                String sql = "select [stuID],[Student].accID,[majorID],[semID],Account.email as 'Email',Account.name as 'stuName'\n"
+                String sql = "select [stuID],cv,[Student].accID,[majorID],[semID],Account.email as 'Email',Account.name as 'stuName'\n"
                         + "from Student join Account on Student.accID=Account.accID\n"
                         + "where Student.accID=?";
                 pst=cn.prepareStatement(sql);
@@ -38,7 +38,8 @@ public class StudentDAO {
                     String semid=rs.getString("semID");
                     String email=rs.getString("Email");
                     String stuname=rs.getString("stuName");
-                    stu=new StudentDTO(stuname, stuid, semid, email, majorid, accID);
+                    String cv=rs.getString("cv");
+                    stu=new StudentDTO(stuname, stuid, semid, email, majorid, cv, accID);
                 }
             }
         } catch (Exception e) {
@@ -58,7 +59,7 @@ public class StudentDAO {
         try {
             cn=DBUtils.makeConnection();
             if (cn != null) {
-                String sql = "select [stuID],[Student].accID as 'accID',[majorID],[semID],Account.email as 'Email',Account.name as 'stuName'\n"
+                String sql = "select [stuID],cv,[Student].accID as 'accID',[majorID],[semID],Account.email as 'Email',Account.name as 'stuName'\n"
                         + "from Student join Account on Student.accID=Account.accID";
                         
                 st=cn.createStatement();
@@ -70,7 +71,8 @@ public class StudentDAO {
                     String semid=rs.getString("semID");
                     String email=rs.getString("Email");
                     String stuname=rs.getString("stuName");
-                    StudentDTO stu=new StudentDTO(stuname, stuid, semid, email, majorid, accid);
+                    String cv=rs.getString("cv");
+                    StudentDTO stu=new StudentDTO(stuname, stuid, semid, email, majorid, cv, accid);
                     list.add(stu);
                 }
             }
@@ -96,6 +98,29 @@ public class StudentDAO {
                 pst.setInt(2, accID);
                 pst.setString(3, majorID);
                 pst.setString(4, semID);
+                pst.executeUpdate();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally{
+            if(cn!=null) cn.close();
+            if(pst!=null) pst.close();           
+        }
+        return result;
+    }
+    public static int updateCVPath(String stuID,String newPath) throws SQLException{
+        int result=0;
+        Connection cn=null;
+        PreparedStatement pst=null;
+        try {
+            cn=DBUtils.makeConnection();
+            if(cn!=null){
+                String sql = "update [Student]\n"
+                        + "set [cv]=?\n"
+                        + "where stuID=?";
+                pst=cn.prepareStatement(sql);
+                pst.setString(1, newPath);
+                pst.setString(2, stuID);
                 pst.executeUpdate();
             }
         } catch (Exception e) {

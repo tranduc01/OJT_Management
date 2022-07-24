@@ -36,7 +36,7 @@
         <div id="preloader">
             <img src="img/loader.gif"/>
         </div>
-        <nav class="navbar navbar-dark navbar-expand-md">
+       <nav class="navbar navbar-dark navbar-expand-md">
             <div class="container">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#Navbar">
                     <span class="navbar-toggler-icon"></span>
@@ -45,12 +45,18 @@
                 <div class="collapse navbar-collapse" id="Navbar">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link active" href="JobsPostController">
-                                <span class="fa-solid fa-users"></span>
+                            <a class="nav-link" href="admin_statistic.jsp">                            
+                                <span class="fa-solid fa-house"></span>
                                 Home
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="JobsPostController">
+                                <span class="fa-solid fa-briefcase"></span>
+                                Post
+                            </a>
+                        </li>
+                        <li class="nav-item ">
                             <a class="nav-link" href="AdminStudentController">
                                 <span class="fa-solid fa-users"></span>
                                 Students

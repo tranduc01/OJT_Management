@@ -42,13 +42,16 @@ public class StudentProfileController extends HttpServlet {
         try  {
             /* TODO output your page here. You may use following sample code. */
             HttpSession session=request.getSession();
-            StudentDTO student = (StudentDTO) session.getAttribute("student");
+            AccountDTO acc = (AccountDTO) session.getAttribute("acc");
+            StudentDTO student = StudentDAO.getStudentByAccount(acc.getAccId());
+                    
             ArrayList<MajorDTO> list = MajorDAO.getMajors();
             for (MajorDTO majorDTO : list) {
                         if (majorDTO.getMajorID().equals(student.getMajorID())) {
-                            session.setAttribute("majorName", majorDTO.getMajorName());
+                            request.setAttribute("majorName", majorDTO.getMajorName());
                         }
-                    }           
+                    }          
+            request.setAttribute("student", student);
             request.getRequestDispatcher("student_profile.jsp").forward(request, response);
         }catch(Exception e){
             e.printStackTrace();

@@ -21,6 +21,7 @@ import sample.company.CompanyDAO;
 import sample.company.CompanyDTO;
 import sample.job.JobDAO;
 import sample.job.JobDTO;
+import sample.student.StudentDAO;
 import sample.student.StudentDTO;
 
 /**
@@ -43,7 +44,8 @@ public class GetApplicationController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try  {
             HttpSession session=request.getSession();
-            StudentDTO student=(StudentDTO) session.getAttribute("student");
+            AccountDTO account = (AccountDTO) session.getAttribute("acc");
+            StudentDTO student = StudentDAO.getStudentByAccount(account.getAccId());
             ArrayList<ApplicationDTO> listApp = ApplicationDAO.getApplicationByID(student.getStudentID());
             ArrayList<JobDTO> listJob = new ArrayList<>();
             ArrayList<CompanyDTO> listCom = CompanyDAO.getCompanies();
