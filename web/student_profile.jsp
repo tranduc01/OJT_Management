@@ -20,11 +20,21 @@
 %>
 <%
 } else {
+    int role = (int) session.getAttribute("role");
+    if (role == 0 || role == 2) {
+%>
+<script>
+    window.alert("You don't have permission to access this site !!!");
+    window.location.href = "JobListByPageController";
+</script>
+%><%
+} else {
 %>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="css/style.css"  />
+        <link rel="stylesheet" href="css/noti.css"  />
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
 
@@ -42,26 +52,29 @@
         <title>Student's Profile</title>
     </head>
     <body>
+        <div id="preloader">
+            <img src="img/loader.gif"/>
+        </div>
         <% AccountDTO acc = (AccountDTO) session.getAttribute("acc");
-           StudentDTO stu = (StudentDTO) session.getAttribute("student");
+            StudentDTO stu = (StudentDTO) request.getAttribute("student");
         %>
 
-        <nav class="navbar navbar-dark navbar-expand-md fixed-top">
+        <nav class="navbar navbar-dark navbar-expand-md">
             <div class="container">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#Navbar">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <a class="navbar-brand mr-auto" href="JobListController"><img src="img/logo.png" height="30" width="41"></a>
+                <a class="navbar-brand mr-auto" href="JobListByPageController"><img src="img/logo.png" height="30" width="41"></a>
                 <div class="collapse navbar-collapse" id="Navbar">
                     <ul class="navbar-nav">
                         <li class="nav-item active">
-                            <a class="nav-link" href="student_profile.jsp">
+                            <a class="nav-link" href="StudentProfileController">
                                 <span class="fas fa-id-card"></span>
-                                Home
+                                Profile
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="mainController?action=GetApplication&stuID=<%=stu.getStudentID()%>">
+                            <a class="nav-link" href="mainController?action=GetApplication">
                                 <span class="far fa-file-alt"></span>
                                 Application
                             </a>
@@ -73,16 +86,134 @@
                             </a>
                         </li>
                     </ul>
+                    <ul class="navbar-nav navbar-nav-right ml-auto align-items-center">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
+                                <i class="fa-regular fa-bell mx-0"></i>
+                                <span class="count"></span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
+                                <p class="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
+                                <c:if test="${sessionScope.role ==1}">
+                                <c:forEach items="${requestScope.appList1}" var="app">   
+                                    <c:forEach items="${requestScope.jobList1}" var="job">  
+                                        <c:forEach items="${requestScope.comList1}" var="com">                                                                                                   
+                                            <c:forEach items="${requestScope.accList1}" var="acc">
+                                                <c:if test="${app.getJobID() eq job.getJobID()}">
+                                                    <c:if test="${job.getComID() eq com.getComID()}">
+                                                        <c:if test="${acc.getAccId() eq com.getAccID()}">   
+                                                            <c:if test="${app.getStu_confirm() eq 1 && app.getCom_conirm() eq 0 }">
+                                                                <a class="dropdown-item preview-item" href="mainController?action=GetApplication">
+                                                                    <div class="preview-thumbnail">
+                                                                        <div class="preview-icon">
+                                                                            <img src="${acc.getAvatar()}" style="object-fit: cover;
+                                                                                 overflow: hidden;
+                                                                                 height: 100%;
+                                                                                 width: 80px;
+                                                                                 padding-right: 20px;"/>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="preview-item-content">
+                                                                        <p class="preview-subject font-weight-normal" style="margin-bottom: 0px;">${acc.getName()}</p>
+                                                                        <p style="color: green;margin-bottom: 0px;">Successfully submitted your application !!!</p>
+                                                                        <p class="font-weight-light small-text mb-0 text-muted" style="margin-bottom: 0px;">
+                                                                            ${app.getApplyDate()}
+                                                                        </p>
+                                                                    </div>
+                                                                </a>
+                                                            </c:if>
+                                                            <c:if test="${app.getStu_confirm() eq 1 && app.getCom_conirm() eq 2 }">
+                                                                <a class="dropdown-item preview-item" href="mainController?action=GetApplication">
+                                                                    <div class="preview-thumbnail">
+                                                                        <div class="preview-icon">
+                                                                            <img src="${acc.getAvatar()}" style="object-fit: cover;
+                                                                                 overflow: hidden;
+                                                                                 height: 100%;
+                                                                                 width: 80px;
+                                                                                 padding-right: 20px;"/>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="preview-item-content">
+                                                                        <p class="preview-subject font-weight-normal" style="margin-bottom: 0px;">${acc.getName()}</p>
+                                                                        <p style="color: tomato;margin-bottom: 0px;">New update on application !!!</p>
+                                                                        <p class="font-weight-light small-text mb-0 text-muted">
+                                                                            ${app.getApplyDate()}
+                                                                        </p>
+                                                                    </div>
+                                                                </a>
+                                                            </c:if>
+                                                            <c:if test="${app.getStu_confirm() eq 1 && app.getCom_conirm() eq 1 }">
+                                                                <a class="dropdown-item preview-item" href="mainController?action=GetApplication">
+                                                                    <div class="preview-thumbnail">
+                                                                        <div class="preview-icon">
+                                                                            <img src="${acc.getAvatar()}" style="object-fit: cover;
+                                                                                 overflow: hidden;
+                                                                                 height: 100%;
+                                                                                 width: 80px;
+                                                                                 padding-right: 20px;"/>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="preview-item-content">
+                                                                        <p class="preview-subject font-weight-normal" style="margin-bottom: 0px;">${acc.getName()}</p>
+                                                                        <p style="color: tomato;margin-bottom: 0px;">New update on application !!!</p>
+                                                                        <p class="font-weight-light small-text mb-0 text-muted">
+                                                                            ${app.getApplyDate()}
+                                                                        </p>
+                                                                    </div>
+                                                                </a>
+                                                            </c:if>
+                                                            <c:if test="${app.getStu_confirm() eq 0 && app.getCom_conirm() eq 1 }">
+                                                                <a class="dropdown-item preview-item" href="mainController?action=GetApplication">
+                                                                    <div class="preview-thumbnail">
+                                                                        <div class="preview-icon">
+                                                                            <img src="${acc.getAvatar()}" style="object-fit: cover;
+                                                                                 overflow: hidden;
+                                                                                 height: 100%;
+                                                                                 width: 80px;
+                                                                                 padding-right: 20px;"/>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="preview-item-content">
+                                                                        <p class="preview-subject font-weight-normal" style="margin-bottom: 0px;">${acc.getName()}</p>
+                                                                        <p style="color: yellowgreen;margin-bottom: 0px;">Received a new offer !!!</p>
+                                                                        <p class="font-weight-light small-text mb-0 text-muted">
+                                                                            ${app.getApplyDate()}
+                                                                        </p>
+                                                                    </div>
+                                                                </a>
+                                                            </c:if>
+                                                        </c:if>
+                                                    </c:if>
+                                                </c:if>
+                                            </c:forEach>
+                                        </c:forEach>
+                                    </c:forEach>
+                                </c:forEach>
+                            </c:if>
+                            </div>
+                        </li>
+                        <li class="nav-item nav-profile dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
+                                <img src="<%= acc.getAvatar()%>" style="width: 40px;
+                                     height: 40px;
+                                     border-radius: 100%;"/>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
+                                
+                                <a class="dropdown-item" href="mainController?action=logout">
+                                    <i class="fa fa-power-off" style="color: #f27229;"></i>
+                                    Logout
+                                </a>
+                            </div>
+                        </li>       
+                    </ul>
                 </div>
-                <span class="navbar-text ml-auto">
-                    <a href="mainController?action=logout">
-                        <span class="fa fa-sign-in"></span> Logout</a>
-                </span>
+
             </div>
         </nav>
 
         <div class="container">
-            <h3>Welcome ${sessionScope.name}</h3>
+            <h3 style="padding-top: 10px;">Welcome ${acc.getName()} !!!</h3>
 
             <div class="container-xl px-4 mt-4">
                 <!-- Account page navigation-->
@@ -160,18 +291,18 @@
                                     <%= (request.getAttribute("noCV") == null) ? "" : request.getAttribute("noCV")%>
                                 </form>
 
-                                
-                                <% if(acc.getCvPath()!=null){
-                                    %>                     
-                                    <a href="<%= acc.getCvPath() %>">View CV</a>
+
+                                <% if (stu.getCvPath() != null) {
+                                %>                     
+                                <a href="<%= stu.getCvPath()%>">View CV</a>
                                 <%
-                                }%>
+                                    }%>
 
                             </div>
                         </div>
                     </div>
 
-                            
+
                     <div class="col-xl-8">
                         <!-- Account details card-->
                         <div class="card mb-4">
@@ -185,19 +316,19 @@
                                     </div>
                                     <!-- Form Row-->
 
-                                    <!-- Form Row        -->
+                                    <!-- Form Row-->
                                     <div class="row gx-3 mb-3">
                                         <!-- Form Group (organization name)-->
                                         <div class="col-md-6">
                                             <label class="small mb-1" for="inputPhone">Student ID</label>
-                                            <input class="form-control" id="inputPhone" type="tel" name="txtstuid" value="<%= stu.getStudentID() %>" readonly="">
+                                            <input class="form-control" id="inputPhone" type="tel" name="txtstuid" value="<%= stu.getStudentID()%>" readonly="">
                                         </div>
                                         <!-- Form Group (location)-->
                                         <div class="col-md-6">
                                             <label class="small mb-1" for="inputLocation">Major</label>
-                                            <input class="form-control" name="txtmajor" value="${sessionScope.majorName}" readonly="">
-                                               
-                                           
+                                            <input class="form-control" name="txtmajor" value="${requestScope.majorName}" readonly="">
+
+
                                         </div>
                                     </div>
                                     <!-- Form Group (email address)-->
@@ -218,7 +349,7 @@
                                             <input class="form-control" id="inputBirthday" type="date" name="txtbirthday" value="<%= acc.getBirthday()%>">
                                         </div>
                                     </div>
-                                            <%= (request.getAttribute("success") == null) ? "" : request.getAttribute("success")%> </br>
+                                    <%= (request.getAttribute("success") == null) ? "" : request.getAttribute("success")%> </br>
                                     <!-- Save changes button-->
                                     <button class="btn btn-primary" type="submit" name="action" value="updateInfor">Save changes</button>
                                 </form>
@@ -228,14 +359,21 @@
                 </div>
             </div>
         </div>
-                                            <footer>
-                                                <%@include file="footer.jsp" %>
-                                            </footer>
+
+
+
 
         <script src="node_modules/jquery/dist/jquery.slim.min.js"></script>
         <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
         <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script>
+    var loader = document.getElementById("preloader");
+    window.addEventListener("load", function () {
+        loader.style.display = "none";
+    });
+        </script>
     </body>
 </html>
 <%}
+    }
 %>

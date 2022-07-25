@@ -5,6 +5,7 @@
  */
 package sample.test;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import sample.account.AccountDAO;
 import sample.account.AccountDTO;
@@ -16,62 +17,20 @@ import sample.job.JobDAO;
 import sample.job.JobDTO;
 import sample.major.MajorDAO;
 import sample.major.MajorDTO;
+import sample.student.StudentDAO;
+import sample.student.StudentDTO;
 
 /**
  *
  * @author Tranduc
  */
 public class test {
-
     public static void main(String[] args) {
-        try {
-
-            ArrayList<ApplicationDTO> listApp = ApplicationDAO.getApplicationByID("SE151204");
-            ArrayList<JobDTO> listJob = new ArrayList<>();
-            ArrayList<CompanyDTO> listCom = new ArrayList<>();
-            ArrayList<AccountDTO> listAcc = new ArrayList<>();
-            for (ApplicationDTO app : listApp) {
-                JobDTO job = JobDAO.getJobByID(app.getJobID());
-                listJob.add(job);
-                CompanyDTO com = CompanyDAO.getCompanyByID(job.getComID());
-                if(job.getJobID()==com.getComID()){
-                    listCom.add(com);
-                }             
-            }
-            for (CompanyDTO com : listCom) {
-                 AccountDTO acc = AccountDAO.getAccountByID(com.getAccID());
-                listAcc.add(acc);
-            }
-//            System.out.println(listAcc.size());
-//            System.out.println(listApp.size());
-//            System.out.println(listCom.size());
-//            System.out.println(listJob.size());
-            
-//            for (JobDTO job : listJob) {
-//                
-//                listCom.add(com);
-//            }
-
-            for (ApplicationDTO app : listApp) {
-                for (JobDTO job : listJob) {                  
-                            for (CompanyDTO com : listCom) {
-                                for (AccountDTO acc : listAcc) {
-                                if (app.getJobID() == job.getJobID()) {
-                                if (job.getComID() == com.getComID()) {
-                                    if (com.getAccID() == acc.getAccId()) {
-                                        System.out.println(acc.getName());
-                                    }
-                                }
-                            }
-                        }
-
-                    }
-                }
-
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        int total=0;
+        for(int i=3;i<=30;i=i+3){
+            total=total+i;
+            i=i+2;
         }
-
+        System.out.println(total);
     }
 }

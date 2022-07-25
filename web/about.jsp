@@ -31,22 +31,25 @@
         <title>FPT OJT</title>
     </head>
     <body>
-        <nav class="navbar navbar-dark navbar-expand-md fixed-top">
+        <div id="preloader">
+            <img src="img/loader.gif"/>
+        </div>
+        <nav class="navbar navbar-dark navbar-expand-md">
             <div class="container">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#Navbar">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <a class="navbar-brand mr-auto" href="JobListController"><img src="img/logo.png" height="30" width="41"></a>
+                <a class="navbar-brand mr-auto" href="JobListByPageController"><img src="img/logo.png" height="30" width="41"></a>
                 <div class="collapse navbar-collapse" id="Navbar">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="JobListController">
+                            <a class="nav-link" href="JobListByPageController">
                                 <span class="fa fa-home fa-lg"></span>
                                 Home
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="jobs.jsp">
+                            <a class="nav-link" href="JobsPageController">
                                 <span class="fa fa-briefcase fa-lg"></span>
                                 Jobs
                             </a>
@@ -60,17 +63,147 @@
                     </ul>
                 </div>
                 <% String email = (String) session.getAttribute("accEmail");
+
                     if (email != null) {
+                        int role = (int) session.getAttribute("role");
+                        String link = "";
+
+                        if (role == 0) {
+                            link = "JobsPostController";
+
+                        } else if (role == 1) {
+                            link = "mainController?action=StudentProfilePage";
+
+                        } else {
+                            link = "CompanyHomePageController";
+                        }
                 %> 
 
-                <span class="navbar-text ml-auto">
-                    <a  href="student_profile.jsp">
-                        <span class="fa fa-user-o fa-lg"></span> ${sessionScope.name}               
-                    </a>
-                </span>
-                <span class="navbar-text ml-auto">
-                    <a href="mainController?action=logout"><span class="fa fa-sign-out"></span> Logout</a>
-                </span>
+                <ul class="navbar-nav navbar-nav-right ml-auto align-items-center">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
+                            <i class="fa-regular fa-bell mx-0"></i>
+                            <span class="count"></span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
+                            <p class="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
+
+                            <c:if test="${sessionScope.role ==1}">
+                                <c:forEach items="${requestScope.appList1}" var="app">   
+                                    <c:forEach items="${requestScope.jobList1}" var="job">  
+                                        <c:forEach items="${requestScope.comList1}" var="com">                                                                                                   
+                                            <c:forEach items="${requestScope.accList1}" var="acc">
+                                                <c:if test="${app.getJobID() eq job.getJobID()}">
+                                                    <c:if test="${job.getComID() eq com.getComID()}">
+                                                        <c:if test="${acc.getAccId() eq com.getAccID()}">   
+                                                            <c:if test="${app.getStu_confirm() eq 1 && app.getCom_conirm() eq 0 }">
+                                                                <a class="dropdown-item preview-item" href="mainController?action=GetApplication">
+                                                                    <div class="preview-thumbnail">
+                                                                        <div class="preview-icon">
+                                                                            <img src="${acc.getAvatar()}" style="object-fit: cover;
+                                                                                 overflow: hidden;
+                                                                                 height: 100%;
+                                                                                 width: 80px;
+                                                                                 padding-right: 20px;"/>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="preview-item-content">
+                                                                        <p class="preview-subject font-weight-normal" style="margin-bottom: 0px;">${acc.getName()}</p>
+                                                                        <p style="color: green;margin-bottom: 0px;">Successfully submitted your application !!!</p>
+                                                                        <p class="font-weight-light small-text mb-0 text-muted" style="margin-bottom: 0px;">
+                                                                            ${app.getApplyDate()}
+                                                                        </p>
+                                                                    </div>
+                                                                </a>
+                                                            </c:if>
+                                                            <c:if test="${app.getStu_confirm() eq 1 && app.getCom_conirm() eq 2 }">
+                                                                <a class="dropdown-item preview-item" href="mainController?action=GetApplication">
+                                                                    <div class="preview-thumbnail">
+                                                                        <div class="preview-icon">
+                                                                            <img src="${acc.getAvatar()}" style="object-fit: cover;
+                                                                                 overflow: hidden;
+                                                                                 height: 100%;
+                                                                                 width: 80px;
+                                                                                 padding-right: 20px;"/>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="preview-item-content">
+                                                                        <p class="preview-subject font-weight-normal" style="margin-bottom: 0px;">${acc.getName()}</p>
+                                                                        <p style="color: tomato;margin-bottom: 0px;">New update on application !!!</p>
+                                                                        <p class="font-weight-light small-text mb-0 text-muted">
+                                                                            ${app.getApplyDate()}
+                                                                        </p>
+                                                                    </div>
+                                                                </a>
+                                                            </c:if>
+                                                            <c:if test="${app.getStu_confirm() eq 1 && app.getCom_conirm() eq 1 }">
+                                                                <a class="dropdown-item preview-item" href="mainController?action=GetApplication">
+                                                                    <div class="preview-thumbnail">
+                                                                        <div class="preview-icon">
+                                                                            <img src="${acc.getAvatar()}" style="object-fit: cover;
+                                                                                 overflow: hidden;
+                                                                                 height: 100%;
+                                                                                 width: 80px;
+                                                                                 padding-right: 20px;"/>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="preview-item-content">
+                                                                        <p class="preview-subject font-weight-normal" style="margin-bottom: 0px;">${acc.getName()}</p>
+                                                                        <p style="color: tomato;margin-bottom: 0px;">New update on application !!!</p>
+                                                                        <p class="font-weight-light small-text mb-0 text-muted">
+                                                                            ${app.getApplyDate()}
+                                                                        </p>
+                                                                    </div>
+                                                                </a>
+                                                            </c:if>
+                                                            <c:if test="${app.getStu_confirm() eq 0 && app.getCom_conirm() eq 1 }">
+                                                                <a class="dropdown-item preview-item" href="mainController?action=GetApplication">
+                                                                    <div class="preview-thumbnail">
+                                                                        <div class="preview-icon">
+                                                                            <img src="${acc.getAvatar()}" style="object-fit: cover;
+                                                                                 overflow: hidden;
+                                                                                 height: 100%;
+                                                                                 width: 80px;
+                                                                                 padding-right: 20px;"/>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="preview-item-content">
+                                                                        <p class="preview-subject font-weight-normal" style="margin-bottom: 0px;">${acc.getName()}</p>
+                                                                        <p style="color: yellowgreen;margin-bottom: 0px;">Received a new offer !!!</p>
+                                                                        <p class="font-weight-light small-text mb-0 text-muted">
+                                                                            ${app.getApplyDate()}
+                                                                        </p>
+                                                                    </div>
+                                                                </a>
+                                                            </c:if>
+                                                        </c:if>
+                                                    </c:if>
+                                                </c:if>
+                                            </c:forEach>
+                                        </c:forEach>
+                                    </c:forEach>
+                                </c:forEach>
+                            </c:if>
+                        </div>
+                    </li>
+                    <li class="nav-item nav-profile dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
+                            <img src="${sessionScope.acc.getAvatar()}" style="width: 40px;
+                                 height: 40px;
+                                 border-radius: 100%;"/>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
+                            <a class="dropdown-item" href="<%=link%>">
+                                <i class="fa-solid fa-address-card " style="color: #f27229;"></i>
+                                Profile
+                            </a>
+                            <a class="dropdown-item" href="mainController?action=logout">
+                                <i class="fa fa-power-off" style="color: #f27229;"></i>
+                                Logout
+                            </a>
+                        </div>
+                    </li>       
+                </ul>
                 <%
                 } else {
                 %>
@@ -82,23 +215,17 @@
                     }
                 %>
 
-
-
-
-
-
             </div>
         </nav>
-        <h1>Hello World!</h1>
         <div class="row justify-content-center mt-5">
-            <div class="col-12 col-md-8">
+            <div class="col-12 col-md-6">
                 <h1 class="display-4" style="top:100px">
                     TRƯỜNG ĐẠI HỌC FPT
                 </h1>
                 <div class="row align-items-center border-top border-bottom mb-4">
 
                 </div>
-                <div class="ck-content text-justify col-md-8">
+                <div class="ck-content text-justify col-md-12">
                     <p>Trường Đại học FPT chính thức thành lập ngày 08/09/2006 theo quyết định số 208/2006/QĐ-TTg của Thủ tướng Chính phủ. Thời điểm đó, Đại học FPT là trường đại học đầu tiên của Việt Nam do một doanh nghiệp thành lập với 100% vốn đầu tư từ Công ty Cổ phần FPT - tập đoàn tiên phong trong lĩnh vực Công nghệ thông tin của Việt Nam.</p>
                     <figure class="image"><img src="img/fpt-star.png"><figcaption>Trụ sở chính Đại học FPT tại Hà Nội</figcaption></figure>
                     <p>Sứ mệnh của trường Đại học FPT là xây dựng mô hình của một trường Đại học thế hệ mới, có triết lý giáo dục hiện đại, gắn liền đào tạo với thực tiễn cuộc sống và nhu cầu nhân lực của đất nước, góp phần đưa giáo dục Việt nam lên ngang tầm các nước tiên tiến trên thế giới. Sự khác biệt trong phương pháp đào tạo của trường Đại học FPT là gắn kết chặt chẽ với các doanh nghiệp, đào tạo theo chương trình chuẩn công nghệ quốc tế, sinh viên thành thạo hai ngoại ngữ, được rèn luyện kỹ năng mềm, được chú trọng phát triển con người toàn diện, hài hòa.</p>
@@ -107,10 +234,10 @@
                     <figure class="image"><img src="img/fpt-hcm.jpg"><figcaption>Phân hiệu Đại học FPT tại TP. Hồ Chí Minh</figcaption></figure>
                 </div>
             </div>
-            <div class="col-12 col-md-4 d-none d-md-block">
+            <div class="col-12 col-md-2 d-none d-md-block">
                 <div class="sticky-container">
                     <img src="img/hiring.jpg" style="height: 800px; width:400px; "/>
-                
+
 
 
                 </div>
@@ -119,8 +246,43 @@
 
 
 
-        <footer>
-            <%@include file="footer.jsp" %>
+        <footer class="footer">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-2 col-sm-2 col-md-2">
+                        <a class="navbar-brand mr-auto" href="#"><img src="img/logo.png" height="50" width="70"></a><br>
+                    </div>
+                    <div class="col-7 col-sm-7 col-md-7">
+                        <i class="fa fa-phone fa-lg"></i> 028.73005585<br>
+                        <i class="fa fa-envelope fa-lg"></i>
+                        <a href="mailto:sschcm@fe.edu.vn"> sschcm@fe.edu.vn</a><br>
+                        <a class="btn btn-social-icon btn-facebook" href="https://www.facebook.com/FPTU.HCM"><i
+                                class="fa fa-facebook"></i></a>
+                        <a class="btn btn-social-icon btn-twitter" href="#"><i class="fa fa-twitter"></i></a>
+                        <a class="btn btn-social-icon btn-instagram" href="#"><i class='fa fa-instagram'
+                                                                                 style='font-size:36px'></i></a><br>
+                        <p class="p-footer">Lô E2a-7, Đường D1, Đ. D1, Long Thạnh Mỹ, Thành Phố Thủ Đức, Thành phố Hồ Chí Minh</p>
+                    </div>
+                    <div class="col-3 col-sm-3 col-md-3">
+                        <iframe class="fpt-map"
+                                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15674.440041588125!2d106.809883!3d10.8411276!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xb752b24b379bae5e!2zVHLGsOG7nW5nIMSQ4bqhaSBo4buNYyBGUFQgVFAuIEhDTQ!5e0!3m2!1svi!2s!4v1653973736338!5m2!1svi!2s"
+                                width="300" height="200" style="border:0;" allowfullscreen="" loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-auto">
+                        <p class="p-footer">© Copyright <span class="text-primary">2022</span> Group 7</p>
+                    </div>
+                </div>
+            </div>
         </footer>
+
+        <script>
+            var loader = document.getElementById("preloader");
+            window.addEventListener("load", function () {
+                loader.style.display = "none";
+            });
+        </script>
     </body>
 </html>

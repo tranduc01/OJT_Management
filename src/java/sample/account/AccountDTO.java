@@ -18,7 +18,6 @@ public class AccountDTO {
     private String name;
     private String phone;
     private String avatar;
-    private String cvPath;
     private Date birthday;
     private int role;
     private int status;
@@ -28,32 +27,25 @@ public class AccountDTO {
     public AccountDTO() {
     }
 
-    public AccountDTO(int accId, String email, String password, String name, String phone, String avatar, String cvPath, Date birthday, int role, int status, Date crateDate) {
+    public AccountDTO(int accId, String email, String password, String name, String phone, String avatar, Date birthday, int role, int status, Date crateDate) {
         this.accId = accId;
         this.email = email;
         this.password = password;
         this.name = name;
         this.phone = phone;
         this.avatar = avatar;
-        this.cvPath = cvPath;
         this.birthday = birthday;
         this.role = role;
         this.status = status;
         this.crateDate = crateDate;
     }
 
+   
+
     
 
     
-    public String getCvPath() {
-        return cvPath;
-    }
-
-    public void setCvPath(String cvPath) {
-        this.cvPath = cvPath;
-    }
-
-    
+ 
 
     public Date getBirthday() {
         return birthday;

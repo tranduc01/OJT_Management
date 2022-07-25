@@ -19,6 +19,8 @@ import sample.account.AccountDAO;
 import sample.account.AccountDTO;
 import sample.major.MajorDAO;
 import sample.major.MajorDTO;
+import sample.student.StudentDAO;
+import sample.student.StudentDTO;
 
 /**
  *
@@ -47,12 +49,13 @@ public class UploadCVController extends HttpServlet {
             String fileName = filePart.getSubmittedFileName();
             HttpSession session = request.getSession();
             String email = (String) session.getAttribute("accEmail");
+            StudentDTO student = (StudentDTO) session.getAttribute("student");
             if (!fileName.isEmpty()) {
                 for (Part part : request.getParts()) {
                     part.write("D:\\SWP391\\OJT_Management\\web\\CV\\" + fileName);
                 }
                 String cvPath = "CV\\" + fileName;
-                int result = AccountDAO.updateCVPath(email, cvPath);
+                int result = StudentDAO.updateCVPath(student.getStudentID(), cvPath);
                 ArrayList<MajorDTO> list = MajorDAO.getMajors();
                 AccountDTO acc = AccountDAO.loginAccount_V2(email);
                 session.setAttribute("acc", acc);

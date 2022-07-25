@@ -6,11 +6,7 @@
 package sample.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +17,8 @@ import sample.company.CompanyDAO;
 import sample.company.CompanyDTO;
 import sample.job.JobDAO;
 import sample.job.JobDTO;
+import sample.major.MajorDAO;
+import sample.major.MajorDTO;
 
 /**
  *
@@ -43,22 +41,23 @@ public class JobListController extends HttpServlet {
        
             try {
                 /* TODO output your page here. You may use following sample code. */
-                ArrayList<JobDTO> listJob = JobDAO.getJobs();
-            ArrayList<CompanyDTO> listCompany = new ArrayList<>();
+            ArrayList<JobDTO> listJob = JobDAO.getJobs();
+            ArrayList<CompanyDTO> listCompany = CompanyDAO.getCompanies();
             ArrayList<AccountDTO> listAccount=new ArrayList<>();
-            for (JobDTO jobDTO : listJob) {
-                CompanyDTO company = CompanyDAO.getCompanyByID(jobDTO.getComID());
+            ArrayList<MajorDTO> listMajor=MajorDAO.getMajors();
                 
-                listCompany.add(company);
-            }
+            
             for (CompanyDTO com : listCompany) {
                 AccountDTO account=AccountDAO.getAccountByID(com.getAccID());
+                if(account.getAccId()==com.getAccID()){
                 listAccount.add(account);
+                }
             }
                 
                 request.setAttribute("companyList", listCompany);
                 request.setAttribute("jobList", listJob);
                 request.setAttribute("accList", listAccount);
+                request.setAttribute("majorList", listMajor);
                 request.getRequestDispatcher("index.jsp").forward(request, response);
             } catch (Exception ex) {
                 ex.printStackTrace();

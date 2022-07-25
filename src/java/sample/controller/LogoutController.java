@@ -35,7 +35,7 @@ public class LogoutController extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
            HttpSession session=(HttpSession)request.getSession();
            session.invalidate();//xoa all data rang buoc voi user nay
-           response.sendRedirect("JobListController");// xoa xong mo lai trang index.html
+           response.sendRedirect("JobListByPageController");// xoa xong mo lai trang index.html
         }
     }
 
