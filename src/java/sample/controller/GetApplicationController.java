@@ -12,6 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import sample.account.AccountDAO;
 import sample.account.AccountDTO;
 import sample.application.ApplicationDAO;
@@ -20,6 +21,8 @@ import sample.company.CompanyDAO;
 import sample.company.CompanyDTO;
 import sample.job.JobDAO;
 import sample.job.JobDTO;
+import sample.student.StudentDAO;
+import sample.student.StudentDTO;
 
 /**
  *
@@ -40,28 +43,27 @@ public class GetApplicationController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try  {
-            String stuID=request.getParameter("stuID");
-            ArrayList<ApplicationDTO> listApp = ApplicationDAO.getApplicationByID(stuID);
+            HttpSession session=request.getSession();
+            AccountDTO account = (AccountDTO) session.getAttribute("acc");
+            StudentDTO student = StudentDAO.getStudentByAccount(account.getAccId());
+            ArrayList<ApplicationDTO> listApp = ApplicationDAO.getApplicationByID(student.getStudentID());
             ArrayList<JobDTO> listJob = new ArrayList<>();
-            ArrayList<CompanyDTO> listCom = new ArrayList<>();
+            ArrayList<CompanyDTO> listCom = CompanyDAO.getCompanies();
             ArrayList<AccountDTO> listAcc = new ArrayList<>();
             for (ApplicationDTO app : listApp) {
                 JobDTO job = JobDAO.getJobByID(app.getJobID());
                 listJob.add(job);
-                CompanyDTO com = CompanyDAO.getCompanyByID(job.getComID());
-                if(job.getJobID()==com.getComID()){
-                    listCom.add(com);
-                }             
+                            
             }
             for (CompanyDTO com : listCom) {
                  AccountDTO acc = AccountDAO.getAccountByID(com.getAccID());
                 listAcc.add(acc);
             }
             
-            request.setAttribute("jobList", listJob);
-            request.setAttribute("comList", listCom);
-            request.setAttribute("appList", listApp);
-            request.setAttribute("accList", listAcc);
+            request.setAttribute("jobList1", listJob);
+            request.setAttribute("comList1", listCom);
+            request.setAttribute("appList1", listApp);
+            request.setAttribute("accList1", listAcc);
             
             request.getRequestDispatcher("application.jsp").forward(request, response);
             

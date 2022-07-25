@@ -15,19 +15,31 @@ public class StudentDTO {
     private String semesterID;
     private String email;
     private String majorID;
+    private String cvPath;
     private int accID;
 
     public StudentDTO() {
     }
 
-    public StudentDTO(String studentName, String studentID, String semesterID, String email, String majorID, int accID) {
+    public StudentDTO(String studentName, String studentID, String semesterID, String email, String majorID, String cvPath, int accID) {
         this.studentName = studentName;
         this.studentID = studentID;
         this.semesterID = semesterID;
         this.email = email;
         this.majorID = majorID;
+        this.cvPath = cvPath;
         this.accID = accID;
     }
+
+    public String getCvPath() {
+        return cvPath;
+    }
+
+    public void setCvPath(String cvPath) {
+        this.cvPath = cvPath;
+    }
+
+   
 
     public String getStudentName() {
         return studentName;
@@ -79,8 +91,10 @@ public class StudentDTO {
 
     @Override
     public String toString() {
-        return "StudentDTO{" + "studentName=" + studentName + ", studentID=" + studentID + ", semesterID=" + semesterID + ", email=" + email + ", majorID=" + majorID + ", accID=" + accID + '}';
+        return "StudentDTO{" + "studentName=" + studentName + ", studentID=" + studentID + ", semesterID=" + semesterID + ", email=" + email + ", majorID=" + majorID + ", cvPath=" + cvPath + ", accID=" + accID + '}';
     }
+
+    
 
     
     

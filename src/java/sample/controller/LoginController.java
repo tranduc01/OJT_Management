@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import sample.account.AccountDAO;
 import sample.account.AccountDTO;
+import sample.company.CompanyDAO;
+import sample.company.CompanyDTO;
 import sample.major.MajorDAO;
 import sample.major.MajorDTO;
 import sample.student.StudentDAO;
@@ -37,43 +39,47 @@ public class LoginController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-       
-            try{
-            String email=request.getParameter("txtemail");
-            String password=request.getParameter("txtpassword");
-            AccountDTO acc=AccountDAO.loginAccount(email, password);
-            ArrayList<MajorDTO> list=MajorDAO.getMajors();           
-            if(acc!=null){
-                if(acc.getRole()==0){
-                    HttpSession session=request.getSession();
+
+        try {
+            HttpSession session=request.getSession();
+            String email = request.getParameter("txtemail");
+            String password = request.getParameter("txtpassword");
+            AccountDTO acc = AccountDAO.loginAccount(email, password);
+          
+            
+            ArrayList<MajorDTO> list = MajorDAO.getMajors();
+            if (acc != null) {
+                if (acc.getRole() == 0) {                   
                     session.setAttribute("accEmail", acc.getEmail());
                     session.setAttribute("name", acc.getName());
-                    request.getRequestDispatcher("admin_page.jsp").forward(request, response);
-                }else if(acc.getRole()==1){
-                    HttpSession session=request.getSession();
-                    session.setAttribute("accEmail", acc.getEmail());
-                    session.setAttribute("name", acc.getName());                  
+                    session.setAttribute("role", acc.getRole());
                     session.setAttribute("acc", acc);
-                    StudentDTO student=StudentDAO.getStudentByAccount(acc.getAccId());
-                    session.setAttribute("student", student);
-                    for (MajorDTO majorDTO : list) {
-                        if(majorDTO.getMajorID().equals(student.getMajorID())){
-                            session.setAttribute("majorName", majorDTO.getMajorName());
-                        }
-                    }
-                    request.getRequestDispatcher("JobListController").forward(request, response);
-                }else{
-                    request.getRequestDispatcher("comany_page.jsp").forward(request, response);
+                    request.getRequestDispatcher("admin_statistic.jsp").forward(request, response);
+                } else if (acc.getRole() == 1) {                 
+                    session.setAttribute("accEmail", acc.getEmail());
+                    session.setAttribute("name", acc.getName());
+                    session.setAttribute("acc", acc);
+                    session.setAttribute("role", acc.getRole());   
+                    
+                    request.getRequestDispatcher("JobListByPageController").forward(request, response);
+                } else {
+                    session.setAttribute("accEmail", acc.getEmail());
+                    session.setAttribute("name", acc.getName());
+                    session.setAttribute("role", acc.getRole());
+                    session.setAttribute("acc", acc);
+                    CompanyDTO company = CompanyDAO.getCompanyByAccount(acc.getAccId());
+                    session.setAttribute("company", company);
+                    request.getRequestDispatcher("CompanyHomePageController").forward(request, response);
                 }
-            }else{
-                String loginError="Invalid Email or Password !!!";
+            } else {
+                String loginError = "Invalid Email or Password !!!";
                 request.setAttribute("loginError", loginError);
                 request.getRequestDispatcher("login.jsp").forward(request, response);
             }
-            }catch(Exception e){
-                e.printStackTrace();
-            }
-        
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

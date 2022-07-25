@@ -40,6 +40,46 @@
         <servlet-name>GetApplicationController</servlet-name>
         <servlet-class>sample.controller.GetApplicationController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>JobsPageController</servlet-name>
+        <servlet-class>sample.controller.JobsPageController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CompanyDetailsController</servlet-name>
+        <servlet-class>sample.controller.CompanyDetailsController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminStudentController</servlet-name>
+        <servlet-class>sample.controller.AdminStudentController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>InsertApplicationController</servlet-name>
+        <servlet-class>sample.controller.InsertApplicationController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewApplicationAdminController</servlet-name>
+        <servlet-class>sample.controller.ViewApplicationAdminController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ImportStudentController</servlet-name>
+        <servlet-class>sample.controller.ImportStudentController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CompanyProfileController</servlet-name>
+        <servlet-class>sample.controller.CompanyProfileController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>StudentListCompanyController</servlet-name>
+        <servlet-class>sample.controller.StudentListCompanyController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ApplicationForCompanyController</servlet-name>
+        <servlet-class>sample.controller.ApplicationForCompanyController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddJobCompanyController</servlet-name>
+        <servlet-class>sample.controller.AddJobCompanyController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>mainController</servlet-name>
         <url-pattern>/mainController</url-pattern>
@@ -80,12 +120,62 @@
         <servlet-name>GetApplicationController</servlet-name>
         <url-pattern>/GetApplicationController</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>JobsPageController</servlet-name>
+        <url-pattern>/JobsPageController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CompanyDetailsController</servlet-name>
+        <url-pattern>/CompanyDetailsController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminStudentController</servlet-name>
+        <url-pattern>/AdminStudentController</url-pattern>
+    </servlet-mapping>
+    <jsp-config>
+        <jsp-property-group>
+            <url-pattern>*.jsp</url-pattern>
+            <page-encoding>UTF-8</page-encoding>
+        </jsp-property-group>
+    </jsp-config>
+    <servlet-mapping>
+        <servlet-name>InsertApplicationController</servlet-name>
+        <url-pattern>/InsertApplicationController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewApplicationAdminController</servlet-name>
+        <url-pattern>/ViewApplicationAdminController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ImportStudentController</servlet-name>
+        <url-pattern>/ImportStudentController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CompanyProfileController</servlet-name>
+        <url-pattern>/CompanyProfileController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StudentListCompanyController</servlet-name>
+        <url-pattern>/StudentListCompanyController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ApplicationForCompanyController</servlet-name>
+        <url-pattern>/ApplicationForCompanyController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddJobCompanyController</servlet-name>
+        <url-pattern>/AddJobCompanyController</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>JobListController</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
+    <error-page>
+        <exception-type>javax.faces.application.ViewExpiredException</exception-type>
+        <location>/index.jsp</location>
+    </error-page>
 </web-app>
