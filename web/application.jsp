@@ -225,6 +225,7 @@
                                         <th class="text-center"><span>Apply Date</span></th>
                                         <th class="text-center"><span>Status</span></th>                           
                                         <th class="text-center"><span>Job Name</span></th>
+                                        <th class="text-center"><span>Action</span></th>
                                         <th class="text-center"></th>
                                     </tr>
                                 </thead>
@@ -240,7 +241,7 @@
                                                                 <tr>
                                                                     <td class="text-center">
                                                                         <img src="${acc.getAvatar()}" style="height: 60px; width: 100px;">
-                                                                        <span><a href="#" class="user-link" style="padding-top: 11px;">${acc.getName()}</a></span>
+                                                                        <span class="user-link" style="padding-top: 11px;">${acc.getName()}</span>
                                                                     </td>
                                                                     <td class="text-center">
                                                                         ${app.getApplyDate()}
@@ -253,11 +254,14 @@
                                                                         <td class="text-center">
                                                                         ${job.getJobName()}
                                                                     </td>
+                                                                    <td>                                                                                                         
+                                                                        <h5><a href="mainController?action=jobDetails&jobid=${job.getJobID()}" class="text-center" style="padding-left: 16px;"><i class="far fa-eye"></i></a></h5>                                                                                                                                                                             
+                                                                    </td>
                                                                     <td class="text-center">
                                                                         <c:if test="${app.getStu_confirm()==0 && app.getCom_conirm()==1}">
                                                                             <h4><button class="badge badge-success"><i class="fa-solid fa-check"></i></button>
                                                                                 <button class="badge badge-danger"><i class="fa-solid fa-ban"></i></button></h4>
-                                                                                </c:if>
+                                                                        </c:if>
                                                                     </td>
                                                                 </tr>
                                                             </c:if>
@@ -270,7 +274,6 @@
                                 </tbody>
                             </table>
                         </div>
-
                     </div>
                 </div>
             </div>

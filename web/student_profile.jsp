@@ -294,7 +294,7 @@
 
                                 <% if (stu.getCvPath() != null) {
                                 %>                     
-                                <a href="<%= stu.getCvPath()%>">View CV</a>
+                                <a href="<%= stu.getCvPath()%>" target="_blank">View CV</a>
                                 <%
                                     }%>
 

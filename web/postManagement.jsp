@@ -138,7 +138,7 @@
                                                                 <c:if test="${job.getStatus() eq 1}"><h5><span class="badge badge-success">Approved</span></h5></c:if>
                                                                 </td>
                                                                 <td>                                                                                                         
-                                                                    <h4><a href="mainController?action=PostDetail&id=${job.getJobID()}" class="text-primary" data-toggle="tooltip" title="" data-original-title="view" style="padding-left: 16px;"><i class="far fa-eye"></i></a></h4>                                                                                                                                                                             
+                                                                    <h5><a href="mainController?action=PostDetail&id=${job.getJobID()}" class="text-primary" data-toggle="tooltip" title="" data-original-title="view" style="padding-left: 16px;"><i class="far fa-eye"></i></a></h5>                                                                                                                                                                             
                                                                 </td>
                                                                 <td>
                                                                 <c:if test="${job.getStatus()==0}">

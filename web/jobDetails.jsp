@@ -242,7 +242,7 @@
                         <div class="single-job-items mb-50">
                             <div class="job-items">
                                 <div class="company-img company-img-details">
-                                    <a href="#"><img src="${acc.getAvatar()}" style="height: 70px; width: 70px;"></a>
+                                    <a href="mainController?action=companyDetails&comID=${com.getComID()}" target="_blank"><img src="${acc.getAvatar()}" style="height: 70px; width: 70px;"></a>
                                 </div>
                                 <div class="job-tittle">
 
@@ -301,9 +301,14 @@
                             </ul>
                             <div class="apply-btn2">
                                 <div class="line"></div>
+                                <c:if test="${sessionScope.role==null}">
+                                    <a type="button" class="btn" data-toggle="modal" data-target="#exampleModal" <c:if test="${sessionScope.acc eq null}">onclick="warning()"</c:if>>
+                                        Apply Now
+                                    </a>
+                                </c:if>
                                 <c:if test="${sessionScope.role==1}">
                                 <c:if test="${requestScope.availabe == null}">
-                                    <a type="button" class="btn" data-toggle="modal" data-target="#exampleModal" <c:if test="${sessionScope.acc eq null}">onclick="warning()"</c:if>>
+                                    <a type="button" class="btn" data-toggle="modal" data-target="#exampleModal">
                                         Apply Now
                                     </a>
                                 </c:if>
@@ -329,7 +334,7 @@
                                 <span>${acc.getName()}</span>
 
 
-                            <img src="${acc.getAvatar()}" style="height: 225px; width: 225px;"></br>
+                                <a href="mainController?action=companyDetails&comID=${com.getComID()}" target="_blank"><img src="${acc.getAvatar()}" style="height: 225px; width: 225px;"></a></br>
                             Website:<a href="${com.getWebsite()}"> ${com.getWebsite()}</a>
 
 
