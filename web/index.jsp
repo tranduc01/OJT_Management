@@ -315,18 +315,20 @@
                             </c:forEach>
                         </c:forEach>
                     </div>
-
+                        
                     <!-- START Pagination -->
                     <nav aria-label="Page navigation">
                         <ul class="pagination pagination-reset justify-content-center">
-                            <li class="page-item"> <a class="page-link" href="#">Prev</a> </li>
+                            <c:if test="${requestScope.pagenum-1 ==0}"><li class="page-item"> <a class="page-link" href="mainController?action=viewbypage&page=1">Prev</a> </li></c:if>
+                            <c:if test="${requestScope.pagenum-1 !=0}"><li class="page-item"> <a class="page-link" href="mainController?action=viewbypage&page=${requestScope.pagenum-1}">Prev</a> </li></c:if>
                             <li class="page-item"><a class="page-link" href="mainController?action=viewbypage&page=1">1</a></li>
                             <li class="page-item"><a class="page-link" href="mainController?action=viewbypage&page=2">2</a></li>
                             <li class="page-item"><a class="page-link" href="mainController?action=viewbypage&page=3">3</a></li>
                             <li class="page-item"><a class="page-link" href="mainController?action=viewbypage&page=4">4</a></li>
                             <li class="page-item"><a class="page-link" href="mainController?action=viewbypage&page=5">5</a></li>
                             <li class="page-item"><a class="page-link" href="mainController?action=viewbypage&page=6">6</a></li>
-                            <li class="page-item"> <a class="page-link" href="#">Next</a> </li>
+                            <c:if test="${requestScope.pagenum+1 >6}"><li class="page-item"> <a class="page-link" href="mainController?action=viewbypage&page=6">Next</a> </li></c:if>
+                            <c:if test="${requestScope.pagenum+1 <7}"><li class="page-item"> <a class="page-link" href="mainController?action=viewbypage&page=${requestScope.pagenum+1}">Next</a> </li></c:if>
 
                         </ul>
                     </nav>

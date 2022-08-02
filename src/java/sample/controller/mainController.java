@@ -34,6 +34,8 @@ public class mainController extends HttpServlet {
     private static final String GETAPPLICATION_CONTROLLER = "GetApplicationController";
     private static final String COMPANYDETAILS = "companyDetails";
     private static final String COMPANYDETAILS_CONTROLLER = "CompanyDetailsController";
+    private static final String ADMINCOMPANYDETAILS = "admincompanyDetails";
+    private static final String ADMINCOMPANYDETAILS_CONTROLLER = "AdminCompanyDetailsController";
     private static final String ADMIN_STUDENT = "AdminPage";
     private static final String ADMIN_STUDENT_CONTROLLER = "AdminStudentController";
     private static final String INSERTAPPLICATION = "InsertApplication";
@@ -111,6 +113,8 @@ public class mainController extends HttpServlet {
                 url=STUDENTPROFILE_CONTROLLER;
             }else if(COMPANYPOSTDETAIL.equals(action)){
                 url=COMPANYPOSTDETAIL_CONTROLLER;
+            }else if(ADMINCOMPANYDETAILS.equals(action)){
+                url=ADMINCOMPANYDETAILS_CONTROLLER;
             }
         } catch (Exception e) {
             log("Error at mainController: " + e.toString());

@@ -36,7 +36,7 @@
         <div id="preloader">
             <img src="img/loader.gif"/>
         </div>
-       <nav class="navbar navbar-dark navbar-expand-md">
+        <nav class="navbar navbar-dark navbar-expand-md">
             <div class="container">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#Navbar">
                     <span class="navbar-toggler-icon"></span>
@@ -63,7 +63,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="CompanyListController">
                                 <span class="fa-solid fa-building"></span>
                                 Companies
                             </a>
@@ -136,18 +136,19 @@
                                                                 <c:if test="${job.getStatus() eq 2}"><h5><span class="badge badge-danger">Rejected</span></h5></c:if>
                                                                 <c:if test="${job.getStatus() eq 0}"><h5><span class="badge badge-warning">Pending</span></h5></c:if>
                                                                 <c:if test="${job.getStatus() eq 1}"><h5><span class="badge badge-success">Approved</span></h5></c:if>
+                                                                <c:if test="${job.getStatus() eq 3}"><h5><span class="badge badge-secondary">Expired</span></h5></c:if>
                                                                 </td>
                                                                 <td>                                                                                                         
-                                                                    <h5><a href="mainController?action=PostDetail&id=${job.getJobID()}" class="text-primary" data-toggle="tooltip" title="" data-original-title="view" style="padding-left: 16px;"><i class="far fa-eye"></i></a></h5>                                                                                                                                                                             
-                                                                </td>
-                                                                <td>
+                                                                    <h5><a href="mainController?action=PostDetail&id=${job.getJobID()}" class="text-primary" data-toggle="tooltip" title="" data-original-title="view" style="padding-left: 16px;"><i class="far fa-eye"></i></a>   
+                                                                    <a href="#" class="text-primary" data-toggle="tooltip" title="" data-original-title="view" style="padding-left: 16px;"><i class="far fa-pen-to-square"></i></a></h5>
+                                                            </td>
+                                                            <td>
                                                                 <c:if test="${job.getStatus()==0}">
                                                                     <h4><a href="mainController?action=Approve&jobid=${job.getJobID()}"><button class="badge badge-success"><i class="fa-solid fa-check"></i></button></a>
-                                                                        <a href="mainController?action=Reject&jobid=${job.getJobID()}"><button class="badge badge-danger"><i class="fa-solid fa-ban"></i></button></a></h4>
-                                                                </c:if>
-                                                                    <c:if test="${job.getStatus()!=0}">
-                                                                    <h4><button ></button>
-                                                                        <button></button></h4>
+                                                                        <a href="mainController?action=Reject&jobid=${job.getJobID()}"><button class="badge badge-danger" onclick="return check();"><i class="fa-solid fa-ban"></i></button></a></h4>
+                                                                            </c:if>
+                                                                            <c:if test="${job.getStatus()!=0}">
+                                                                    <h4></h4>
                                                                 </c:if>                                                 
                                                             </td>
                                                         </tr> 
@@ -184,6 +185,15 @@
             window.addEventListener("load", function () {
                 loader.style.display = "none";
             });
+        </script>
+        <script>
+            function check() {
+                if (confirm("Are you sure to reject this post?") === false) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
         </script>
     </body>
 </html>

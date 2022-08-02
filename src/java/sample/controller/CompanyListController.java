@@ -17,17 +17,13 @@ import sample.account.AccountDAO;
 import sample.account.AccountDTO;
 import sample.company.CompanyDAO;
 import sample.company.CompanyDTO;
-import sample.job.JobDAO;
-import sample.job.JobDTO;
-import sample.major.MajorDAO;
-import sample.major.MajorDTO;
 
 /**
  *
  * @author Tranduc
  */
-@WebServlet(name = "JobListByPageController", urlPatterns = {"/JobListByPageController"})
-public class JobListByPageController extends HttpServlet {
+@WebServlet(name = "CompanyListController", urlPatterns = {"/CompanyListController"})
+public class CompanyListController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,37 +37,20 @@ public class JobListByPageController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try {
-                /* TODO output your page here. You may use following sample code. */
-            String pagenumber = request.getParameter("page");
-            if (pagenumber == null) {
-                pagenumber = "1";
+        try  {
+            /* TODO output your page here. You may use following sample code. */
+            ArrayList<CompanyDTO> companyList=CompanyDAO.getCompanies();
+            ArrayList<AccountDTO> accList=new ArrayList<>();
+            for (CompanyDTO com : companyList) {
+                AccountDTO acc=AccountDAO.getAccountByID(com.getAccID());
+                accList.add(acc);
             }
-            int pageIndex = Integer.parseInt(pagenumber);
-            int numofrow = 10;
-            ArrayList<JobDTO> listJob1 = JobDAO.getJobsByPage(pageIndex, numofrow);
-            ArrayList<JobDTO> listJob = JobDAO.getJobs();
-            ArrayList<CompanyDTO> listCompany = CompanyDAO.getCompanies();
-            ArrayList<AccountDTO> listAccount=new ArrayList<>();
-            ArrayList<MajorDTO> listMajor=MajorDAO.getMajors();
-                
-            int total=listJob.size()/10;
-            for (CompanyDTO com : listCompany) {
-                AccountDTO account=AccountDAO.getAccountByID(com.getAccID());
-                if(account.getAccId()==com.getAccID()){
-                listAccount.add(account);
-                }
-            }
-                request.setAttribute("totalPage", total);
-                request.setAttribute("companyList", listCompany);
-                request.setAttribute("jobList", listJob1);
-                request.setAttribute("accList", listAccount);
-                request.setAttribute("majorList", listMajor);
-                request.setAttribute("pagenum", pagenumber);
-                request.getRequestDispatcher("index.jsp").forward(request, response);
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
+            request.setAttribute("accList", accList);
+            request.setAttribute("comList", companyList);
+            request.getRequestDispatcher("admin_company.jsp").forward(request, response);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

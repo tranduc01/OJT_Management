@@ -242,7 +242,11 @@
                         <div class="single-job-items mb-50">
                             <div class="job-items">
                                 <div class="company-img company-img-details">
-                                    <a href="mainController?action=companyDetails&comID=${com.getComID()}" target="_blank"><img src="${acc.getAvatar()}" style="height: 70px; width: 70px;"></a>
+                                    <a href="mainController?action=companyDetails&comID=${com.getComID()}" target="_blank"><img src="${acc.getAvatar()}" style="object-fit: cover;
+                                                                                 overflow: hidden;
+                                                                                 height: 100%;
+                                                                                 width: 80px;
+                                                                                 padding-right: 20px;"></a>
                                 </div>
                                 <div class="job-tittle">
 

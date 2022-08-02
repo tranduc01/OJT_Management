@@ -264,7 +264,10 @@
                         <c:forEach var="jobList" items="${requestScope.jobList}">
                             <div class="swiper-slide" style="padding: 30px 10px 30px 10px; width: 150px;">  
                             <div class="card1 mb-4" >
-                                <img class="card1-img-top" src="${acc.getAvatar()}"/>
+                                <img class="card1-img-top" src="${acc.getAvatar()}" style="object-fit: cover;
+                                                                                 overflow: hidden;
+                                                                                 height: 100%;
+                                                                                 "/>
                                 <div class="card1-body" style="text-align: center;">                                   
                                     <h2 class="card1-title h4">${jobList.getJobName()}</h2>                                   
                                     <a class="btn btn-primary" href="mainController?action=jobDetails&jobid=${jobList.getJobID()}">View →</a>
