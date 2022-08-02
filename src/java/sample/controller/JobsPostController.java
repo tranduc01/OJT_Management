@@ -62,6 +62,9 @@ public class JobsPostController extends HttpServlet {
                 listAccount.add(account);
                 }
             }
+            
+            
+            
                 request.setAttribute("totalPage", total);
                 request.setAttribute("companyList", listCompany);
                 request.setAttribute("jobList", listJob1);

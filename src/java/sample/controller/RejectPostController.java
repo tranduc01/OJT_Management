@@ -38,6 +38,8 @@ public class RejectPostController extends HttpServlet {
             int jobID=Integer.parseInt(request.getParameter("jobid"));
             int status=2;
             int result=JobDAO.updateJobStatus(jobID, status);
+            String success="success";
+            request.setAttribute("success", success);
             request.getRequestDispatcher("JobsPostController").forward(request, response);
         }catch(Exception e){
             e.printStackTrace();

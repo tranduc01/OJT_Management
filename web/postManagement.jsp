@@ -88,6 +88,23 @@
                 </span>
             </div>
         </nav>
+        <% if(request.getAttribute("success") !=null) {
+            %>
+            <script>
+                alert("Post Rejected !!!");
+            </script>
+        <%
+        }%>
+        
+        <% if(request.getAttribute("ok") !=null) {
+            %>
+            <script>
+                alert("Post Approved !!!");
+            </script>
+        <%
+        }%>
+        
+        
         <%
             if (request.getAttribute("jobList") != null) {
         %>

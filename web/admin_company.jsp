@@ -91,6 +91,50 @@
         </nav>
 
         <div class="jumbotron">
+            <div style="float: top;">
+                
+                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModalAdd" style="margin-bottom: 20px; float: right;">Add Company</button>
+                <!-- Modal -->
+                <form action="mainController" method="post">
+                    <div id="myModalAdd" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">                           
+                                    <h4 class="modal-title">Add Company</h4>
+                                </div>
+                                <div class="modal-body">
+
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Name</label>
+                                        <div class="col-sm-10">
+                                            <input class="form-control" name="txtname" type="text" required="">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label" >Email</label>
+                                        <div class="col-sm-10">
+                                            <input class="form-control" type="email" name="txtemail" required="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Phone</label>
+                                        <div class="col-sm-10">
+                                            <input class="form-control"  type="text" name="txtphone">
+                                        </div>
+                                    </div>                                                    
+                                 
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary" name="action" value="AddCompany">Add</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
             <table id="example" class="table table-striped table-bordered" style="width:100%;">
                 <thead>
                     <tr>
@@ -98,7 +142,8 @@
                         <th>Company ID</th>
                         <th>Account ID</th>    
                         <th>Name</th>
-                        <th>Create Date</th>        
+                        <th>Create Date</th>   
+                        <th>Status</th>
                         <th>Established Date</th>  
                         <th></th>                                    
                     </tr>
@@ -117,8 +162,14 @@
                                     <td>${acc.getAccId()}</td>
                                     <td>${acc.getName()}</td>
                                     <td>${acc.getCrateDate()}</td>
+                                    <td>
+                                        <c:if test="${acc.getStatus()==1}"><span class="badge badge-success">Active</span></c:if>
+                                        <c:if test="${acc.getStatus()==0}"><span class="badge badge-danger">Inactive</span></c:if>
+                                        </td>
                                     <td>${acc.getBirthday()}</td>
-                                    <td><h5><a href="mainController?action=admincompanyDetails&comID=${com.getComID()}" target="_blank" class="text-center" style="padding-left: 16px;"><i class="far fa-eye"></i></a></h5></td>
+                                    <td><h5><a href="mainController?action=admincompanyDetails&comID=${com.getComID()}" target="_blank" class="text-center" style="padding-left: 16px;"><i class="far fa-eye"></i></a>
+                                            <a href="mainController?action=changestatuscompany&comID=${com.getComID()}" target="_blank" class="text-center" style="padding-left: 16px;" onclick="return check();"><i class="fa-solid fa-trash-alt"></i></a>
+                                        </h5></td>
                                 </tr>
                             </c:if>
                         </c:forEach>
@@ -143,6 +194,15 @@
             $(document).ready(function () {
                 $('#example').DataTable();
             });
+        </script>
+        <script>
+            function check() {
+                if (confirm("Are you sure to disable this company?") === false) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
         </script>
     </body>
 </html>
