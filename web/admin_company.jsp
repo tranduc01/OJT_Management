@@ -135,17 +135,16 @@
                     </div>
                 </form>
             </div>
-            <table id="example" class="table table-striped table-bordered" style="width:100%;">
+            <table id="example" class="table table-striped table-bordered text-center" style="width:100%;">
                 <thead>
                     <tr>
                         <th></th>
-                        <th>Company ID</th>
-                        <th>Account ID</th>    
+                        <th>Company ID</th>  
                         <th>Name</th>
                         <th>Create Date</th>   
                         <th>Status</th>
                         <th>Established Date</th>  
-                        <th></th>                                    
+                        <th>Action</th>                                    
                     </tr>
                 </thead>
                 <tbody>
@@ -159,7 +158,6 @@
                                              width: 80px;
                                              padding-right: 20px;"></td>
                                     <td>${com.getComID()}</td>
-                                    <td>${acc.getAccId()}</td>
                                     <td>${acc.getName()}</td>
                                     <td>${acc.getCrateDate()}</td>
                                     <td>
@@ -167,8 +165,9 @@
                                         <c:if test="${acc.getStatus()==0}"><span class="badge badge-danger">Inactive</span></c:if>
                                         </td>
                                     <td>${acc.getBirthday()}</td>
-                                    <td><h5><a href="mainController?action=admincompanyDetails&comID=${com.getComID()}" target="_blank" class="text-center" style="padding-left: 16px;"><i class="far fa-eye"></i></a>
-                                            <a href="mainController?action=changestatuscompany&comID=${com.getComID()}" target="_blank" class="text-center" style="padding-left: 16px;" onclick="return check();"><i class="fa-solid fa-trash-alt"></i></a>
+                                    <td><h5><a href="mainController?action=admincompanyDetails&comID=${com.getComID()}" target="_blank" class="text-center" style="padding-left: 16px;"><i class="fa fa-eye"></i></a>
+                                            <c:if test="${acc.getStatus()==1}"><a href="mainController?action=lockcompany&comID=${com.getComID()}" class="text-center" style="padding-left: 16px;" onclick="return check();"><i class="fa fa-ban"></i></a></c:if>
+                                            <c:if test="${acc.getStatus()==0}"><a href="mainController?action=unlockcompany&comID=${com.getComID()}" class="text-center" style="padding-left: 16px;"><i class="fa fa-lock-open"></i></a></c:if>
                                         </h5></td>
                                 </tr>
                             </c:if>

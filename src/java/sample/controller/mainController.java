@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class mainController extends HttpServlet {
 
-    private static final String ERROR = "error.jsp";
+    private static final String ERROR = "404.html";
     private static final String LOGIN = "Log In";
     private static final String LOGIN_CONTROLLER = "LoginController";
     private static final String UPDATE = "updateInfor";
@@ -60,6 +60,10 @@ public class mainController extends HttpServlet {
     private static final String STUDENTPROFILE_CONTROLLER = "StudentProfileController";
     private static final String UPDATEADMINSTUDENT = "UpdateAdminStudent";
     private static final String UPDATEADMINSTUDENT_CONTROLLER = "UpdateAdminStudentController";
+    private static final String LOCKCOMPANY = "lockcompany";
+    private static final String LOCKCOMPANY_CONTROLLER = "LockCompanyController";
+    private static final String UNLOCKCOMPANY = "unlockcompany";
+    private static final String UNLOCKCOMPANY_CONTROLLER = "UnlockCompanyController";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -119,6 +123,10 @@ public class mainController extends HttpServlet {
                 url=ADMINCOMPANYDETAILS_CONTROLLER;
             }else if(UPDATEADMINSTUDENT.equals(action)){
                 url=UPDATEADMINSTUDENT_CONTROLLER;
+            }else if(LOCKCOMPANY.equals(action)){
+                url=LOCKCOMPANY_CONTROLLER;
+            }else if(UNLOCKCOMPANY.equals(action)){
+                url=UNLOCKCOMPANY_CONTROLLER;
             }
         } catch (Exception e) {
             log("Error at mainController: " + e.toString());

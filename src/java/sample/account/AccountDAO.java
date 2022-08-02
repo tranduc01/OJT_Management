@@ -267,6 +267,33 @@ public class AccountDAO {
         }
         return result;
     }
+    public static int changeStatusAccount(int accID, int status) throws SQLException {
+        int result = 0;
+        Connection cn = null;
+        PreparedStatement pst = null;
+        try {
+            cn = DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = "update [Account]\n"
+                        + "set [status]=?\n"
+                        + "where accID=?";
+                pst = cn.prepareStatement(sql);
+                pst.setInt(1, status);
+                pst.setInt(2, accID);
+                pst.executeUpdate();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (cn != null) {
+                cn.close();
+            }
+            if (pst != null) {
+                pst.close();
+            }
+        }
+        return result;
+    }
 
     public static int updateProfile(String email, String newName, String newPhone, String newBirthday) throws SQLException {
         int result = 0;

@@ -7,14 +7,12 @@ package sample.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import sample.account.AccountDAO;
-import sample.account.AccountDTO;
 import sample.company.CompanyDAO;
 import sample.company.CompanyDTO;
 
@@ -22,8 +20,8 @@ import sample.company.CompanyDTO;
  *
  * @author Tranduc
  */
-@WebServlet(name = "CompanyListController", urlPatterns = {"/CompanyListController"})
-public class CompanyListController extends HttpServlet {
+@WebServlet(name = "UnlockCompanyController", urlPatterns = {"/UnlockCompanyController"})
+public class UnlockCompanyController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,15 +37,11 @@ public class CompanyListController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try  {
             /* TODO output your page here. You may use following sample code. */
-            ArrayList<CompanyDTO> companyList=CompanyDAO.getCompaniesV2();
-            ArrayList<AccountDTO> accList=new ArrayList<>();
-            for (CompanyDTO com : companyList) {
-                AccountDTO acc=AccountDAO.getAccountByIDV2(com.getAccID());
-                accList.add(acc);
-            }
-            request.setAttribute("accList", accList);
-            request.setAttribute("comList", companyList);
-            request.getRequestDispatcher("admin_company.jsp").forward(request, response);
+            int comID=Integer.parseInt(request.getParameter("comID"));
+            CompanyDTO com=CompanyDAO.getCompanyByID(comID);
+            int status=1;
+            int result=AccountDAO.changeStatusAccount(com.getAccID(), status);
+            request.getRequestDispatcher("CompanyListController").forward(request, response);
         }catch(Exception e){
             e.printStackTrace();
         }
