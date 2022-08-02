@@ -58,6 +58,8 @@ public class mainController extends HttpServlet {
     private static final String SEARCHJOB_CONTROLLER = "SearchJobController";
     private static final String STUDENTPROFILE = "StudentProfilePage";
     private static final String STUDENTPROFILE_CONTROLLER = "StudentProfileController";
+    private static final String UPDATEADMINSTUDENT = "UpdateAdminStudent";
+    private static final String UPDATEADMINSTUDENT_CONTROLLER = "UpdateAdminStudentController";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -115,6 +117,8 @@ public class mainController extends HttpServlet {
                 url=COMPANYPOSTDETAIL_CONTROLLER;
             }else if(ADMINCOMPANYDETAILS.equals(action)){
                 url=ADMINCOMPANYDETAILS_CONTROLLER;
+            }else if(UPDATEADMINSTUDENT.equals(action)){
+                url=UPDATEADMINSTUDENT_CONTROLLER;
             }
         } catch (Exception e) {
             log("Error at mainController: " + e.toString());

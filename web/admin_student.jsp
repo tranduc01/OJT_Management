@@ -13,7 +13,6 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="css/admin.css"  />
         <link rel="stylesheet" href="css/style.css"  />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
 
@@ -195,11 +194,11 @@
                     <tr>
                         <th>Student ID</th>
                         <th>Student Name</th>    
-                        <th>Day Of Birth</th>
                         <th>Major</th>
                         <th>Semester</th>
                         <th>Created Date</th>
-                        <th>CV Status</th>             
+                        <th>CV</th>      
+                        <th>Status</th>
                         <th>Application</th>
                     </tr>
                 </thead>
@@ -221,7 +220,7 @@
                                                             <h4 class="modal-title">Student Information</h4>
                                                         </div>
                                                         <div class="modal-body">
-
+                                                            <input type="hidden" name="accID" value="${acc.getAccId()}"/>
                                                             <div class="form-group">
                                                                 <label class="col-sm-2 control-label">Name</label>
                                                                 <div class="col-sm-12">
@@ -231,13 +230,13 @@
                                                             <div class="form-group">
                                                                 <label class="col-sm-4 control-label">Student ID</label>
                                                                 <div class="col-sm-12">
-                                                                    <input class="form-control" name="txtstudentid" type="text" required="" value="${stu.getStudentID()}">
+                                                                    <input class="form-control" name="txtstudentid" type="text" readonly="" value="${stu.getStudentID()}">
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label class="col-sm-2 control-label" >Email</label>
                                                                 <div class="col-sm-12">
-                                                                    <input class="form-control" type="email" name="txtemail" required="" value="${acc.getEmail()}">
+                                                                    <input class="form-control" type="text" name="txtemail" required="" value="${acc.getEmail()}">
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
@@ -246,13 +245,12 @@
                                                                     <input class="form-control"  type="text" name="txtphone" value="${acc.getPhone()}">
                                                                 </div>
                                                             </div>                                                    
-
                                                             <div class="form-group">
                                                                 <label class="col-sm-2 control-label" >Major</label>
                                                                 <div class="col-sm-12">
                                                                     <select name="txtmajor" class="form-control">
                                                                         <c:forEach var="major" items="${requestScope.majorList}">
-                                                                            <option value="${major.getMajorID()}" selected="${stu.getMajorID()}">${major.getMajorName()}</option>
+                                                                            <option value="${major.getMajorID()}" <c:if test="${stu.getMajorID() eq major.getMajorID()}">selected=""</c:if>>${major.getMajorName()}</option>                                            
                                                                         </c:forEach>
                                                                     </select>
                                                                 </div>
@@ -260,42 +258,64 @@
                                                             <div class="form-group row">
                                                                 <div class="col-md-6">
                                                                     <label class="col-sm-2 control-label">Semester</label>
-                                                                    <div>
+                                                                    <div class="col-md-12">
                                                                         <input class="form-control" type="text" name="txtsemester" value="SU2022">
                                                                     </div>
                                                                 </div>
 
                                                                 <div class="col-md-6">
-                                                                    <label class="col-sm-2 control-label" >Date Of Birth</label>
-                                                                    <div>
+                                                                    <label class="col-sm-8 control-label" >Date Of Birth</label>
+                                                                    <div class="col-md-12">
                                                                         <input class="form-control" name="txtdateofbirth" type="date" value="${acc.getBirthday()}">
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <c:if test="${stu.getCvPath()!=null}">
-                                                                <div class="form-group align-items-center" style="text-align: center;">
-                                                                    <a href="${stu.getCvPath()}" class="btn btn-primary" target="_blank">View CV</a>
+                                                            <div class="form-group">
+                                                                <div class="row">
+                                                                <div class="col-sm-6">
+                                                                <label class="col-sm-2 control-label">Status</label>
                                                                 </div>
-                                                            </c:if>
+                                                                <div>
+                                                                    <div class="form-check-inline">
+                                                                        <label class="form-check-label">
+                                                                            <input type="radio" class="form-check-input" name="txtstatus" value="1" <c:if test="${acc.getStatus()==1}">checked=""</c:if>>Active
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="form-check-inline">
+                                                                        <label class="form-check-label">
+                                                                            <input type="radio" class="form-check-input" name="txtstatus" value="0" <c:if test="${acc.getStatus()==0}">checked=""</c:if>>Inactive
+                                                                        </label>
 
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                            <button type="submit" class="btn btn-primary" name="action" value="AddStudent">Update</button>
+                                                                    </div>
+                                                                </div>  
+                                                                    </div>
+                                                                <c:if test="${stu.getCvPath()!=null}">
+                                                                    <div class="form-group align-items-center" style="text-align: center;">
+                                                                        <a href="${stu.getCvPath()}" class="btn btn-primary" target="_blank">View CV</a>
+                                                                    </div>
+                                                                </c:if>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                <button type="submit" class="btn btn-primary" name="action" value="UpdateAdminStudent">Update</button>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
                                         </form>
 
 
                                     </td>
-                                    <td>${acc.getBirthday()}</td>
+
                                     <td>${stu.getMajorID()}</td>
                                     <td>${stu.getSemesterID()}</td>
                                     <td>${acc.getCrateDate()}</td>
                                     <td><c:if test="${stu.getCvPath() eq null}"><span class="badge badge-danger">No</span></c:if>
                                         <c:if test="${stu.getCvPath() ne null}"><span class="badge badge-success">Yes</span></c:if>
+                                        </td>
+                                        <td>
+                                        <c:if test="${acc.getStatus()==1}"><span class="badge badge-success">Active</span></c:if>
+                                        <c:if test="${acc.getStatus()==0}"><span class="badge badge-danger">Inactive</span></c:if>
                                         </td>
                                     <c:set var="app" scope="request" value="${ApplicationDAO.getApplicationByID(stu.getStudentID())}"/>                                   
                                     <td>

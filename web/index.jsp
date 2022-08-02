@@ -365,6 +365,7 @@
                 response.sendRedirect("JobListByPageController");
             }
         %>
+        
         <footer class="footer">
             <div class="container">
                 <div class="row align-items-center">
