@@ -390,7 +390,7 @@
                         <img class="card1-img-top" src="${com.getBannerImage()}" />
                         <div class="card1-body">
 
-                            <h2 class="card1-title">About Us</h2>
+                            <h1 class="card1-title">About Us</h1>
                             <pre class="card1-text">${com.getComDescription()}</pre>
 
                         </div>
@@ -429,7 +429,7 @@
                                                 <div class="thumb-content">
                                                     <h4>${acc.getName()}</h4>									                                             
                                                     <p class="item-price"><b>${jobList.getJobName()}</b></p>
-                                                    <a href="mainController?action=jobDetails&jobid=${job.getJobID()}" class="btn btn-primary">View</a>
+                                                    <a href="mainController?action=jobDetails&jobid=${jobList.getJobID()}" class="btn btn-primary">View</a>
                                                 </div>						
                                             </div>
                                         </div>                                                  

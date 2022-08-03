@@ -49,7 +49,6 @@
                 color: #000;
                 font-size: 26px;
                 font-weight: 300;
-                text-align: center;
                 text-transform: uppercase;
                 position: relative;
                 margin: 30px 0 60px;
@@ -63,7 +62,6 @@
                 border-radius: 1px;
                 background: #f27229;
                 left: 0;
-                right: 0;
                 bottom: -20px;
             }
             .carousel {
