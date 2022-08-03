@@ -21,6 +21,8 @@ import sample.company.CompanyDAO;
 import sample.company.CompanyDTO;
 import sample.job.JobDAO;
 import sample.job.JobDTO;
+import sample.major.MajorDAO;
+import sample.major.MajorDTO;
 import sample.student.StudentDAO;
 import sample.student.StudentDTO;
 
@@ -65,6 +67,24 @@ public class JobDetailsController extends HttpServlet {
             request.setAttribute("stu", stu);
             }
             }
+            
+            
+            ArrayList<JobDTO> listJob = JobDAO.getJobByMajor(job.getMajorID());
+            ArrayList<CompanyDTO> listCompany = CompanyDAO.getCompanies();
+            ArrayList<AccountDTO> listAccount=new ArrayList<>();
+                
+            
+            for (CompanyDTO comm : listCompany) {
+                AccountDTO account=AccountDAO.getAccountByID(comm.getAccID());
+                if(account.getAccId()==comm.getAccID()){
+                listAccount.add(account);
+                }
+            }
+            
+            request.setAttribute("companyList", listCompany);
+                request.setAttribute("jobList", listJob);
+                request.setAttribute("accList", listAccount);
+            
             request.setAttribute("com", com);
             request.setAttribute("job", job);
             request.setAttribute("acc", acc);          

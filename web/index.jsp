@@ -4,6 +4,9 @@
     Author     : Tranduc
 --%>
 
+<%@page import="java.time.Period"%>
+<%@page import="java.time.LocalDate"%>
+<%@page import="java.sql.Date"%>
 <%@page import="sample.student.StudentDTO"%>
 <%@page import="sample.account.AccountDTO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -58,11 +61,18 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="IndexCompanyListController">
+                                <span class="fas fa-building-o"></span>
+                                Company
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="about.jsp">
                                 <span class="fas fa-graduation-cap"></span>
                                 About
                             </a>
                         </li>
+                        
 
                     </ul>
                 </div>
@@ -295,18 +305,34 @@
                                                         <div class="img-holder mr-md-4 mb-md-0 mb-4 mx-auto mx-md-0 d-md-none d-lg-flex">
                                                             <img src="${acc.getAvatar()}" style="height: 100px; width: 150px;">
                                                         </div>
+                                                            <a href="mainController?action=jobDetails&jobid=${job.getJobID()}" style="text-decoration: none; color: black;">
                                                         <div class="job-content" style="padding-left: 50px;">
-                                                            <h5 class="text-center text-md-left">${job.getJobName()}</h5>
+                                                            <h4 class="text-center text-md-left">${job.getJobName()}</h4>
                                                             <ul class="d-md-flex flex-wrap text-capitalize ff-open-sans">
                                                                 <li class="mr-md-4">
-                                                                    <i class="zmdi zmdi-pin mr-2"></i> ${com.getComAddress()}
-                                                                </li>
+                                                                    <i class="zmdi zmdi-pin mr-2" style="padding-left: 3px; padding-top: 5px;"></i> ${com.getComAddress()} </br>                                                              
+                                                                </li>                                                                                                                                                                                                  
                                                             </ul>
                                                         </div>
+                                                            </a>
                                                     </div>
+                                                    <c:set var="end" value="${job.getJobEndDate()}" scope="request"/>
+                                                    <% Date d = (Date) request.getAttribute("current");
+                                                        Date d2 = (Date) request.getAttribute("end");
+                                                        LocalDate date = d.toLocalDate();
+                                                        LocalDate end = d2.toLocalDate();
+                                                        Period p = Period.between(date, end);
+
+
+                                                    %>
                                                     <div class="job-right my-4 flex-shrink-0">
-                                                        <a href="mainController?action=jobDetails&jobid=${job.getJobID()}" class="btn d-block w-100 d-sm-inline-block btn-primary">View Details</a>
+                                                        <i class="fa fa-user" style="padding-top: 5px;"></i> ${job.getAmount()}
+                                                        </br>
+                                                        <i class="fa fa-calendar-alt" style="padding-top: 7px;"></i> Create Date: ${job.getJobCreateDate()} 
+                                                        </br>                                                              
+                                                        <p>Remaining: <%= p.getDays()%> days<p>
                                                     </div>
+                                                   
                                                 </div>
                                             </div>
                                         </c:if>
@@ -315,33 +341,33 @@
                             </c:forEach>
                         </c:forEach>
                     </div>
-                        
+
                     <!-- START Pagination -->
                     <nav aria-label="Page navigation">
                         <ul class="pagination pagination-reset justify-content-center">
                             <c:if test="${requestScope.pagenum-1 ==0}"><li class="page-item"> <a class="page-link" href="mainController?action=viewbypage&page=1">Prev</a> </li></c:if>
                             <c:if test="${requestScope.pagenum-1 !=0}"><li class="page-item"> <a class="page-link" href="mainController?action=viewbypage&page=${requestScope.pagenum-1}">Prev</a> </li></c:if>
-                            <li class="page-item"><a class="page-link" href="mainController?action=viewbypage&page=1">1</a></li>
-                            <li class="page-item"><a class="page-link" href="mainController?action=viewbypage&page=2">2</a></li>
-                            <li class="page-item"><a class="page-link" href="mainController?action=viewbypage&page=3">3</a></li>
-                            <li class="page-item"><a class="page-link" href="mainController?action=viewbypage&page=4">4</a></li>
-                            <li class="page-item"><a class="page-link" href="mainController?action=viewbypage&page=5">5</a></li>
-                            <li class="page-item"><a class="page-link" href="mainController?action=viewbypage&page=6">6</a></li>
+                                <li class="page-item"><a class="page-link" href="mainController?action=viewbypage&page=1">1</a></li>
+                                <li class="page-item"><a class="page-link" href="mainController?action=viewbypage&page=2">2</a></li>
+                                <li class="page-item"><a class="page-link" href="mainController?action=viewbypage&page=3">3</a></li>
+                                <li class="page-item"><a class="page-link" href="mainController?action=viewbypage&page=4">4</a></li>
+                                <li class="page-item"><a class="page-link" href="mainController?action=viewbypage&page=5">5</a></li>
+                                <li class="page-item"><a class="page-link" href="mainController?action=viewbypage&page=6">6</a></li>
                             <c:if test="${requestScope.pagenum+1 >6}"><li class="page-item"> <a class="page-link" href="mainController?action=viewbypage&page=6">Next</a> </li></c:if>
                             <c:if test="${requestScope.pagenum+1 <7}"><li class="page-item"> <a class="page-link" href="mainController?action=viewbypage&page=${requestScope.pagenum+1}">Next</a> </li></c:if>
 
-                        </ul>
-                    </nav>
-                    <!-- END Pagination -->
-                </div>   
+                            </ul>
+                        </nav>
+                        <!-- END Pagination -->
+                    </div>   
 
-            </div>
-            <!-- Swiper -->
-            <div class="container">
-                <div class="swiper card_slider">
-                    <!-- Additional required wrapper -->
-                    <div class="swiper-wrapper">
-                        <!-- Slides -->
+                </div>
+                <!-- Swiper -->
+                <div class="container">
+                    <div class="swiper card_slider">
+                        <!-- Additional required wrapper -->
+                        <div class="swiper-wrapper">
+                            <!-- Slides -->
                         <c:forEach var="com" items="${requestScope.companyList}">
                             <c:forEach var="acc" items="${requestScope.accList}">
                                 <c:if test="${com.getAccID() eq acc.getAccId()}">
@@ -365,7 +391,7 @@
                 response.sendRedirect("JobListByPageController");
             }
         %>
-        
+
         <footer class="footer">
             <div class="container">
                 <div class="row align-items-center">

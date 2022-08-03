@@ -55,6 +55,12 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="IndexCompanyListController">
+                                <span class="fas fa-building-o"></span>
+                                Company
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="about.jsp">
                                 <span class="fas fa-graduation-cap"></span>
                                 About

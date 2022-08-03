@@ -250,7 +250,9 @@
                         <div class="card1-header" style="text-align: center; font-weight: bold;">Contact</div>
                         <div class="card1-body"><span class="fa fa-phone"> :${acc.getPhone()}</span></div>
                         <div class="card1-body"><span class="fa fa-envelope"> :${acc.getEmail()}</span></div>
-                        <div class="card1-body"><span class="fa-solid fa-globe">:<a href="${com.getWebsite()}"> ${com.getWebsite()}</a></span></div>
+                        <div class="card1-body"><span class="fa-solid fa-globe">: <a href="${com.getWebsite()}"> ${com.getWebsite()}</a></span></div>
+                        <div class="card1-body"><span class="fa fa-location-dot" style="line-height: 2;"> : ${com.getComAddress()}</span></div>
+
                     </div>
                 </div>
             </div>
