@@ -74,12 +74,7 @@
                                 Results
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <span class="fa-solid fa-user-group"></span>
-                                Accounts
-                            </a>
-                        </li>
+                        
                     </ul>
                 </div>
                 <span class="navbar-text ml-auto">
@@ -157,7 +152,7 @@
                                                                 </td>
                                                                 <td>                                                                                                         
                                                                     <h5><a href="mainController?action=PostDetail&id=${job.getJobID()}" class="text-primary" data-toggle="tooltip" title="" data-original-title="view" style="padding-left: 16px;"><i class="far fa-eye"></i></a>   
-                                                                    <a href="#" class="text-primary" data-toggle="tooltip" title="" data-original-title="view" style="padding-left: 16px;"><i class="far fa-pen-to-square"></i></a></h5>
+                                                                    <c:if test="${job.getStatus() eq 1}"><a href="#" class="text-primary" data-toggle="tooltip" title="" data-original-title="view" style="padding-left: 16px;" onclick="return remove();"><i class="far fa-trash-alt"></i></a></c:if></h5>
                                                             </td>
                                                             <td>
                                                                 <c:if test="${job.getStatus()==0}">
@@ -206,6 +201,15 @@
         <script>
             function check() {
                 if (confirm("Are you sure to reject this post?") === false) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+        </script>
+        <script>
+            function remove() {
+                if (confirm("Are you sure to take down this post?") === false) {
                     return false;
                 } else {
                     return true;

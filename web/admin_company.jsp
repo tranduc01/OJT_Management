@@ -75,12 +75,7 @@
                                 Results
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <span class="fa-solid fa-user-group"></span>
-                                Accounts
-                            </a>
-                        </li>
+                        
                     </ul>
                 </div>
                 <span class="navbar-text ml-auto">
