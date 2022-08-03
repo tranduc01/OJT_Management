@@ -257,6 +257,54 @@ public class JobDAO {
         }
         return list;
     }
+    public static ArrayList<JobDTO> getJobByFilter(int status) throws SQLException {
+        ArrayList<JobDTO> list = new ArrayList<>();
+        Connection cn = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            cn = DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = "select [jobID],[jobName],[jobTitle],[jobDescription],[jobRequirements],[jobBenefits],[jobSalary],amount,[jobCreateDate],[jobEndDate],[status],majorID,comID\n"
+                        + "from Job\n"
+                        + "where job.status=?";             
+                pst = cn.prepareStatement(sql);
+                pst.setInt(1, status);
+                rs = pst.executeQuery();
+                while (rs != null && rs.next()) {
+                    int jobid = rs.getInt("jobID");
+                    String jobname = rs.getString("jobName");
+                    String jobtitle = rs.getString("jobTitle");
+                    String jobdescription = rs.getString("jobDescription");
+                    String jobrequirement = rs.getString("jobRequirements");
+                    String jobbenefit = rs.getString("jobBenefits");
+                    int salary = rs.getInt("jobSalary");
+                    Date createdate = rs.getDate("jobCreateDate");
+                    Date enddate = rs.getDate("jobEndDate");
+                    int statuss = rs.getInt("status");
+                    int amount = rs.getInt("amount");
+                    int comid = rs.getInt("comID");
+                    String majorid = rs.getString("majorID");
+                    JobDTO job = new JobDTO(jobid, jobname, jobtitle, jobdescription, jobrequirement, jobbenefit, salary, createdate, enddate, statuss, amount, comid, majorid);
+                    list.add(job);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (cn != null) {
+                cn.close();
+            }
+            if (pst != null) {
+                pst.close();
+            }
+            if (rs != null) {
+                rs.close();
+            }
+        }
+        return list;
+    }
+    
     public static ArrayList<JobDTO> getJobsByPage(int pageNumber, int rowOfPage) throws SQLException {
         ArrayList<JobDTO> list = new ArrayList<>();
         Connection cn = null;

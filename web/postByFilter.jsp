@@ -1,6 +1,6 @@
 <%-- 
-    Document   : postManagement
-    Created on : Jul 18, 2022, 1:20:05 PM
+    Document   : postByFilter
+    Created on : Aug 3, 2022, 9:55:29 PM
     Author     : Tranduc
 --%>
 
@@ -181,19 +181,7 @@
                                         </c:forEach>
                                     </c:forEach>
                                 </tbody>
-                            </table>
-                            <div class="text-center mt-3 mt-sm-3">
-                                <ul class="pagination justify-content-center mb-0">
-                                    <li class="page-item"> <a class="page-link" href="#">Prev</a></li>
-                                    <li class="page-item"><a class="page-link" href="JobsPostController?page=1">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="JobsPostController?page=2">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="JobsPostController?page=3">3</a></li>
-                                    <li class="page-item"><a class="page-link" href="JobsPostController?page=4">4</a></li>
-                                    <li class="page-item"><a class="page-link" href="JobsPostController?page=5">5</a></li>
-                                    <li class="page-item"><a class="page-link" href="JobsPostController?page=6">6</a></li>
-                                    <li class="page-item"> <a class="page-link" href="#">Next</a> </li>
-                                </ul>
-                            </div>
+                            </table>                      
                         </div>
                     </div>
                 </div>

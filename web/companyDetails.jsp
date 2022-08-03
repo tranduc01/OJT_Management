@@ -196,7 +196,7 @@
                 <a class="navbar-brand mr-auto" href="JobListByPageController"><img src="img/logo.png" height="30" width="41"></a>
                 <div class="collapse navbar-collapse" id="Navbar">
                     <ul class="navbar-nav">
-                        <li class="nav-item active">
+                        <li class="nav-item">
                             <a class="nav-link" href="JobListByPageController">
                                 <span class="fa fa-home fa-lg"></span>
                                 Home
@@ -206,6 +206,12 @@
                             <a class="nav-link" href="JobsPageController">
                                 <span class="fa fa-briefcase fa-lg"></span>
                                 Jobs
+                            </a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="IndexCompanyListController">
+                                <span class="fas fa-building-o"></span>
+                                Company
                             </a>
                         </li>
                         <li class="nav-item">
