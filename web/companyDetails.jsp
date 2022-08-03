@@ -28,6 +28,160 @@
         <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css"/>
         <link rel="shortcut icon" href="img/FPT-logoo.jpg">
         <title>Company Details</title>
+
+        <style>
+
+            h2 {
+                color: #000;
+                font-size: 26px;
+                font-weight: 300;
+                text-transform: uppercase;
+                position: relative;
+                margin: 30px 0 60px;
+            }
+            h2::after {
+                content: "";
+                width: 100px;
+                position: absolute;
+                margin: 0 auto;
+                height: 4px;
+                border-radius: 1px;
+                background: #f27229;
+                left: 0;
+                bottom: -20px;
+            }
+            .carousel {
+                margin: 50px auto;
+                padding: 0 70px;
+            }
+            .carousel .item {
+                color: #747d89;
+                min-height: 325px;
+                text-align: center;
+                overflow: hidden;
+            }
+            .carousel .thumb-wrapper {
+                padding: 25px 15px;
+                background: #fff;
+                border-radius: 6px;
+                text-align: center;
+                position: relative;
+                box-shadow: 0 2px 3px rgba(0,0,0,0.2);
+            }
+            .carousel .item .img-box {
+                height: 120px;
+                margin-bottom: 20px;
+                width: 100%;
+                position: relative;
+            }
+            .carousel .item img {	
+                max-width: 100%;
+                max-height: 100%;
+                display: inline-block;
+                position: absolute;
+                bottom: 0;
+                margin: 0 auto;
+                left: 0;
+                right: 0;
+            }
+            .carousel .item h4 {
+                font-size: 18px;
+            }
+            .carousel .item h4, .carousel .item p, .carousel .item ul {
+                margin-bottom: 5px;
+            }
+            .carousel .thumb-content .btn {
+                color: #f27229;
+                font-size: 11px;
+                text-transform: uppercase;
+                font-weight: bold;
+                background: none;
+                border: 1px solid #f27229;
+                padding: 6px 14px;
+                margin-top: 5px;
+                line-height: 16px;
+                border-radius: 20px;
+            }
+            .carousel .thumb-content .btn:hover, .carousel .thumb-content .btn:focus {
+                color: #fff;
+                background: #f27229;
+                box-shadow: none;
+            }
+            .carousel .thumb-content .btn i {
+                font-size: 14px;
+                font-weight: bold;
+                margin-left: 5px;
+            }
+            .carousel .item-price {
+                font-size: 13px;
+                padding: 2px 0;
+            }
+            .carousel .item-price strike {
+                opacity: 0.7;
+                margin-right: 5px;
+            }
+            .carousel-control-prev, .carousel-control-next {
+                height: 44px;
+                width: 40px;
+                background: #f27229;	
+                margin: auto 0;
+                border-radius: 4px;
+                opacity: 0.8;
+            }
+            .carousel-control-prev:hover, .carousel-control-next:hover {
+                background: #f27229;
+                opacity: 1;
+            }
+            .carousel-control-prev i, .carousel-control-next i {
+                font-size: 36px;
+                position: absolute;
+                top: 50%;
+                display: inline-block;
+                margin: -19px 0 0 0;
+                z-index: 5;
+                left: 0;
+                right: 0;
+                color: #fff;
+                text-shadow: none;
+                font-weight: bold;
+            }
+            .carousel-control-prev i {
+                margin-left: -2px;
+            }
+            .carousel-control-next i {
+                margin-right: -4px;
+            }		
+            .carousel-indicators {
+                bottom: -50px;
+            }
+            .carousel-indicators li, .carousel-indicators li.active {
+                width: 10px;
+                height: 10px;
+                margin: 4px;
+                border-radius: 50%;
+                border: none;
+            }
+            .carousel-indicators li {	
+                background: rgba(0, 0, 0, 0.2);
+            }
+            .carousel-indicators li.active {	
+                background: rgba(0, 0, 0, 0.6);
+            }
+            .carousel .wish-icon {
+                position: absolute;
+                right: 10px;
+                top: 10px;
+                z-index: 99;
+                cursor: pointer;
+                font-size: 16px;
+                color: #abb0b8;
+            }
+            .carousel .wish-icon .fa-heart {
+                color: #ff6161;
+            }
+
+        </style>
+
     </head>
     <body>
         <div id="preloader">
@@ -257,39 +411,35 @@
                 </div>
             </div>
             <!-- Swiper -->
-            <div class="container" style="padding-bottom: 70px;">
-                <div class="swiper card_slider" >
-                    <!-- Additional required wrapper -->
-                    <div class="swiper-wrapper">
-                        <!-- Slides -->
 
-                        <c:forEach var="jobList" items="${requestScope.jobList}">
-                            <div class="swiper-slide" style="padding: 30px 10px 30px 10px; width: 150px;">  
-                            <div class="card1 mb-4" >
-                                <img class="card1-img-top" src="${acc.getAvatar()}" style="object-fit: cover;
-                                                                                 overflow: hidden;
-                                                                                 height: 100%;
-                                                                                 "/>
-                                <div class="card1-body" style="text-align: center;">                                   
-                                    <h2 class="card1-title h4">${jobList.getJobName()}</h2>                                   
-                                    <a class="btn btn-primary" href="mainController?action=jobDetails&jobid=${jobList.getJobID()}">View →</a>
+            <div class="container-xl">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2>Comany's <b>Jobs</b></h2>
+                        <div class="carousel">
+
+                            <div class="item">
+                                <div class="row">
+                                    <c:forEach var="jobList" items="${requestScope.jobList}">
+                                        <div class="col-sm-3" style="padding-top: 20px; padding-bottom: 5px;">
+                                            <div class="thumb-wrapper">
+                                                <div class="img-box">
+                                                    <img src="${acc.getAvatar()}" class="img-fluid" alt="">									
+                                                </div>
+                                                <div class="thumb-content">
+                                                    <h4>${acc.getName()}</h4>									                                             
+                                                    <p class="item-price"><b>${jobList.getJobName()}</b></p>
+                                                    <a href="mainController?action=jobDetails&jobid=${job.getJobID()}" class="btn btn-primary">View</a>
+                                                </div>						
+                                            </div>
+                                        </div>                                                  
+                                    </c:forEach>                                                                   
                                 </div>
-                            </div>   
-                             </div>
-
-                        </c:forEach>
-
+                            </div>
+                        </div>
                     </div>
-
-
-
-                    <!-- If we need navigation buttons -->
-                    <div class="swiper-button-prev"></div>
-                    <div class="swiper-button-next"></div>
-
-
                 </div>
-            </div>
+            </div> 
         </div>
 
         <!-- Bootstrap core JS-->
@@ -302,39 +452,7 @@
                 loader.style.display = "none";
             });
         </script>
-        <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
-        <script type="text/javascript">
-            var swiper = new Swiper(".card_slider", {
-                spaceBetween: 30,
-                loop: true,
-                speed: 1000,
-                autoplay: {
-                    delay: 2000,
-                },
-                pagination: {
-                    el: ".swiper-pagination",
-                    clickable: true,
-                },
-                navigation: {
-                    nextEl: ".swiper-button-next",
-                    prevEl: ".swiper-button-prev"
-                },
-                breakpoints: {
-                    1200: {
-                        slidesPerView: 4,
-                    },
-                    768: {
-                        slidesPerView: 3,
-                    },
-                    480: {
-                        slidesPerView: 2,
-                    },
-                    320: {
-                        slidesPerView: 1,
-                    },
-                },
-            });
-        </script>
+
         <footer class="footer">
             <div class="container">
                 <div class="row align-items-center">
