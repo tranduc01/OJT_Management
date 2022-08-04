@@ -141,20 +141,21 @@ if(role==0 || role==1){
                                      border-radius: 100%;"/>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-
+                                <a class="dropdown-item" href="securityCompany.jsp">
+                                    <span class="fa fa-user-lock" style="color: #f27229;"></span> Security</a>
                                 <a class="dropdown-item" href="mainController?action=logout">
                                     <i class="fa fa-power-off" style="color: #f27229;"></i>
                                     Logout
                                 </a>
                             </div>
-                        </li>       
+                        </li>      
                     </ul>
                 </div>          
             </div> 
         </nav>
 
         <div class="jumbotron">
-            <table id="example" class="table table-striped table-bordered " style="width:100%; text-align: center;">
+            <table id="example" class="table table-striped table-bordered " style="width:100%;">
                 <thead>
                     <tr>
                         <th>Student ID</th>
@@ -173,7 +174,80 @@ if(role==0 || role==1){
                             <c:if test="${stu.getAccID() eq acc.getAccId()}">
                                 <tr>
                                     <td>${stu.getStudentID()}</td>
-                                    <td><a data-toggle="modal" data-target="#myModalAddInfor">${stu.getStudentName()}</a></td>
+                                    <td>
+                                        <a data-toggle="modal" data-target="#myModalAddInfor${stu.getStudentID()}">${stu.getStudentName()}</a>
+                                       
+                                            <div id="myModalAddInfor${stu.getStudentID()}" class="modal fade" role="dialog">
+                                                <div class="modal-dialog">
+                                                    <!-- Modal content-->
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">                           
+                                                            <h4 class="modal-title">Student Information</h4>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <input type="hidden" name="accID" value="${acc.getAccId()}" readonly=""/>
+                                                            <div class="form-group">
+                                                                <label class="col-sm-2 control-label">Name</label>
+                                                                <div class="col-sm-12">
+                                                                    <input class="form-control" name="txtname" type="text" readonly="" value="${stu.getStudentName()}">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-sm-4 control-label">Student ID</label>
+                                                                <div class="col-sm-12">
+                                                                    <input class="form-control" name="txtstudentid" type="text" readonly="" value="${stu.getStudentID()}">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-sm-2 control-label" >Email</label>
+                                                                <div class="col-sm-12">
+                                                                    <input class="form-control" type="text" name="txtemail" readonly="" value="${acc.getEmail()}">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-sm-2 control-label">Phone</label>
+                                                                <div class="col-sm-12">
+                                                                    <input class="form-control"  type="text" readonly="" name="txtphone" value="${acc.getPhone()}">
+                                                                </div>
+                                                            </div>                                                    
+                                                            <div class="form-group">
+                                                                <label class="col-sm-2 control-label" >Major</label>
+                                                                <div class="col-sm-12">                                                                                                                                     
+                                                                        <input class="form-control"  type="text" readonly="" name="txtphone" value="${stu.getMajorID()}">                                                                                                                                                                    
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <div class="col-md-6">
+                                                                    <label class="col-sm-2 control-label">Semester</label>
+                                                                    <div class="col-md-12">
+                                                                        <input class="form-control" type="text" name="txtsemester" value="SU2022">
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-md-6">
+                                                                    <label class="col-sm-8 control-label" >Date Of Birth</label>
+                                                                    <div class="col-md-12">
+                                                                        <input class="form-control" name="txtdateofbirth" type="date" value="${acc.getBirthday()}">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                
+                                                                <c:if test="${stu.getCvPath()!=null}">
+                                                                    <div class="form-group align-items-center" style="text-align: center;">
+                                                                        <a href="${stu.getCvPath()}" class="btn btn-primary" target="_blank">View CV</a>
+                                                                    </div>
+                                                                </c:if>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                        
+                                    </td>
                                     <td>${acc.getBirthday()}</td>
                                     <td>${stu.getMajorID()}</td>
                                     <td>${stu.getSemesterID()}</td>
@@ -195,26 +269,7 @@ if(role==0 || role==1){
                     </c:forEach>
                 </tbody>
             </table>
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Application</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            ...
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
+            
         </div>
         <script>
             $(document).ready(function () {

@@ -77,7 +77,7 @@
                             </a>
                         </li>    
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="company_result.jsp">
                                 <span class="fa fa-graduation-cap fa-lg"></span>
                                 OJT Results
                             </a>
@@ -133,7 +133,8 @@
                                      border-radius: 100%;"/>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-
+                                <a class="dropdown-item" href="securityCompany.jsp">
+                                    <span class="fa fa-user-lock" style="color: #f27229;"></span> Security</a>
                                 <a class="dropdown-item" href="mainController?action=logout">
                                     <i class="fa fa-power-off" style="color: #f27229;"></i>
                                     Logout
@@ -209,7 +210,7 @@
                                                 <!-- Form Group (create number)-->
                                                 <div class="col-md-6">
                                                     <label class="small mb-1" for="inputBirthday">Major</label>
-                                                
+
                                                     <select name="Major" class="form-control">
                                                         <c:forEach var="major" items="${requestScope.majorList}">
                                                             <option value="${major.getMajorID()}">${major.getMajorName()}</option>
@@ -247,7 +248,7 @@
                                         <th class="text-center">Modify Date</th>
                                         <th class="text-center">Status</th>                              
                                         <th class="action text-right">Action</th>
-                                        
+
                                     </tr>
                                 </thead>
                                 <tbody>

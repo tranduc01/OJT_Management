@@ -1,29 +1,15 @@
 <%-- 
-    Document   : company_postdetails
-    Created on : Jul 22, 2022, 8:49:35 PM
+    Document   : company_result
+    Created on : Aug 4, 2022, 8:14:07 PM
     Author     : Tranduc
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib  uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">  
         <link rel="stylesheet" href="css/style.css"  />
-        <link rel="stylesheet" href="css/jobDetails.css"  />
-        <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
-        <link rel="stylesheet" href="assets/css/flaticon.css">
-        <link rel="stylesheet" href="assets/css/slicknav.css">
-        <link rel="stylesheet" href="assets/css/price_rangs.css">
-        <link rel="stylesheet" href="assets/css/animate.min.css">
-        <link rel="stylesheet" href="assets/css/magnific-popup.css">
-        <link rel="stylesheet" href="assets/css/themify-icons.css">
-        <link rel="stylesheet" href="assets/css/slick.css">
-        <link rel="stylesheet" href="assets/css/nice-select.css">
-        <link rel="stylesheet" href="assets/css/style.css">
-        <link rel="manifest" href="site.webmanifest">
-        <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
 
         <!-- jQuery library -->
@@ -34,11 +20,40 @@
 
         <!-- Latest compiled JavaScript -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+        <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css"></script>
+        <script src="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap4.min.css"></script>
+        <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
 
         <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
         <script src="https://kit.fontawesome.com/12c372e324.js" crossorigin="anonymous"></script>
         <link rel="shortcut icon" href="img/FPT-logoo.jpg">
-        <title>Adminastor</title>
+        <title>FPT OJT</title>
+
+        <style>
+            *{
+                padding: 0px;
+                margin: 0px;
+            }
+
+            .form{
+                display: flex-end;
+                margin: 0rem 10rem 0rem 10rem ;
+                padding: 20px 50px;
+                border-radius: 10px;
+                color: black;
+                border: #000 solid 1px;  
+                text-align: center;
+
+            }
+
+            .button-submit{
+                padding: 5px 50px;
+                background-color: #f27229;
+                color: white;
+            }
+        </style>
     </head>
     <body>
         <div id="preloader">
@@ -52,7 +67,7 @@
                 <a class="navbar-brand mr-auto" href="JobListByPageController"><img src="img/logo.png" height="30" width="41"></a>
                 <div class="collapse navbar-collapse" id="Navbar">
                     <ul class="navbar-nav">
-                        <li class="nav-item active">
+                        <li class="nav-item">
                             <a class="nav-link" href="CompanyHomePageController">
                                 <span class="fa fa-home fa-lg"></span>
                                 Home
@@ -76,7 +91,7 @@
                                 Company Profile
                             </a>
                         </li>    
-                        <li class="nav-item">
+                        <li class="nav-item active">
                             <a class="nav-link" href="company_result.jsp">
                                 <span class="fa fa-graduation-cap fa-lg"></span>
                                 OJT Results
@@ -144,104 +159,31 @@
                     </ul>
                 </div>          
             </div> 
-        </nav>
-        
-         <c:set var="job" value="${requestScope.job}"/>
-        <c:set var="com" value="${requestScope.com}"/>
-        <c:set var="acc" value="${requestScope.acc}"/>
-        
-        <!-- job post company Start -->
-        <div class="job-post-company pt-120 pb-120">
-            <div class="container">
-                <div class="row justify-content-between">
-                    <!-- Left Content -->
-                    <div class="surround col-xl-7 col-lg-8">
-                        <!-- job single -->
-                        <div class="single-job-items mb-50">
-                            <div class="job-items">
-                                <div class="company-img company-img-details">
-                                    <a href="#"><img src="${acc.getAvatar()}" style="height: 70px; width: 70px;"></a>
-                                </div>
-                                <div class="job-tittle">
-
-                                    <h4 style="font-weight: bold;">${job.getJobName()}</h4>
-
-                                    <ul>
-                                        <li>${job.getJobTitle()}</li>                                       
-                                        <li>$${job.getJobSalary()}</li>
-
-                                    </ul>
-                                    <i class="fas fa-map-marker-alt"></i> ${com.getComAddress()}
-                                </div>
-                            </div>
-                        </div>
-                        <!-- job single End -->
-
-                        <div class="job-post-details">
-                            <div class="post-details1 mb-50">
-                                <!-- Small Section Tittle -->
-                                <div class="small-section-tittle">
-                                    <h4 style="font-weight: bold;">Job Description</h4>
-                                </div>
-                                <div class="long-text"><pre>${job.getJobDescription()}</pre></div>
-                            </div>
-                            <div class="post-details2  mb-50">
-                                <!-- Small Section Tittle -->
-                                <div class="small-section-tittle">
-                                    <h4 style="font-weight: bold;">Requirements</h4>
-                                </div>
-                                <pre>${job.getJobRequirement()}</pre>
-                            </div>
-                            <div class="post-details2  mb-50">
-                                <!-- Small Section Tittle -->
-                                <div class="small-section-tittle">
-                                    <h4 style="font-weight: bold;">Benefits</h4>
-                                </div>
-                                <pre>${job.getJobBenefits()}</pre>
-                            </div>
-                        </div>
-
+        </nav>      
+        <div class="jumbotron">
+            <div class="container submit-OJT-container row" style="padding-top: 50px;">
+                <form class="form col-md-12" action="ImportResultController" enctype="multipart/form-data" method="post"> 
+                    <div class="form-title">
+                        <h2>Upload File Excel</h2>               
                     </div>
-                    <!-- Right Content -->
-                    <div class="col-xl-4 col-lg-4">
-                        <div class="post-details3  mb-50">
-                            <!-- Small Section Tittle -->
-                            <div class="small-section-tittle">
-                                <h4 style="font-weight: bold;">Job Overview</h4>
-                            </div>
-                            <ul>
-                                <li>Posted date : <span>${job.getJobCreateDate()}</span></li>
-
-                                <li>Amount : <span>${job.getAmount()}</span></li>
-
-                                <li>Salary :  <span>$${job.getJobSalary()}</span></li>
-                                <li>End date : <span>${job.getJobEndDate()}</span></li>
-                            </ul>
-                            <div class="apply-btn2">
-                                <div class="line"></div>                                                             
-                                    <a type="button" class="btn" data-toggle="modal" data-target="#exampleModal" >
-                                        Apply Now
-                                    </a>                                                                                                                                       
-                                </div>
-                            </div>
-                            <div class="post-details4  mb-50">
-                                <!-- Small Section Tittle -->
-                                <div class="small-section-tittle">
-                                    <h4>Company Information</h4>
-                                </div>
-                                <span>${acc.getName()}</span>
-                            <img src="${acc.getAvatar()}" style="height: 225px; width: 225px;"></br>
-                            Website:<a href="${com.getWebsite()}"> ${com.getWebsite()}</a>
-                        </div>
+                    <div class="form-group">
+                        <input type="file" id="myfile" name="myfile">
                     </div>
-                </div>
+
+                    <div class="button">
+                        <button type="submit" class="btn button-submit">
+                            <span class="fa fa-upload fa-lg"></span>
+                            Upload
+                        </button>
+                    </div>
+                </form>
             </div>
-        </div>                                                               
+        </div>
         <script>
             var loader = document.getElementById("preloader");
             window.addEventListener("load", function () {
                 loader.style.display = "none";
             });
-        </script>
+        </script> 
     </body>
 </html>

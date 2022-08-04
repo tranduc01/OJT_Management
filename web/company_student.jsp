@@ -69,7 +69,7 @@
                             </a>
                         </li>    
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="company_result.jsp">
                                 <span class="fa fa-graduation-cap fa-lg"></span>
                                 OJT Results
                             </a>
@@ -125,13 +125,14 @@
                                      border-radius: 100%;"/>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-
+                                <a class="dropdown-item" href="securityCompany.jsp">
+                                    <span class="fa fa-user-lock" style="color: #f27229;"></span> Security</a>
                                 <a class="dropdown-item" href="mainController?action=logout">
                                     <i class="fa fa-power-off" style="color: #f27229;"></i>
                                     Logout
                                 </a>
                             </div>
-                        </li>       
+                        </li>      
                     </ul>
                 </div>          
             </div> 

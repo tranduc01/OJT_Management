@@ -12,7 +12,7 @@
 <!DOCTYPE html>
 <%
     String email = (String) session.getAttribute("accEmail");
-    if (email==null) {
+    if (email == null) {
 %>
 <script>
     window.alert("You need to login first !!");
@@ -21,15 +21,15 @@
 %>
 <%
 } else {
-int role=(int) session.getAttribute("role");
-if(role==0 || role==1){
+    int role = (int) session.getAttribute("role");
+    if (role == 0 || role == 1) {
 %>
 <script>
     window.alert("You don't have permission to access this site !!!");
     window.location.href = "JobListController";
 </script>
 %><%
-}else{
+} else {
 %>
 <html>
     <head>
@@ -52,12 +52,12 @@ if(role==0 || role==1){
         <title>Student's Profile</title>
     </head>
     <body>
-        
+
         <div id="preloader">
             <img src="img/loader.gif"/>
         </div>
         <% AccountDTO acc = (AccountDTO) session.getAttribute("acc");
-           CompanyDTO com = (CompanyDTO) request.getAttribute("company");
+            CompanyDTO com = (CompanyDTO) request.getAttribute("company");
         %>
 
         <nav class="navbar navbar-dark navbar-expand-md fixed-top">
@@ -93,7 +93,7 @@ if(role==0 || role==1){
                             </a>
                         </li>    
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="company_result.jsp">
                                 <span class="fa fa-graduation-cap fa-lg"></span>
                                 OJT Results
                             </a>
@@ -149,13 +149,14 @@ if(role==0 || role==1){
                                      border-radius: 100%;"/>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-
+                                <a class="dropdown-item" href="securityCompany.jsp">
+                                    <span class="fa fa-user-lock" style="color: #f27229;"></span> Security</a>
                                 <a class="dropdown-item" href="mainController?action=logout">
                                     <i class="fa fa-power-off" style="color: #f27229;"></i>
                                     Logout
                                 </a>
                             </div>
-                        </li>       
+                        </li>      
                     </ul>
                 </div>          
             </div> 
@@ -212,7 +213,7 @@ if(role==0 || role==1){
                         </div>
                     </div>
 
-                            
+
                     <div class="col-xl-8">
                         <!-- Account details card-->
                         <div class="card mb-4">
@@ -255,7 +256,7 @@ if(role==0 || role==1){
                                             <input class="form-control" id="inputBirthday" type="date" name="txtbirthday" value="<%= acc.getBirthday()%>">
                                         </div>
                                     </div>
-                                            <p style="color: green; font-weight: bold;"><%= (request.getAttribute("success") == null) ? "" : request.getAttribute("success")%></p> </br>
+                                    <p style="color: green; font-weight: bold;"><%= (request.getAttribute("success") == null) ? "" : request.getAttribute("success")%></p> </br>
                                     <!-- Save changes button-->
                                     <button class="btn btn-primary" type="submit" name="action" value="updateInfor">Save changes</button>
                                 </form>
@@ -265,19 +266,19 @@ if(role==0 || role==1){
                 </div>
             </div>
         </div>
-                                            
+
 
         <script src="node_modules/jquery/dist/jquery.slim.min.js"></script>
         <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
         <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
         <script>
-            var loader=document.getElementById("preloader");
-            window.addEventListener("load",function (){
-                loader.style.display="none";
-            });
+    var loader = document.getElementById("preloader");
+    window.addEventListener("load", function () {
+        loader.style.display = "none";
+    });
         </script>
     </body>
 </html>
 <%}
-}
+    }
 %>

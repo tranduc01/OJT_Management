@@ -63,7 +63,7 @@
                 <a class="navbar-brand mr-auto" href="JobListByPageController"><img src="img/logo.png" height="30" width="41"></a>
                 <div class="collapse navbar-collapse" id="Navbar">
                     <ul class="navbar-nav">
-                        <li class="nav-item ">
+                        <li class="nav-item">
                             <a class="nav-link" href="CompanyHomePageController">
                                 <span class="fa fa-home fa-lg"></span>
                                 Home
@@ -88,7 +88,7 @@
                             </a>
                         </li>    
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="company_result.jsp">
                                 <span class="fa fa-graduation-cap fa-lg"></span>
                                 OJT Results
                             </a>
@@ -144,7 +144,8 @@
                                      border-radius: 100%;"/>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-
+                                <a class="dropdown-item" href="securityCompany.jsp">
+                                    <span class="fa fa-user-lock" style="color: #f27229;"></span> Security</a>
                                 <a class="dropdown-item" href="mainController?action=logout">
                                     <i class="fa fa-power-off" style="color: #f27229;"></i>
                                     Logout
