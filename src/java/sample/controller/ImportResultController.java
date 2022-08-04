@@ -15,8 +15,17 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
+import sample.account.AccountDTO;
+import sample.application.ApplicationDAO;
+import sample.application.ApplicationDTO;
+import sample.company.CompanyDAO;
+import sample.company.CompanyDTO;
+import sample.job.JobDAO;
+import sample.job.JobDTO;
 import static sample.readExcel.readExcelResult.readExcelResult;
+import sample.result.ResultDAO;
 import sample.result.ResultDTO;
 
 /**
@@ -55,14 +64,24 @@ public class ImportResultController extends HttpServlet {
             String filePath = "D:\\SWP391\\OJT_Management\\web\\Result\\" + fileName;
             ArrayList<ResultDTO> list = readExcelResult(filePath);
             Date d = new Date(System.currentTimeMillis());
-
+            
+            HttpSession session=request.getSession();
+            AccountDTO acc=(AccountDTO) session.getAttribute("acc");
+            CompanyDTO com=CompanyDAO.getCompanyByAccID(acc.getAccId());
+            ArrayList<JobDTO> listJob=JobDAO.getJobByComID(com.getComID());
+            
             //insert Account
             for (ResultDTO result : list) {
-                
-                
-                
+                int res = ResultDAO.insertResult(result.getComment(), result.getGrade(), result.getStatus());    
+                ArrayList<ApplicationDTO> listApp=ApplicationDAO.getApplicationByID(result.getStuID());
+                for (ApplicationDTO applicationDTO : listApp) {
+                    for (JobDTO job : listJob) {
+                        if(applicationDTO.getJobID()==job.getJobID()){
+                            int re=ResultDAO.UpdateResultApplication(applicationDTO.getApplyID(), );
+                        }
+                    }
+                }
             }
-            System.out.println(list.size());
             request.getRequestDispatcher("company_result.jsp").forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();

@@ -203,6 +203,8 @@ public class ApplicationDAO {
         }
     }
     
+    
+    
     public static void RejectOJTApplication(int id) throws SQLException {
         Connection cn = null;
         PreparedStatement pst = null;

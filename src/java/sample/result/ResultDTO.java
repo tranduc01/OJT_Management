@@ -15,17 +15,29 @@ public class ResultDTO {
     private String comment;
     private int status;
     private int grade;
+    private int appID;
 
     public ResultDTO() {
     }
 
-    public ResultDTO(String stuID, int resultID, String comment, int status, int grade) {
+    public ResultDTO(String stuID, int resultID, String comment, int status, int grade, int appID) {
         this.stuID = stuID;
         this.resultID = resultID;
         this.comment = comment;
         this.status = status;
         this.grade = grade;
+        this.appID = appID;
     }
+
+    public int getAppID() {
+        return appID;
+    }
+
+    public void setAppID(int appID) {
+        this.appID = appID;
+    }
+
+    
 
     public String getStuID() {
         return stuID;
