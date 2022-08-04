@@ -181,11 +181,11 @@
                                                 <!-- Form Group (Job Salary)-->
                                                 <div class="col-md-6">
                                                     <label class="small mb-1" for="inputLocation">Amount</label>
-                                                    <input class="form-control" id="inputLocation" type="text" placeholder="Amount" name="Amount">
+                                                    <input class="form-control" id="inputLocation" type="number" placeholder="Amount" name="Amount">
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label class="small mb-1" for="inputLocation">Job Salary</label>
-                                                    <input class="form-control" id="inputLocation" type="text" placeholder="Job Salary" name="jobSalary">
+                                                    <input class="form-control" id="inputLocation" type="number" placeholder="Job Salary" name="jobSalary">
                                                 </div>
                                             </div>     
                                             <div class="row">
@@ -220,14 +220,14 @@
                                                 <!-- Form Group (end date)-->
                                                 <div class="col-md-6">
                                                     <label class="small mb-1" for="inputBirthday">End Date</label>
-                                                    <input class="form-control"  type="date" name="EndDate">
+                                                    <input class="form-control"  type="date" name="EndDate" min="${requestScope.current}">
                                                 </div>                               
                                             </div>                                                                      
 
                                             <div class="form-group">
                                                 <label class="col-sm-2 control-label">Semester</label>
                                                 <div class="col-sm-12">
-                                                    <input class="form-control" type="text" name="txtsemester" value="SU2022">
+                                                    <input class="form-control" type="text" name="txtsemester" value="SU2022" readonly="">
                                                 </div>
                                             </div>
                                         </div>
@@ -349,7 +349,7 @@
                                                                                         <!-- Form Group (end date)-->
                                                                                         <div class="col-md-6">
                                                                                             <label class="small mb-1" for="inputBirthday">End Date</label>
-                                                                                            <input class="form-control"  type="date" name="EndDate" value="${job.getJobEndDate()}">
+                                                                                            <input class="form-control"  type="date" name="EndDate" value="${job.getJobEndDate()}" min="${requestScope.current}">
                                                                                         </div>                               
                                                                                     </div>                                                                      
                                                                                     <div class="form-group">

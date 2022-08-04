@@ -7,6 +7,7 @@ package sample.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -58,6 +59,8 @@ public class CompanyHomePageController extends HttpServlet {
                 listAccount.add(account);
                 }
             }
+            Date d=new Date(System.currentTimeMillis());
+            request.setAttribute("current", d.toString());
                 request.setAttribute("companyList", listCompany);
                 request.setAttribute("jobList", listJob1);
                 request.setAttribute("accList", listAccount);
