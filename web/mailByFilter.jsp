@@ -1,6 +1,6 @@
 <%-- 
-    Document   : mailbox
-    Created on : Aug 4, 2022, 3:27:28 PM
+    Document   : mailByFilter
+    Created on : Aug 4, 2022, 4:35:35 PM
     Author     : Tranduc
 --%>
 
@@ -293,3 +293,4 @@
         </script>
     </body>
 </html>
+
