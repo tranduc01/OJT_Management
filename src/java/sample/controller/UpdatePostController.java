@@ -8,24 +8,19 @@ package sample.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
-import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import sample.account.AccountDTO;
-import sample.company.CompanyDAO;
-import sample.company.CompanyDTO;
 import sample.job.JobDAO;
 
 /**
  *
- * @author Dell
+ * @author Tranduc
  */
-@WebServlet(name = "AddJobCompanyController", urlPatterns = {"/AddJobCompanyController"})
-public class AddJobCompanyController extends HttpServlet {
+@WebServlet(name = "UpdatePostController", urlPatterns = {"/UpdatePostController"})
+public class UpdatePostController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,11 +34,9 @@ public class AddJobCompanyController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        try {
             /* TODO output your page here. You may use following sample code. */
-            HttpSession session = request.getSession();
-            AccountDTO acc=(AccountDTO) session.getAttribute("acc");
-            CompanyDTO com=CompanyDAO.getCompanyByAccID(acc.getAccId());
+            int jobid=Integer.parseInt(request.getParameter("jobid"));
             String jobTitle = request.getParameter("jobTitle");
             String jobName = request.getParameter("jobName");
             String jobDescription = request.getParameter("jobDescription");
@@ -51,13 +44,14 @@ public class AddJobCompanyController extends HttpServlet {
             int amount = Integer.parseInt(request.getParameter("Amount"));
             String jobBenefits = request.getParameter("jobBenefits");
             int jobSalary = Integer.parseInt(request.getParameter("jobSalary"));
-            String endDate = request.getParameter("EndDate");
+            String endDate = request.getParameter("EndDate");            
             String major = request.getParameter("Major");
+            int status=0;
             Date d=new Date(System.currentTimeMillis());
-            JobDAO.createJobCompany(jobTitle, jobName, jobDescription, jobRequirement, amount, jobBenefits, jobSalary, d.toString(), endDate, com.getComID(), major,d.toString());
+            int result=JobDAO.updateJobCompany(jobTitle, jobName, jobDescription, jobRequirement, amount, jobBenefits, jobSalary, endDate, jobid, major, status, d.toString());
             request.getRequestDispatcher("CompanyHomePageController").forward(request, response);
-        } catch (SQLException ex) {
-            ex.printStackTrace();
+        }catch(Exception e){
+            e.printStackTrace();
         }
     }
 

@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.sql.Date;
 import java.util.ArrayList;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -138,6 +139,13 @@ public class Utf8Filter implements Filter {
             request.setAttribute("appList1", listApp1);
             request.setAttribute("accList1", listAcc1);
             }}
+            ArrayList<JobDTO> jobList=JobDAO.getJobs();
+            Date d=new Date(System.currentTimeMillis());
+            for (JobDTO jobDTO : jobList) {
+                if(jobDTO.getJobEndDate().before(d)){
+                    int result=JobDAO.updateJobStatus(jobDTO.getJobID(), 3,d.toString());
+                }
+            }
         }catch(Exception e){
             e.printStackTrace();
         }

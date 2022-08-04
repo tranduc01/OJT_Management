@@ -162,9 +162,10 @@
                                     <tr>
                                         <th>Post</th>
                                         <th class="text-center">Create Date</th>
+                                        <th class="text-center">Modify Date</th>
                                         <th class="text-center">Status</th>                              
                                         <th class="action text-right">Action</th>
-                                        <th></th>
+                                       
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -193,6 +194,7 @@
                                                                 </div>
                                                             </td>
                                                             <td class="candidate-list-favourite-time text-center">${job.getJobCreateDate()}</td>
+                                                            <td class="candidate-list-favourite-time text-center">${job.getModifyDate()}</td>
                                                             <td class="candidate-list-favourite-time text-center">
                                                                 <c:if test="${job.getStatus() eq 2}"><h5><span class="badge badge-danger">Rejected</span></h5></c:if>
                                                                 <c:if test="${job.getStatus() eq 0}"><h5><span class="badge badge-warning">Pending</span></h5></c:if>
@@ -201,7 +203,7 @@
                                                                 </td>
                                                                 <td>                                                                                                         
                                                                     <h5><a href="mainController?action=PostDetail&id=${job.getJobID()}" class="text-primary" data-toggle="tooltip" title="" data-original-title="view" target="_blank" style="padding-left: 16px;"><i class="far fa-eye"></i></a>   
-                                                                    <c:if test="${job.getStatus() eq 1}"><a href="mainController?action=Reject&jobid=${job.getJobID()}" class="text-primary" data-toggle="tooltip" title="" data-original-title="view" style="padding-left: 16px;" onclick="return remove();"><i class="far fa-trash-alt"></i></a></c:if></h5>
+                                                                    <c:if test="${job.getStatus() eq 1}"><a href="mainController?action=Reject&jobid=${job.getJobID()}" class="text-primary" data-toggle="tooltip" title="" data-original-title="view" style="padding: 5px 0px 0px 18px ;" onclick="return remove();"><i class="far fa-trash-alt"></i></a></c:if></h5>
                                                                 </td>
                                                                 <td>
                                                                 <c:if test="${job.getStatus()==0}">
@@ -209,7 +211,7 @@
                                                                         <a href="mainController?action=Reject&jobid=${job.getJobID()}"><button class="badge badge-danger" onclick="return check();"><i class="fa-solid fa-ban"></i></button></a></h4>
                                                                             </c:if>
                                                                             <c:if test="${job.getStatus()!=0}">
-                                                                    <h4></h4>
+                                                                    
                                                                 </c:if>                                                 
                                                             </td>
                                                         </tr> 

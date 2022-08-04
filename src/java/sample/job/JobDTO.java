@@ -21,6 +21,7 @@ public class JobDTO {
     private int jobSalary;
     private Date jobCreateDate;
     private Date jobEndDate;
+    private Date modifyDate;
     private int status;
     private int amount;
     private int comID;
@@ -29,7 +30,7 @@ public class JobDTO {
     public JobDTO() {
     }
 
-    public JobDTO(int jobID, String jobName, String jobTitle, String jobDescription, String jobRequirement, String jobBenefits, int jobSalary, Date jobCreateDate, Date jobEndDate, int status, int amount, int comID, String majorID) {
+    public JobDTO(int jobID, String jobName, String jobTitle, String jobDescription, String jobRequirement, String jobBenefits, int jobSalary, Date jobCreateDate, Date jobEndDate, Date modifyDate, int status, int amount, int comID, String majorID) {
         this.jobID = jobID;
         this.jobName = jobName;
         this.jobTitle = jobTitle;
@@ -39,11 +40,22 @@ public class JobDTO {
         this.jobSalary = jobSalary;
         this.jobCreateDate = jobCreateDate;
         this.jobEndDate = jobEndDate;
+        this.modifyDate = modifyDate;
         this.status = status;
         this.amount = amount;
         this.comID = comID;
         this.majorID = majorID;
     }
+
+    public Date getModifyDate() {
+        return modifyDate;
+    }
+
+    public void setModifyDate(Date modifyDate) {
+        this.modifyDate = modifyDate;
+    }
+
+    
 
     public int getJobID() {
         return jobID;
