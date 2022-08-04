@@ -8,14 +8,20 @@ package sample.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import sample.account.AccountDTO;
+import sample.company.CompanyDAO;
+import sample.company.CompanyDTO;
 
 /**
  *
  * @author Dell
  */
+@WebServlet(name = "CompanyProfileController", urlPatterns = {"/CompanyProfileController"})
 public class CompanyProfileController extends HttpServlet {
 
     /**
@@ -32,7 +38,13 @@ public class CompanyProfileController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
+            HttpSession session=request.getSession();
+            AccountDTO acc=(AccountDTO) session.getAttribute("acc");
+            CompanyDTO com=CompanyDAO.getCompanyByAccID(acc.getAccId());
+            request.setAttribute("company", com);
             request.getRequestDispatcher("company_profile.jsp").forward(request, response);
+        }catch(Exception e){
+            e.printStackTrace();
         }
     }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -5,10 +5,10 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" href="css/postcss.css"  />
         <link rel="stylesheet" href="css/style.css"  />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
 
@@ -44,13 +44,13 @@
                 <a class="navbar-brand mr-auto" href="JobListByPageController"><img src="img/logo.png" height="30" width="41"></a>
                 <div class="collapse navbar-collapse" id="Navbar">
                     <ul class="navbar-nav">
-                        <li class="nav-item active">
+                        <li class="nav-item ">
                             <a class="nav-link" href="CompanyHomePageController">
                                 <span class="fa fa-home fa-lg"></span>
                                 Home
                             </a>
                         </li>                      
-                        <li class="nav-item">
+                        <li class="nav-item active">
                             <a class="nav-link" href="StudentListCompanyController">
                                 <span class="fa-solid fa-users"></span>
                                 Students
@@ -84,38 +84,38 @@
                             <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
                                 <p class="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
                                 <c:forEach items="${requestScope.appList1}" var="app">   
-                                <c:forEach items="${requestScope.jobList1}" var="job">  
-                                    <c:forEach items="${requestScope.comList1}" var="com">                                                                                                   
-                                        <c:forEach items="${requestScope.accList1}" var="acc">
-                                            <c:if test="${app.getJobID() eq job.getJobID()}">
-                                                <c:if test="${job.getComID() eq com.getComID()}">
-                                                    <c:if test="${acc.getAccId() eq com.getAccID()}">   
-                                                        <a class="dropdown-item preview-item" href="mainController?action=GetApplication">
-                                                            <div class="preview-thumbnail">
-                                                                <div class="preview-icon">
-                                                                    <img src="${acc.getAvatar()}" style="object-fit: cover;
-                                                                         overflow: hidden;
-                                                                         height: 100%;
-                                                                         width: 80px;
-                                                                         padding-right: 20px;"/>
+                                    <c:forEach items="${requestScope.jobList1}" var="job">  
+                                        <c:forEach items="${requestScope.comList1}" var="com">                                                                                                   
+                                            <c:forEach items="${requestScope.accList1}" var="acc">
+                                                <c:if test="${app.getJobID() eq job.getJobID()}">
+                                                    <c:if test="${job.getComID() eq com.getComID()}">
+                                                        <c:if test="${acc.getAccId() eq com.getAccID()}">   
+                                                            <a class="dropdown-item preview-item" href="mainController?action=GetApplication">
+                                                                <div class="preview-thumbnail">
+                                                                    <div class="preview-icon">
+                                                                        <img src="${acc.getAvatar()}" style="object-fit: cover;
+                                                                             overflow: hidden;
+                                                                             height: 100%;
+                                                                             width: 80px;
+                                                                             padding-right: 20px;"/>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                            <div class="preview-item-content">
-                                                                <h5 class="preview-subject font-weight-normal">${acc.getName()}</h5>
-                                                                <h6 class="preview-subject font-weight-normal">${job.getJobName()}</h6>
+                                                                <div class="preview-item-content">
+                                                                    <h5 class="preview-subject font-weight-normal">${acc.getName()}</h5>
+                                                                    <h6 class="preview-subject font-weight-normal">${job.getJobName()}</h6>
 
-                                                                <p class="font-weight-light small-text mb-0 text-muted">
-                                                                    ${app.getApplyDate()}
-                                                                </p>
-                                                            </div>
-                                                        </a>
+                                                                    <p class="font-weight-light small-text mb-0 text-muted">
+                                                                        ${app.getApplyDate()}
+                                                                    </p>
+                                                                </div>
+                                                            </a>
+                                                        </c:if>
                                                     </c:if>
                                                 </c:if>
-                                            </c:if>
+                                            </c:forEach>
                                         </c:forEach>
                                     </c:forEach>
                                 </c:forEach>
-                            </c:forEach>
                             </div>
                         </li>
                         <li class="nav-item nav-profile dropdown">
@@ -125,7 +125,7 @@
                                      border-radius: 100%;"/>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-                                
+
                                 <a class="dropdown-item" href="mainController?action=logout">
                                     <i class="fa fa-power-off" style="color: #f27229;"></i>
                                     Logout
@@ -133,12 +133,9 @@
                             </div>
                         </li>       
                     </ul>
-                </div>
-
-                
+                </div>          
             </div> 
-        </nav>
-                                     
+        </nav>      
                                      
          <script>
             var loader = document.getElementById("preloader");

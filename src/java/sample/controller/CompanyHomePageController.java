@@ -48,7 +48,6 @@ public class CompanyHomePageController extends HttpServlet {
             AccountDTO acc=(AccountDTO) session.getAttribute("acc");
             CompanyDTO company=CompanyDAO.getCompanyByAccID(acc.getAccId());
             ArrayList<JobDTO> listJob1 = JobDAO.getJobByComID(company.getComID());
-            ArrayList<JobDTO> listJob = JobDAO.getJobs();
             ArrayList<CompanyDTO> listCompany = CompanyDAO.getCompanies();
             ArrayList<AccountDTO> listAccount=new ArrayList<>();
             ArrayList<MajorDTO> listMajor=MajorDAO.getMajors();

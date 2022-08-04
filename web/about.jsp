@@ -60,6 +60,12 @@
                                 About
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contactus.jsp">
+                                <span class="fas fa-address-book"></span>
+                                Contact Us
+                            </a>
+                        </li>
                     </ul>
                 </div>
                 <% String email = (String) session.getAttribute("accEmail");

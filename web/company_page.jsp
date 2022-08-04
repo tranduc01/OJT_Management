@@ -36,8 +36,6 @@
     </head>
     <body>
         <% AccountDTO acc = (AccountDTO) session.getAttribute("acc");
-            CompanyDTO com = (CompanyDTO) session.getAttribute("company");
-            session.setAttribute("comID", com.getComID());
         %>
         <script type="text/javascript" src="//js.nicedit.com/nicEdit-latest.js"></script> 
         <script type="text/javascript">
@@ -285,6 +283,7 @@
                                                                 <c:if test="${job.getStatus() eq 2}"><h5><span class="badge badge-danger">Rejected</span></h5></c:if>
                                                                 <c:if test="${job.getStatus() eq 0}"><h5><span class="badge badge-warning">Pending</span></h5></c:if>
                                                                 <c:if test="${job.getStatus() eq 1}"><h5><span class="badge badge-success">Approved</span></h5></c:if>
+                                                                <c:if test="${job.getStatus() eq 3}"><h5><span class="badge badge-secondary">Expired</span></h5></c:if>
                                                                 </td>
                                                                 <td>                                                                                                         
                                                                     <h4><a href="mainController?action=CompanyPostDetail&id=${job.getJobID()}" class="text-primary" data-toggle="tooltip" title="" data-original-title="view" style="padding-left: 16px;"><i class="far fa-eye"></i></a></h4>                                                                                                                                                                             

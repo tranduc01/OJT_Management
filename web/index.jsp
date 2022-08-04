@@ -66,7 +66,12 @@
                                 About
                             </a>
                         </li>
-                        
+                        <li class="nav-item">
+                            <a class="nav-link" href="contactus.jsp">
+                                <span class="fas fa-address-book"></span>
+                                Contact Us
+                            </a>
+                        </li>
 
                     </ul>
                 </div>
@@ -76,10 +81,8 @@
                         String link = "";
                         if (role == 0) {
                             link = "JobsPostController";
-
                         } else if (role == 1) {
                             link = "mainController?action=StudentProfilePage";
-
                         } else {
                             link = "CompanyHomePageController";
                         }
@@ -262,13 +265,13 @@
 
                         <form action="mainController" class="career-form mb-60">
                             <div class="row">
-                                <div class="form-group col-md-6 col-lg-4 my-4">
+                                <div class="col-md-6 col-lg-4 my-4">
                                     <div class="input-group position-relative">
                                         <input type="text" class="form-control" placeholder="Enter Your Keywords" id="keywords" name="keyword" value="<%= (request.getParameter("keyword") == null) ? "" : (request.getParameter("keyword"))%>">
                                     </div>
                                 </div>
 
-                                <div class="form-group col-md-6 col-lg-4 my-4">
+                                <div class="col-md-6 col-lg-4 my-4">
                                     <div class="select-container">
                                         <select class="custom-select" name="txtmajor">
                                             <option selected="" style="color: black;" value="all">All Majors</option>
@@ -278,7 +281,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="form-group col-md-6 col-lg-4 my-4">
+                                <div class="col-md-6 col-lg-4 my-4">
                                     <button type="submit" class="btn btn-lg btn-block btn-light btn-custom" id="contact-submit" name="action" value="SearchJob">
                                         Search
                                     </button>
@@ -316,20 +319,6 @@
                                                         LocalDate date = d.toLocalDate();
                                                         LocalDate end = d2.toLocalDate();
                                                         Period p = Period.between(date, end);
-
-            <!-- The slideshow -->
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img style="width: 1550px; height: 500px;" src="img/slide-1.jpg">
-                </div>
-                <div class="carousel-item">
-                    <img style="width: 1550px; height: 500px;" src="img/slide-2.jpg">
-                </div>
-                <div class="carousel-item">
-                    <img style="width: 1550px; height: 500px;" src="img/slider-3.jpg">
-                </div>
-            </div>
-
                                                     %>
                                                     <div class="job-right my-4 flex-shrink-0">
                                                         <i class="fa fa-user" style="padding-top: 5px;"></i> ${job.getAmount()}
@@ -397,6 +386,7 @@
                 response.sendRedirect("JobListByPageController");
             }
         %>
+
         <footer class="footer">
             <div class="container">
                 <div class="row align-items-center">

@@ -1,6 +1,6 @@
 <%-- 
-    Document   : company
-    Created on : Aug 3, 2022, 2:32:52 PM
+    Document   : contactus
+    Created on : Aug 4, 2022, 2:07:20 PM
     Author     : Tranduc
 --%>
 
@@ -27,151 +27,46 @@
         <script src="https://kit.fontawesome.com/12c372e324.js" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css"/>
         <link rel="shortcut icon" href="img/FPT-logoo.jpg">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet"/>
 
         <title>FPT OJT</title>
         <style>
-            * {
-                outline: none;
+            *{
+                padding: 0px;
+                margin: 0px;
             }
 
-            .tb {
-                display: table;
+
+            .form-title{
+                text-align: center;
+            }
+
+            .button{
+                display: flex;
+                justify-content: center;
+            }
+
+
+            textarea{
                 width: 100%;
+                border-radius: 10px;
             }
 
-            .td {
-                display: table-cell;
-                vertical-align: middle;
-            }
-
-            input,
-            button {
-                color: #fff;
-                font-family: Nunito;
-                padding: 0;
-                margin: 0;
-                border: 0;
-                background-color: transparent;
-            }
-
-            #cover {
-                position: absolute;
-                right: 100px;
-                width: 550px;
-                padding: 5px;
-                margin: -83px auto 0 auto;
+            .form{
+                margin: 0rem 10rem 0rem 10rem ;
+                padding: 20px 50px;
                 background-color: #f27229;
-                border-radius: 20px;
-                box-shadow: 0 10px 40px #f27229, 0 0 0 20px #ffffffeb;
-                transform: scale(0.6);
-            }
-
-            form {
-                height: 60px;
-            }
-
-            input[type="text"] {
-                width: 100%;
-                height: 50px;
-                font-size: 45px;
-                line-height: 1;
-                color: black;
-            }
-
-            input[type="text"]::placeholder {
-                color: grey;
-            }
-
-            #s-cover {
-                width: 1px;
-                padding-left: 35px;
-            }
-
-            button {
-                position: relative;
-                display: block;
-                width: 84px;
-                height: 60px;
-                cursor: pointer;
-            }
-
-            #s-circle {
-                position: relative;
-                top: -8px;
-                left: 0;
-                width: 40px;
-                height: 40px;
-                margin-top: 0;
-                border-width: 15px;
-                border: 15px solid #fff;
-                background-color: transparent;
-                border-radius: 50%;
-                transition: 0.5s ease all;
-            }
-
-            button span {
-                position: absolute;
-                top: 35px;
-                left: 22px;
-                display: block;
-                width: 40px;
-                height: 15px;
-                background-color: transparent;
                 border-radius: 10px;
-                transform: rotateZ(52deg);
-                transition: 0.5s ease all;
+                color: white;
+                border: #000 solid 1px;
             }
-
-            button span:before,
-            button span:after {
-                content: "";
-                position: absolute;
-                bottom: 0;
-                right: 0;
-                width: 45px;
-                height: 15px;
-                background-color: #fff;
-                border-radius: 10px;
-                transform: rotateZ(0);
-                transition: 0.5s ease all;
-            }
-
-            #s-cover:hover #s-circle {
-                top: -1px;
-                width: 67px;
-                height: 15px;
-                border-width: 0;
-                background-color: #fff;
-                border-radius: 20px;
-            }
-
-            #s-cover:hover span {
-                top: 50%;
-                left: 56px;
-                width: 25px;
-                margin-top: -9px;
-                transform: rotateZ(0);
-            }
-
-            #s-cover:hover button span:before {
-                bottom: 11px;
-                transform: rotateZ(52deg);
-            }
-
-            #s-cover:hover button span:after {
-                bottom: -11px;
-                transform: rotateZ(-52deg);
-            }
-            #s-cover:hover button span:before,
-            #s-cover:hover button span:after {
-                right: -6px;
-                width: 40px;
-                background-color: #fff;
+            .form-box{
+                display: flex;
+                justify-content: center;
             }
         </style>
     </head>
     <body>
-
         <div id="preloader">
             <img src="img/loader.gif"/>
         </div>
@@ -190,7 +85,7 @@
                                 Home
                             </a>
                         </li>
-                        <li class="nav-item active">
+                        <li class="nav-item">
                             <a class="nav-link" href="IndexCompanyListController">
                                 <span class="fas fa-building-o"></span>
                                 Company
@@ -202,7 +97,7 @@
                                 About
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item active">
                             <a class="nav-link" href="contactus.jsp">
                                 <span class="fas fa-address-book"></span>
                                 Contact Us
@@ -217,10 +112,8 @@
                         String link = "";
                         if (role == 0) {
                             link = "JobsPostController";
-
                         } else if (role == 1) {
                             link = "mainController?action=StudentProfilePage";
-
                         } else {
                             link = "CompanyHomePageController";
                         }
@@ -365,66 +258,59 @@
 
             </div>
         </nav>
-
-
-
-
-        <div class="jumbotron">
-            <div style="padding-top: 50px;">
-                <div id="cover">
-                    <form method="post" action="mainController">
-                        <div class="tb">
-                            <div class="td"><input type="text" name="txtsearch" placeholder="Search..." required></div>
-                            <div class="td" id="s-cover">
-                                <button type="submit" name="action" value="SearchCompany">
-                                    <div id="s-circle"></div>
-                                    <span></span>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <div class="container" style="padding-top: 50px; ">
-                <div class="row">       
-                    <div class="col-lg-12">
-                        <div class="row">
-                            <c:forEach var="com" items="${requestScope.comList}">
-                                <c:forEach var="acc" items="${requestScope.accList}">
-                                    <c:if test="${com.getAccID() eq acc.getAccId()}">
-                                        <div class="col-sm-6 col-lg-4 mb-4">
-                                            <div class="candidate-list candidate-grid" style="border: 1px #f27229 solid; border-radius: 10px; padding-top: 10px;">
-                                                <div class="candidate-list-image">
-                                                    <img class="img-fluid" src="${acc.getAvatar()}" style="object-fit: cover;
-                                                         overflow: hidden;
-                                                         height: 100%;
-                                                         width: 200px;
-                                                         padding-right: 20px;">
-                                                </div>
-                                                <div class="candidate-list-details">
-                                                    <div class="candidate-list-info">
-                                                        <div class="candidate-list-title">
-                                                            <h4>${acc.getName()}</h4>
-                                                        </div>
-                                                        <div class="candidate-list-option">
-                                                            <ul class="list-unstyled">
-                                                                <li><i class="fas fa-map-marker-alt pr-1"></i>${com.getComAddress()}</li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                    <div class="candidate-list-favourite-time">
-                                                        <a class="candidate-list-favourite order-2" href="mainController?action=companyDetails&comID=${com.getComID()}" style="text-decoration: none; border-color: orange;">View</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </c:if>
-                                </c:forEach>
-                            </c:forEach>
-                        </div>
-
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+        <% if (request.getAttribute("success") != null) {
+        %>       
+        <script>
+            alert("Send Successfully !!!");
+        </script>              
+        <%
+            }%>
+        <div class="jumbotron">        
+            <div class="form-box">
+                <form class="form" action="mainController" method="post">
+                    <div class="form-title">
+                        <h2>ĐỂ LẠI THÔNG TIN CHO CHÚNG TÔI</h2>
+                        <h6>Vui lòng hoàn tất biểu mẫu này.
+                            Chúng tôi sẽ liên hệ bạn trong thời gian sớm nhất có thể!</h6>
                     </div>
-                </div>
+                    <div class="row">
+                        <div class="form-group col-12 col-md-6">
+                            <label for="name">Họ và tên người liên hệ</label><br>
+                            <input class="form-control" type="text" name="txtname" id="name" placeholder="Họ và Tên" required>
+                        </div>
+                        <div class="form-group col-12 col-md-6">
+                            <label for="email">Email</label><br>
+                            <input class="form-control" type="text" name="txtemail" id="email" placeholder="Email" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Số điện thoại</label><br>
+                        <input class="form-control" type="text" name="txtphone" id="phone" placeholder="Phone" required>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-12 col-md-6">
+                            <label for="comp-name">Tên doanh nghiệp</label><br>
+                            <input class="form-control" type="text" name="txtcomname" id="comp-name" placeholder="Company Name" required>
+                        </div>
+                        <div class="form-group col-12 col-md-6">
+                            <label for="business-area">Lĩnh vực kinh doanh</label><br>
+                            <select class="form-control" id="business-area" name="txtmajor">
+                                <option>Công nghệ</option>
+                                <option>Khác</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="des">Mô tả ngắn gọn về nội dung đề xuất hợp tác</label><br>
+                        <textarea id="des" rows="10" name="txtdesciption"></textarea>
+                    </div>
+                    <div>
+                        <label for="myfile">Select a file:</label>
+                        <input type="file" id="myfile" name="myfile">
+                    </div>
+                    <div class="button"><button type="submit" class="btn btn-primary" name="action" value="SendBox">Gửi thông tin</button></div>
+                </form>
             </div>
         </div>
         <footer class="footer">
@@ -465,4 +351,5 @@
             });
         </script>
     </body>
+
 </html>

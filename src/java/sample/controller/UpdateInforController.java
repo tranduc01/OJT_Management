@@ -55,15 +55,16 @@ public class UpdateInforController extends HttpServlet {
             
             LocalDate birthday = LocalDate.parse(request.getParameter("txtbirthday"));         
             String success="Updated!!!";
+            request.setAttribute("success", success);
             int result = AccountDAO.updateProfile(email, name, phone, birthday.toString());  
                  
             AccountDTO acc = AccountDAO.loginAccount_V2(email);
             
-            request.setAttribute("success", success);
+            
             session.setAttribute("acc", acc);
             
             if (acc.getRole() == 1) {
-                String majorid=request.getParameter("txtmajor");
+                
                 ArrayList<MajorDTO> list = MajorDAO.getMajors();
                 session.setAttribute("majorList", list);
                 request.getRequestDispatcher("student_profile.jsp").forward(request, response);

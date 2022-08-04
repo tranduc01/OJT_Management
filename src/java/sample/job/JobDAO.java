@@ -206,7 +206,7 @@ public class JobDAO {
             if (cn != null) {
                 String sql = "select [jobID],[jobName],[jobTitle],[jobDescription],[jobRequirements],[jobBenefits],[jobSalary],amount,[jobCreateDate],[jobEndDate],[status],majorID,comID\n"
                         + "from Job\n"
-                        + "where job.status=1 and comID=?\n"
+                        + "where comID=?\n"
                 + "order by jobCreateDate desc";
                 pst = cn.prepareStatement(sql);
                 pst.setInt(1, comID);
@@ -509,7 +509,7 @@ public class JobDAO {
                     int amount = rs.getInt("amount");
                     int comid = rs.getInt("comID");
                     String majorid = rs.getString("majorID");
-                    JobDTO job = new JobDTO(jobid, jobname, jobtitle, jobdescription, jobrequirement, jobbenefit, salary, createdate, enddate, status, amount, comid, majorID);
+                    JobDTO job = new JobDTO(jobid, jobname, jobtitle, jobdescription, jobrequirement, jobbenefit, salary, createdate, enddate, status, amount, comid, majorid);
                     list.add(job);
                 }
             }

@@ -75,7 +75,12 @@
                                 Results
                             </a>
                         </li>
-                        
+                        <li class="nav-item ">
+                            <a class="nav-link" href="MailBoxController">
+                                <span class="fa-solid fa-inbox"></span>
+                                Mail Box
+                            </a>
+                        </li>
                     </ul>
                 </div>
                 <span class="navbar-text ml-auto">
