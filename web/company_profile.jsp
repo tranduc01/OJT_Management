@@ -93,7 +93,7 @@
                             </a>
                         </li>    
                         <li class="nav-item">
-                            <a class="nav-link" href="company_result.jsp">
+                            <a class="nav-link" href="ResultListController">
                                 <span class="fa fa-graduation-cap fa-lg"></span>
                                 OJT Results
                             </a>
@@ -186,7 +186,7 @@
                                 </button>
 
                                 <!-- Modal -->
-                                <form action="UploadImageController" method="post" enctype="multipart/form-data">
+                                <form action="UploadImageCompanyController" method="post" enctype="multipart/form-data">
                                     <div class="modal fade" id="updateAvatar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">

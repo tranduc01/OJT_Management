@@ -29,7 +29,7 @@ public class ApplicationDAO {
         try {
             cn = DBUtils.makeConnection();
             if (cn != null) {
-                String sql = "select [applyID],[applyDate],[stuID],[jobID],[status],[resultID],[stu_confirm],[com_comfirm]\n"
+                String sql = "select [applyID],[applyDate],[stuID],[jobID],[status],[stu_confirm],[com_comfirm]\n"
                         + "from Application\n"
                         + "where stuID=?\n"
                         + "order by applyDate desc";
@@ -42,10 +42,9 @@ public class ApplicationDAO {
                     String stuid = rs.getString("stuID");
                     int jobID = rs.getInt("jobID");
                     int status = rs.getInt("status");
-                    int resultid = rs.getInt("resultID");
                     int stuconfirm = rs.getInt("stu_confirm");
                     int comconfirm = rs.getInt("com_comfirm");
-                    app = new ApplicationDTO(applyID, applyDate, stuid, jobID, status, stuconfirm, comconfirm, resultid);
+                    app = new ApplicationDTO(applyID, applyDate, stuid, jobID, status, stuconfirm, comconfirm);
                     list.add(app);
                 }
 
@@ -108,12 +107,10 @@ public class ApplicationDAO {
         try {
             cn = DBUtils.makeConnection();
             if (cn != null) {
-                String sql = "select [applyID],[applyDate],[stuID],[jobID],[status],[resultID],[stu_confirm],[com_comfirm]\n"
+                String sql = "select [applyID],[applyDate],[stuID],[jobID],[status],[stu_confirm],[com_comfirm]\n"
                         + "from Application\n"
                         + "order by applyDate desc";
-
                 st = cn.createStatement();
-
                 rs = st.executeQuery(sql);
                 while (rs != null && rs.next()) {
                     int applyID = rs.getInt("applyID");
@@ -121,13 +118,11 @@ public class ApplicationDAO {
                     String stuid = rs.getString("stuID");
                     int jobID = rs.getInt("jobID");
                     int status = rs.getInt("status");
-                    int resultid = rs.getInt("resultID");
                     int stuconfirm = rs.getInt("stu_confirm");
                     int comconfirm = rs.getInt("com_comfirm");
-                    app = new ApplicationDTO(applyID, applyDate, stuid, jobID, status, stuconfirm, comconfirm, resultid);
+                    app = new ApplicationDTO(applyID, applyDate, stuid, jobID, status, stuconfirm, comconfirm);
                     list.add(app);
                 }
-
             }
         } catch (Exception e) {
             e.printStackTrace();

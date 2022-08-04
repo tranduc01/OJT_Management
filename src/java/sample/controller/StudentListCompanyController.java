@@ -13,9 +13,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import sample.account.AccountDAO;
 import sample.account.AccountDTO;
 import sample.application.ApplicationDTO;
+import sample.company.CompanyDAO;
+import sample.company.CompanyDTO;
+import sample.job.JobDAO;
+import sample.job.JobDTO;
 import sample.student.StudentDAO;
 import sample.student.StudentDTO;
 
@@ -48,9 +53,16 @@ public class StudentListCompanyController extends HttpServlet {
                 accList.add(acc);
                 //appList=ApplicationDAO.getApplicationByID(stu.getStudentID());
             }
+            
+            HttpSession session = request.getSession();
+            AccountDTO account= (AccountDTO) session.getAttribute("acc");
+            CompanyDTO com=CompanyDAO.getCompanyByAccID(account.getAccId());
+            ArrayList<JobDTO> jobList=JobDAO.getJobByComIDV2(com.getComID());
+            
             request.setAttribute("stuList", studentList);
             request.setAttribute("accList", accList);
             request.setAttribute("appList", appList);
+            request.setAttribute("jobList", jobList);
             request.getRequestDispatcher("studentListCompany.jsp").forward(request, response);
         }catch(Exception e){
             e.printStackTrace();

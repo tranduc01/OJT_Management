@@ -76,6 +76,10 @@ public class mainController extends HttpServlet {
     private static final String MAILBYfilter_CONTROLLER = "MailByFilterController";
     private static final String UPDATEPOST = "UpdatePost";
     private static final String UPDATEPOST_CONTROLLER = "UpdatePostController";
+    private static final String SENDOFFER = "SendOffer";
+    private static final String SENDOFFER_CONTROLLER = "OfferStudentController";
+    private static final String ADDCOMPANY = "AddCompany";
+    private static final String ADDCOMPANY_CONTROLLER = "AddCompanyController";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -151,6 +155,10 @@ public class mainController extends HttpServlet {
                 url=MAILBYfilter_CONTROLLER;
             }else if(UPDATEPOST.equals(action)){
                 url=UPDATEPOST_CONTROLLER;
+            }else if(SENDOFFER.equals(action)){
+                url=SENDOFFER_CONTROLLER;
+            }else if(ADDCOMPANY.equals(action)){
+                url=ADDCOMPANY_CONTROLLER;
             }
         } catch (Exception e) {
             log("Error at mainController: " + e.toString());

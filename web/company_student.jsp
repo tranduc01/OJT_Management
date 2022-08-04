@@ -69,7 +69,7 @@
                             </a>
                         </li>    
                         <li class="nav-item">
-                            <a class="nav-link" href="company_result.jsp">
+                            <a class="nav-link" href="ResultListController">
                                 <span class="fa fa-graduation-cap fa-lg"></span>
                                 OJT Results
                             </a>

@@ -49,7 +49,8 @@ public class UploadCVController extends HttpServlet {
             String fileName = filePart.getSubmittedFileName();
             HttpSession session = request.getSession();
             String email = (String) session.getAttribute("accEmail");
-            StudentDTO student = (StudentDTO) session.getAttribute("student");
+            AccountDTO account=(AccountDTO) session.getAttribute("acc");
+            StudentDTO student = StudentDAO.getStudentByAccount(account.getAccId());
             if (!fileName.isEmpty()) {
                 for (Part part : request.getParts()) {
                     part.write("D:\\SWP391\\OJT_Management\\web\\CV\\" + fileName);
@@ -60,11 +61,11 @@ public class UploadCVController extends HttpServlet {
                 AccountDTO acc = AccountDAO.loginAccount_V2(email);
                 session.setAttribute("acc", acc);
                 session.setAttribute("majorList", list);
-                request.getRequestDispatcher("student_profile.jsp").forward(request, response);
+                request.getRequestDispatcher("StudentProfileController").forward(request, response);
             } else {
                 String noCV = "No file to upload !!!!";
                 request.setAttribute("noCV", noCV);
-                request.getRequestDispatcher("student_profile.jsp").forward(request, response);
+                request.getRequestDispatcher("StudentProfileController").forward(request, response);
             }
         }catch(Exception e){
             e.printStackTrace();

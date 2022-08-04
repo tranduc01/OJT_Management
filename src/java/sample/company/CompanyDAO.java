@@ -177,21 +177,20 @@ public class CompanyDAO {
         return list;
     }
     
-    public static ArrayList<CompanyDTO> getCompaniesByName() throws SQLException {
+    public static ArrayList<CompanyDTO> getCompaniesByName(String keyword) throws SQLException {
         ArrayList<CompanyDTO> list = new ArrayList<>();
         Connection cn = null;
-        Statement st = null;
+        PreparedStatement pst = null;
         ResultSet rs = null;
         try {
             cn = DBUtils.makeConnection();
             if (cn != null) {
                 String sql = "select [comID],[comDescription],[comAddress],website,bannerImage,Company.[accID]\n" +
 "                        from [dbo].[Company] join Account on Company.accID=Account.accID\n" +
-"                        where Account.status=1 and Account.name like '%?%'";
-
-                st = cn.createStatement();
-
-                rs = st.executeQuery(sql);
+"                        where Account.status=1 and Account.name like ?";
+                pst = cn.prepareStatement(sql);
+                pst.setString(1, "%"+keyword+"%");
+                rs = pst.executeQuery();
                 while (rs != null && rs.next()) {
                     int comid = rs.getInt("comID");
                     String comdescription = rs.getString("comDescription");
@@ -210,8 +209,8 @@ public class CompanyDAO {
             if (cn != null) {
                 cn.close();
             }
-            if (st != null) {
-                st.close();
+            if (pst != null) {
+                pst.close();
             }
             if (rs != null) {
                 rs.close();
@@ -263,9 +262,6 @@ public class CompanyDAO {
         return list;
     }
     
-    
-    
-    
     public static void updateCompanyProfile(String email, String description, String address, String website) throws SQLException{
         
         Connection cn=null;
@@ -290,6 +286,27 @@ public class CompanyDAO {
             if(cn!=null) cn.close();
             if(pst!=null) pst.close();           
         }
+    }
+    
+    public static int insertCompany(int accID) throws SQLException{    
+        int result=0;
+        Connection cn=null;
+        PreparedStatement pst=null;
+        try {
+            cn=DBUtils.makeConnection();
+            if(cn!=null){
+                String sql = "insert into Company(accID) values(?)";
+                pst=cn.prepareStatement(sql);
+                pst.setInt(1, accID);
+                pst.executeUpdate();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally{
+            if(cn!=null) cn.close();
+            if(pst!=null) pst.close();           
+        }
+        return result;
     }
 
 }

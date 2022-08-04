@@ -92,7 +92,7 @@
                             </a>
                         </li>    
                         <li class="nav-item active">
-                            <a class="nav-link" href="company_result.jsp">
+                            <a class="nav-link" href="ResultListController">
                                 <span class="fa fa-graduation-cap fa-lg"></span>
                                 OJT Results
                             </a>
@@ -178,7 +178,52 @@
                     </div>
                 </form>
             </div>
+
+
+            <table id="example" class="table table-striped table-bordered" style="width:100%;">
+                <thead>
+                    <tr>
+                        <th>Student ID</th>
+                        <th>Student Name</th>    
+                        <th>Grade</th>
+                        <th>Comment</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <c:forEach items="${requestScope.appList}" var="app">   
+                        <c:forEach items="${requestScope.jobList}" var="job">  
+                            <c:forEach items="${requestScope.resultList}" var="res">
+                            <c:forEach items="${requestScope.stuList}" var="stu">                                                                                                   
+                                <c:forEach items="${requestScope.accList}" var="acc">                                   
+                                        <c:if test="${app.getJobID() eq job.getJobID()}">
+                                            <c:if test="${res.getAppID() eq app.getApplyID()}">   
+                                            <c:if test="${app.getStuID() eq stu.getStudentID()}">
+                                                <c:if test="${acc.getAccId() eq stu.getAccID()}">                                                                                                        
+                                                        <tr>
+                                                            <td>${stu.getStudentID()}</td>
+                                                            <td>${acc.getName()}</td>
+                                                            <td>${res.getGrade()}</td>
+                                                            <td>${res.getComment()}</td>
+                                                            <td>${res.getStatus()}</td>
+                                                        </tr>                                                                                                                                       
+                                                    </c:if>                                                                                                                              
+                                                </c:if>
+                                            </c:if> 
+                                        </c:if>
+                                    </c:forEach>
+                                </c:forEach>
+                            </c:forEach>
+                        </c:forEach>
+                    </c:forEach>
+                </tbody>
+            </table>
         </div>
+        <script>
+            $(document).ready(function () {
+                $('#example').DataTable();
+            });
+        </script>
         <script>
             var loader = document.getElementById("preloader");
             window.addEventListener("load", function () {

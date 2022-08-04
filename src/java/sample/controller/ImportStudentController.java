@@ -64,17 +64,9 @@ public class ImportStudentController extends HttpServlet {
 
             //insert Account
             for (StudentDTO student : list) {
-                int leftLimit = 97; // letter 'a'
-                int rightLimit = 122; // letter 'z'
-                int targetStringLength = 10;
-                Random random = new Random();
-
-                String password = random.ints(leftLimit, rightLimit + 1)
-                        .limit(targetStringLength)
-                        .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
-                        .toString();
+                
                 if(student.getEmail()!=null){
-                int result = AccountDAO.insertAccount(password, student.getEmail(), student.getStudentName(), null, null, d.toString(), role, status);
+                int result = AccountDAO.insertAccount(student.getStudentID(), student.getEmail(), student.getStudentName(), null, null, d.toString(), role, status);
                 }
                 }
             //insert Student

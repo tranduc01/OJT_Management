@@ -6,9 +6,10 @@
 package sample.controller;
 
 import java.io.IOException;
-import java.sql.Date;
+import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Random;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -17,16 +18,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
+import sample.account.AccountDAO;
 import sample.account.AccountDTO;
-import sample.application.ApplicationDAO;
-import sample.application.ApplicationDTO;
-import sample.company.CompanyDAO;
-import sample.company.CompanyDTO;
-import sample.job.JobDAO;
-import sample.job.JobDTO;
-import static sample.readExcel.readExcelResult.readExcelResult;
-import sample.result.ResultDAO;
-import sample.result.ResultDTO;
+import sample.major.MajorDAO;
+import sample.major.MajorDTO;
 
 /**
  *
@@ -35,13 +30,9 @@ import sample.result.ResultDTO;
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
         maxFileSize = 1024 * 1024 * 50, // 50MB
         maxRequestSize = 1024 * 1024 * 50) // 50MB
-@WebServlet(name = "ImportResultController", urlPatterns = {"/ImportResultController"})
-public class ImportResultController extends HttpServlet {
+@WebServlet(name = "UploadImageCompanyController", urlPatterns = {"/UploadImageCompanyController"})
+public class UploadImageCompanyController extends HttpServlet {
 
-    public static final int COLUMN_INDEX_STUID = 0;
-    public static final int COLUMN_INDEX_GRADE = 1;
-    public static final int COLUMN_INDEX_COMMENT = 2;
-    public static final int COLUMN_INDEX_STATUS = 3;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -54,35 +45,48 @@ public class ImportResultController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try {
-            /* TODO output your page here. You may use following sample code. */
-            Part filePart = request.getPart("myfile");
-            String fileName = filePart.getSubmittedFileName();
-            for (Part part : request.getParts()) {
-                part.write("D:\\SWP391\\OJT_Management\\web\\Result\\" + fileName);
-            }
-            String filePath = "D:\\SWP391\\OJT_Management\\web\\Result\\" + fileName;
-            ArrayList<ResultDTO> list = readExcelResult(filePath);
-            Date d = new Date(System.currentTimeMillis());
-            
-            HttpSession session=request.getSession();
-            AccountDTO acc=(AccountDTO) session.getAttribute("acc");
-            CompanyDTO com=CompanyDAO.getCompanyByAccID(acc.getAccId());
-            ArrayList<JobDTO> listJob=JobDAO.getJobByComID(com.getComID());
-            
-            //insert Account
-            for (ResultDTO result : list) {
-                    
-                ArrayList<ApplicationDTO> listApp=ApplicationDAO.getApplicationByID(result.getStuID());
-                for (ApplicationDTO applicationDTO : listApp) {
-                    for (JobDTO job : listJob) {
-                        if(applicationDTO.getJobID()==job.getJobID()){    
-                            int res = ResultDAO.insertResult(result.getComment(), result.getGrade(), result.getStatus(),applicationDTO.getApplyID());
-                        }
-                    }
+       try {
+            HttpSession session = request.getSession();
+            String email = (String) session.getAttribute("accEmail");
+
+//            Part filePart = request.getPart("file");
+//            String fileName = filePart.getSubmittedFileName();
+//            if (!fileName.isEmpty()) {
+//                for (Part part : request.getParts()) {
+//                    part.write("D:\\SWP391\\OJT_Management\\web\\img\\" + fileName);
+//                }
+//                String path = "img\\" + fileName;
+            Part filePart = request.getPart("file");
+            String realPath = request.getServletContext().getRealPath("/img");
+            String filename = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+            if (!filename.isEmpty()) {
+                if (!Files.exists(Paths.get(realPath))) {
+                    Files.createDirectory(Paths.get(realPath));
                 }
+
+                String path;
+                if (!"".equals(filename)) {
+                    Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+                    filePart.write(realPath + "/" + filename);
+                    path = "img\\" + filename;
+                } else {
+                    AccountDTO acc = AccountDAO.loginAccount_V2(email);
+                    path = acc.getAvatar();
+                }
+                int result = AccountDAO.updateAvatarPath(email, path);
+                ArrayList<MajorDTO> list = MajorDAO.getMajors();
+                AccountDTO acc = AccountDAO.loginAccount_V2(email);
+                session.setAttribute("acc", acc);
+                
+                request.getRequestDispatcher("CompanyProfileController").forward(request, response);
+            } else {
+                ArrayList<MajorDTO> list = MajorDAO.getMajors();
+                AccountDTO acc = AccountDAO.loginAccount_V2(email);
+                String noFile = "No file to upload !!!!";
+                request.setAttribute("noFile", noFile);
+                session.setAttribute("acc", acc);
+                request.getRequestDispatcher("CompanyProfileController").forward(request, response);
             }
-            request.getRequestDispatcher("ResultListController").forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();
         }

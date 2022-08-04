@@ -7,7 +7,7 @@ package sample.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
+import java.sql.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,14 +16,13 @@ import javax.servlet.http.HttpServletResponse;
 import sample.account.AccountDAO;
 import sample.account.AccountDTO;
 import sample.company.CompanyDAO;
-import sample.company.CompanyDTO;
 
 /**
  *
  * @author Tranduc
  */
-@WebServlet(name = "SearchCompanyController", urlPatterns = {"/SearchCompanyController"})
-public class SearchCompanyController extends HttpServlet {
+@WebServlet(name = "AddCompanyController", urlPatterns = {"/AddCompanyController"})
+public class AddCompanyController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,16 +38,17 @@ public class SearchCompanyController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try  {
             /* TODO output your page here. You may use following sample code. */
-            String keyword=request.getParameter("txtsearch");
-            ArrayList<CompanyDTO> companyList=CompanyDAO.getCompaniesByName(keyword);
-            ArrayList<AccountDTO> accList=new ArrayList<>();
-            for (CompanyDTO com : companyList) {
-                AccountDTO acc=AccountDAO.getAccountByIDV2(com.getAccID());
-                accList.add(acc);
-            }
-            request.setAttribute("accList", accList);
-            request.setAttribute("comList", companyList);
-            request.getRequestDispatcher("viewSearchCompany.jsp").forward(request, response);
+            String name=request.getParameter("txtname");
+            String email=request.getParameter("txtemail");
+            int status=1;
+            int role=2;
+            String password="123";
+            Date d=new Date(System.currentTimeMillis());
+            int result=AccountDAO.insertAccount(password, email, name, null, null, d.toString(), role, status);
+            AccountDTO acc=AccountDAO.loginAccount_V2(email);
+            int result1=CompanyDAO.insertCompany(acc.getAccId());
+            request.getRequestDispatcher("CompanyListController").forward(request, response);
+
         }catch(Exception e){
             e.printStackTrace();
         }
