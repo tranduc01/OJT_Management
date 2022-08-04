@@ -18,8 +18,6 @@ import sample.company.CompanyDAO;
 import sample.company.CompanyDTO;
 import sample.job.JobDAO;
 import sample.job.JobDTO;
-import sample.major.MajorDAO;
-import sample.major.MajorDTO;
 
 /**
  *
@@ -41,16 +39,10 @@ public class JobsPageController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try  {
             /* TODO output your page here. You may use following sample code. */
-            String pagenumber = request.getParameter("page");
-            if (pagenumber == null) {
-                pagenumber = "1";
-            }
-            int pageIndex = Integer.parseInt(pagenumber);
-            int numofrow = 10;
-            ArrayList<JobDTO> listJob = JobDAO.getJobsByPage(pageIndex, numofrow);
+            ArrayList<JobDTO> listJob = JobDAO.getJobs();
             ArrayList<CompanyDTO> listCompany = CompanyDAO.getCompanies();
             ArrayList<AccountDTO> listAccount=new ArrayList<>();
-            ArrayList<MajorDTO> listMajor=MajorDAO.getMajors();
+              
                 
             
             for (CompanyDTO com : listCompany) {
@@ -59,7 +51,7 @@ public class JobsPageController extends HttpServlet {
                 listAccount.add(account);
                 }
             }
-                request.setAttribute("majorList", listMajor);
+                
                 request.setAttribute("companyList", listCompany);
                 request.setAttribute("jobList", listJob);
                 request.setAttribute("accList", listAccount);

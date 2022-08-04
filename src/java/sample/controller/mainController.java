@@ -66,8 +66,6 @@ public class mainController extends HttpServlet {
     private static final String UNLOCKCOMPANY_CONTROLLER = "UnlockCompanyController";
     private static final String FILTERJOB = "jobfilter";
     private static final String FILTERJOB_CONTROLLER = "JobPostByFilterController";
-    private static final String SEARCHCOMPANY = "SearchCompany";
-    private static final String SEARCHCOMPANY_CONTROLLER = "SearchCompanyController";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -133,8 +131,6 @@ public class mainController extends HttpServlet {
                 url=UNLOCKCOMPANY_CONTROLLER;
             }else if(FILTERJOB.equals(action)){
                 url=FILTERJOB_CONTROLLER;
-            }else if(SEARCHCOMPANY.equals(action)){
-                url=SEARCHCOMPANY_CONTROLLER;
             }
         } catch (Exception e) {
             log("Error at mainController: " + e.toString());

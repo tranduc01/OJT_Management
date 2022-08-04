@@ -52,9 +52,9 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="IndexCompanyListController">
-                                <span class="fas fa-building-o"></span>
-                                Company
+                            <a class="nav-link" href="JobsPageController">
+                                <span class="fa fa-briefcase fa-lg"></span>
+                                Jobs
                             </a>
                         </li>
                         <li class="nav-item">

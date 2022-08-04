@@ -29,146 +29,6 @@
         <link rel="shortcut icon" href="img/FPT-logoo.jpg">
 
         <title>FPT OJT</title>
-        <style>
-            * {
-                outline: none;
-            }
-
-            .tb {
-                display: table;
-                width: 100%;
-            }
-
-            .td {
-                display: table-cell;
-                vertical-align: middle;
-            }
-
-            input,
-            button {
-                color: #fff;
-                font-family: Nunito;
-                padding: 0;
-                margin: 0;
-                border: 0;
-                background-color: transparent;
-            }
-
-            #cover {
-                position: absolute;
-                right: 100px;
-                width: 550px;
-                padding: 5px;
-                margin: -83px auto 0 auto;
-                background-color: #f27229;
-                border-radius: 20px;
-                box-shadow: 0 10px 40px #f27229, 0 0 0 20px #ffffffeb;
-                transform: scale(0.6);
-            }
-
-            form {
-                height: 60px;
-            }
-
-            input[type="text"] {
-                width: 100%;
-                height: 50px;
-                font-size: 45px;
-                line-height: 1;
-                color: black;
-            }
-
-            input[type="text"]::placeholder {
-                color: grey;
-            }
-
-            #s-cover {
-                width: 1px;
-                padding-left: 35px;
-            }
-
-            button {
-                position: relative;
-                display: block;
-                width: 84px;
-                height: 60px;
-                cursor: pointer;
-            }
-
-            #s-circle {
-                position: relative;
-                top: -8px;
-                left: 0;
-                width: 40px;
-                height: 40px;
-                margin-top: 0;
-                border-width: 15px;
-                border: 15px solid #fff;
-                background-color: transparent;
-                border-radius: 50%;
-                transition: 0.5s ease all;
-            }
-
-            button span {
-                position: absolute;
-                top: 35px;
-                left: 22px;
-                display: block;
-                width: 40px;
-                height: 15px;
-                background-color: transparent;
-                border-radius: 10px;
-                transform: rotateZ(52deg);
-                transition: 0.5s ease all;
-            }
-
-            button span:before,
-            button span:after {
-                content: "";
-                position: absolute;
-                bottom: 0;
-                right: 0;
-                width: 45px;
-                height: 15px;
-                background-color: #fff;
-                border-radius: 10px;
-                transform: rotateZ(0);
-                transition: 0.5s ease all;
-            }
-
-            #s-cover:hover #s-circle {
-                top: -1px;
-                width: 67px;
-                height: 15px;
-                border-width: 0;
-                background-color: #fff;
-                border-radius: 20px;
-            }
-
-            #s-cover:hover span {
-                top: 50%;
-                left: 56px;
-                width: 25px;
-                margin-top: -9px;
-                transform: rotateZ(0);
-            }
-
-            #s-cover:hover button span:before {
-                bottom: 11px;
-                transform: rotateZ(52deg);
-            }
-
-            #s-cover:hover button span:after {
-                bottom: -11px;
-                transform: rotateZ(-52deg);
-            }
-            #s-cover:hover button span:before,
-            #s-cover:hover button span:after {
-                right: -6px;
-                width: 40px;
-                background-color: #fff;
-            }
-        </style>
     </head>
     <body>
 
@@ -188,6 +48,12 @@
                             <a class="nav-link" href="JobListByPageController">
                                 <span class="fa fa-home fa-lg"></span>
                                 Home
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="JobsPageController">
+                                <span class="fa fa-briefcase fa-lg"></span>
+                                Jobs
                             </a>
                         </li>
                         <li class="nav-item active">
@@ -360,26 +226,8 @@
             </div>
         </nav>
 
-
-
-
         <div class="jumbotron">
-            <div style="padding-top: 50px;">
-                <div id="cover">
-                    <form method="post" action="mainController">
-                        <div class="tb">
-                            <div class="td"><input type="text" name="txtsearch" placeholder="Search..." required></div>
-                            <div class="td" id="s-cover">
-                                <button type="submit" name="action" value="SearchCompany">
-                                    <div id="s-circle"></div>
-                                    <span></span>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <div class="container" style="padding-top: 50px; ">
+            <div class="container">
                 <div class="row">       
                     <div class="col-lg-12">
                         <div class="row">
@@ -387,7 +235,7 @@
                                 <c:forEach var="acc" items="${requestScope.accList}">
                                     <c:if test="${com.getAccID() eq acc.getAccId()}">
                                         <div class="col-sm-6 col-lg-4 mb-4">
-                                            <div class="candidate-list candidate-grid" style="border: 1px #f27229 solid; border-radius: 10px; padding-top: 10px;">
+                                            <div class="candidate-list candidate-grid">
                                                 <div class="candidate-list-image">
                                                     <img class="img-fluid" src="${acc.getAvatar()}" style="object-fit: cover;
                                                          overflow: hidden;
@@ -402,12 +250,14 @@
                                                         </div>
                                                         <div class="candidate-list-option">
                                                             <ul class="list-unstyled">
+
                                                                 <li><i class="fas fa-map-marker-alt pr-1"></i>${com.getComAddress()}</li>
                                                             </ul>
                                                         </div>
                                                     </div>
                                                     <div class="candidate-list-favourite-time">
                                                         <a class="candidate-list-favourite order-2" href="mainController?action=companyDetails&comID=${com.getComID()}" style="text-decoration: none; border-color: orange;">View</a>
+
                                                     </div>
                                                 </div>
                                             </div>

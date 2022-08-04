@@ -47,7 +47,13 @@
                                 <span class="fa fa-home fa-lg"></span>
                                 Home
                             </a>
-                        </li>                       
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="JobsPageController">
+                                <span class="fa fa-briefcase fa-lg"></span>
+                                Jobs
+                            </a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link" href="IndexCompanyListController">
                                 <span class="fas fa-building-o"></span>
@@ -88,7 +94,7 @@
                         <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
                             <p class="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
 
-                            <c:if test="${sessionScope.role ==1}">
+                           <c:if test="${sessionScope.role ==1}">
                                 <c:forEach items="${requestScope.appList1}" var="app">   
                                     <c:forEach items="${requestScope.jobList1}" var="job">  
                                         <c:forEach items="${requestScope.comList1}" var="com">                                                                                                   
@@ -220,38 +226,15 @@
             </div>
         </nav>
 
-        <div class="jumbotron">            
-            <div class="row">
-                <div class="col-lg-10 mx-auto">
-                    <div class="career-search mb-60">
+        <div class="jumbotron">
+            <!--<form class="search-container">
+                <input class="search-item" type="text" placeholder="Search company.." name="search">
+                <button class="search-item" type="submit"><i class="fa fa-search"></i></button>
+            </form>-->
 
 
+            <h3>Jobs for you</h3>
 
-            <form action="mainController" class="career-form mb-60">
-                <div class="row">
-                    <div class="col-md-6 col-lg-4 my-4">
-                        <div class="input-group position-relative">
-                            <input type="text" class="form-control" placeholder="Enter Your Keywords" id="keywords" name="keyword" value="<%= (request.getParameter("keyword") == null) ? "" : (request.getParameter("keyword"))%>">
-                        </div>
-                    </div>
-
-                    <div class="col-md-6 col-lg-4 my-4">
-                        <div class="select-container">
-                            <select class="custom-select" name="txtmajor">
-                                <option selected="" style="color: black;" value="all">All Majors</option>
-                                <c:forEach var="major" items="${requestScope.majorList}">
-                                    <option value="${major.getMajorID()}" style="color: black;">${major.getMajorName()}</option>
-                                </c:forEach>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4 my-4">
-                        <button type="submit" class="btn btn-lg btn-block btn-light btn-custom" id="contact-submit" name="action" value="SearchJob">
-                            Search
-                        </button>
-                    </div>
-                </div>
-            </form>
             <c:forEach var="job" items="${requestScope.jobList}">
                 <c:forEach var="com" items="${requestScope.companyList}">
                     <c:forEach var="acc" items="${requestScope.accList}">
@@ -275,26 +258,7 @@
                     </c:forEach>
                 </c:forEach>
             </c:forEach>                
-       
-                        </div>
-                        <nav aria-label="Page navigation">
-                        <ul class="pagination pagination-reset justify-content-center">
-                            <c:if test="${requestScope.pagenum-1 ==0}"><li class="page-item"> <a class="page-link" href="mainController?action=viewbypage&page=1">Prev</a> </li></c:if>
-                            <c:if test="${requestScope.pagenum-1 !=0}"><li class="page-item"> <a class="page-link" href="mainController?action=viewbypage&page=${requestScope.pagenum-1}">Prev</a> </li></c:if>
-                                <li class="page-item"><a class="page-link" href="mainController?action=viewbypage&page=1">1</a></li>
-                                <li class="page-item"><a class="page-link" href="mainController?action=viewbypage&page=2">2</a></li>
-                                <li class="page-item"><a class="page-link" href="mainController?action=viewbypage&page=3">3</a></li>
-                                <li class="page-item"><a class="page-link" href="mainController?action=viewbypage&page=4">4</a></li>
-                                <li class="page-item"><a class="page-link" href="mainController?action=viewbypage&page=5">5</a></li>
-                                <li class="page-item"><a class="page-link" href="mainController?action=viewbypage&page=6">6</a></li>
-                            <c:if test="${requestScope.pagenum+1 >6}"><li class="page-item"> <a class="page-link" href="mainController?action=viewbypage&page=6">Next</a> </li></c:if>
-                            <c:if test="${requestScope.pagenum+1 <7}"><li class="page-item"> <a class="page-link" href="mainController?action=viewbypage&page=${requestScope.pagenum+1}">Next</a> </li></c:if>
-
-                            </ul>
-                        </nav>
-                                        </div>
-                                    </div>
-                                </div> 
+        </div>
         <footer class="footer">
             <div class="container">
                 <div class="row align-items-center">
