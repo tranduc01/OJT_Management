@@ -66,6 +66,41 @@ public class JobDAO {
         }
         return list;
     }
+    public static void createJobCompany(String jobTitle, String jobName, String jobDescription, String jobRequirement, int amount, String jobBenefits,
+            int jobSalary, String createDate, String endDate, int comID, String major) throws SQLException {
+        Connection cn = null;
+        PreparedStatement pst = null;
+        try {
+            cn = DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = "INSERT INTO [dbo].[Job] ([jobName],[jobTitle],[jobDescription],[jobRequirements],[amount],[jobBenefits],\n"
+                        + "[jobSalary],[jobCreateDate],[jobEndDate],[status],[comID],[majorID])\n"
+                        + "VALUES(?,?,?,?,?,?,?,?,?,0,?,?)\n";
+                pst = cn.prepareStatement(sql);
+                pst.setString(1, jobName);
+                pst.setString(2, jobTitle);
+                pst.setString(3, jobDescription);
+                pst.setString(4, jobRequirement);
+                pst.setInt(5, amount);
+                pst.setString(6, jobBenefits);
+                pst.setInt(7, jobSalary);
+                pst.setString(8, createDate);
+                pst.setString(9, endDate);
+                pst.setInt(10, comID);
+                pst.setString(11, major);              
+                pst.executeUpdate();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (cn != null) {
+                cn.close();
+            }
+            if (pst != null) {
+                pst.close();
+            }
+        }
+    }
 
     public static JobDTO getJobByID(int jobID) throws SQLException {
         JobDTO job = null;

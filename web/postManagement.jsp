@@ -74,7 +74,6 @@
                                 Results
                             </a>
                         </li>
-
                     </ul>
                 </div>
                 <span class="navbar-text ml-auto">

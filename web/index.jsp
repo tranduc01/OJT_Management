@@ -317,6 +317,18 @@
                                                         LocalDate end = d2.toLocalDate();
                                                         Period p = Period.between(date, end);
 
+            <!-- The slideshow -->
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img style="width: 1550px; height: 500px;" src="img/slide-1.jpg">
+                </div>
+                <div class="carousel-item">
+                    <img style="width: 1550px; height: 500px;" src="img/slide-2.jpg">
+                </div>
+                <div class="carousel-item">
+                    <img style="width: 1550px; height: 500px;" src="img/slider-3.jpg">
+                </div>
+            </div>
 
                                                     %>
                                                     <div class="job-right my-4 flex-shrink-0">
@@ -385,7 +397,6 @@
                 response.sendRedirect("JobListByPageController");
             }
         %>
-
         <footer class="footer">
             <div class="container">
                 <div class="row align-items-center">

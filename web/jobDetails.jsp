@@ -387,7 +387,6 @@
         <c:set var="com" value="${requestScope.com}"/>
         <c:set var="acc" value="${requestScope.acc}"/>
         <c:set var="stuAcc" value="${sessionScope.acc}"/>
-
         <!-- job post company Start -->
         <div class="job-post-company pt-120 pb-120">
             <div class="container">
@@ -625,6 +624,5 @@
                 window.location.href = "login.jsp";
             }
         </script>
-
     </body>
 </html>

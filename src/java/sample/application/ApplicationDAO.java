@@ -144,4 +144,88 @@ public class ApplicationDAO {
         }
         return list;
     }
+
+
+
+    
+    
+    public static int SendOffer(Date appllyDate, String stuID, int jobID) throws SQLException {
+        Connection cn = null;
+        PreparedStatement pst = null;
+        int result = 0;
+        try {
+            cn = DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = "insert into [Application]([status],[applyDate],[stu_confirm],[com_comfirm],[stuID],[jobID]) "
+                        + "values (2,?,0,1,?,?)";
+                pst = cn.prepareStatement(sql);
+                pst.setDate(1, appllyDate);
+                pst.setString(2, stuID);
+                pst.setInt(3, jobID);
+                pst.executeUpdate();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (cn != null) {
+                cn.close();
+            }
+            if (pst != null) {
+                pst.close();
+            }
+        }
+        return result;
+    }
+
+    public static void AcceptOJTApplication(int id) throws SQLException {
+        Connection cn = null;
+        PreparedStatement pst = null;
+
+        try {
+            cn = DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = "UPDATE [dbo].[Application]\n"
+                        + "SET [status] = 1, [stu_confirm] = 1,[com_comfirm] = 1\n"
+                        + "WHERE Application.applyID = ?";
+                pst = cn.prepareStatement(sql);
+                pst.setInt(1, id);
+                pst.executeUpdate();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (cn != null) {
+                cn.close();
+            }
+            if (pst != null) {
+                pst.close();
+            }
+        }
+    }
+    
+    public static void RejectOJTApplication(int id) throws SQLException {
+        Connection cn = null;
+        PreparedStatement pst = null;
+
+        try {
+            cn = DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = "UPDATE [dbo].[Application]\n"
+                        + "SET [status] = 3, [stu_confirm] = 1,[com_comfirm] = 2\n"
+                        + "WHERE Application.applyID = ?";
+                pst = cn.prepareStatement(sql);
+                pst.setInt(1, id);
+                pst.executeUpdate();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (cn != null) {
+                cn.close();
+            }
+            if (pst != null) {
+                pst.close();
+            }
+        }
+    }
 }

@@ -7,26 +7,19 @@ package sample.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
-import java.time.LocalDate;
-import java.util.ArrayList;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import sample.account.AccountDAO;
-import sample.account.AccountDTO;
-import sample.company.CompanyDAO;
-import sample.major.MajorDAO;
-import sample.major.MajorDTO;
-import sample.student.StudentDAO;
+import sample.job.JobDAO;
 
 /**
  *
- * @author Tranduc
+ * @author Dell
  */
-public class UpdateInforController extends HttpServlet {
+public class AddJobCompanyController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,40 +33,25 @@ public class UpdateInforController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try {
+        try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             HttpSession session = request.getSession();
-            String name = request.getParameter("txtname");
-            String phone = request.getParameter("txtphone");
-            
-            
-            String discription = request.getParameter("comdiscription");
-            String address = request.getParameter("comaddress");
-            String website = request.getParameter("linkwebsite");
-            
-            String email = (String) session.getAttribute("accEmail");
-            
-            LocalDate birthday = LocalDate.parse(request.getParameter("txtbirthday"));         
-            String success="Updated!!!";
-            int result = AccountDAO.updateProfile(email, name, phone, birthday.toString());  
-                 
-            AccountDTO acc = AccountDAO.loginAccount_V2(email);
-            
-            request.setAttribute("success", success);
-            session.setAttribute("acc", acc);
-            
-            if (acc.getRole() == 1) {
-                String majorid=request.getParameter("txtmajor");
-                ArrayList<MajorDTO> list = MajorDAO.getMajors();
-                session.setAttribute("majorList", list);
-                request.getRequestDispatcher("student_profile.jsp").forward(request, response);
-            }
-            if (acc.getRole() == 2) {
-                CompanyDAO.updateCompanyProfile(email, discription, address, website);     
-                request.getRequestDispatcher("CompanyProfileController").forward(request, response);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+            String jobTitle = request.getParameter("jobTitle");
+            String jobName = request.getParameter("jobName");
+            String jobDescription = request.getParameter("jobDescription");
+            String jobRequirement = request.getParameter("jobRequirement");
+            int amount = Integer.parseInt(request.getParameter("Amount"));
+            String jobBenefits = request.getParameter("jobBenefits");
+            int jobSalary = Integer.parseInt(request.getParameter("jobSalary"));
+            String createDate = request.getParameter("CreateDate");
+            String endDate = request.getParameter("EndDate");
+            int comID = (int) session.getAttribute("comID");
+            String major = request.getParameter("Major");
+            JobDAO.createJobCompany(jobTitle, jobName, jobDescription, jobRequirement, amount, jobBenefits, jobSalary, createDate, endDate, comID, major);
+            //response.sendRedirect("company_page.jsp");
+            request.getRequestDispatcher("CompanyHomePageController").forward(request, response);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
     }
 

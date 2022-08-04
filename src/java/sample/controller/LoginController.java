@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import sample.account.AccountDAO;
 import sample.account.AccountDTO;
+import sample.company.CompanyDAO;
+import sample.company.CompanyDTO;
 import sample.major.MajorDAO;
 import sample.major.MajorDTO;
 import sample.student.StudentDAO;
@@ -65,6 +67,8 @@ public class LoginController extends HttpServlet {
                     session.setAttribute("name", acc.getName());
                     session.setAttribute("role", acc.getRole());
                     session.setAttribute("acc", acc);
+                    CompanyDTO company = CompanyDAO.getCompanyByAccount(acc.getAccId());
+                    session.setAttribute("company", company);
                     request.getRequestDispatcher("CompanyHomePageController").forward(request, response);
                 }
             } else {

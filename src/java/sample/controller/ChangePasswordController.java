@@ -34,7 +34,7 @@ public class ChangePasswordController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try  {
-            /* TODO output your page here. You may use following sample code. */
+             /* TODO output your page here. You may use following sample code. */
             String currentPassword=request.getParameter("currentPassword");
             String newPassword=request.getParameter("newPassword");
             String confirmPassword=request.getParameter("confirmPassword");
@@ -46,19 +46,33 @@ public class ChangePasswordController extends HttpServlet {
                     int result=AccountDAO.changePassword(acc1.getEmail(), newPassword);
                     String changePass="Change Password successfully !!!";
                     request.setAttribute("changed", changePass);
+                    if (acc.getRole() == 1 ) {
                     request.getRequestDispatcher("security.jsp").forward(request, response);
+                }
+                    else {
+                    request.getRequestDispatcher("securityCompany.jsp").forward(request, response);
+                }
                 }else{
                     String passwordNotMatch="Password not match !!!!";
                     request.setAttribute("passNotMatch", passwordNotMatch);
+                    if (acc.getRole() == 1 ) {
                     request.getRequestDispatcher("security.jsp").forward(request, response);
+                }
+                    else {
+                    request.getRequestDispatcher("securityCompany.jsp").forward(request, response);
+                }
                 }
                 
             }else{
                 String wrongPassword="Current Password is wrong !!!";
                 request.setAttribute("wrongPassword", wrongPassword);
-                request.getRequestDispatcher("security.jsp").forward(request, response);
-            }
-            
+                if (acc.getRole() == 1 ) {
+                    request.getRequestDispatcher("security.jsp").forward(request, response);
+                }
+                else {
+                    request.getRequestDispatcher("securityCompany.jsp").forward(request, response);
+                }
+            }                     
         }catch(Exception e){
             e.printStackTrace();
         }

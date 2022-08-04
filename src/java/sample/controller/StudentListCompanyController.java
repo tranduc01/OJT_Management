@@ -7,26 +7,22 @@ package sample.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import sample.account.AccountDAO;
 import sample.account.AccountDTO;
-import sample.company.CompanyDAO;
-import sample.major.MajorDAO;
-import sample.major.MajorDTO;
+import sample.application.ApplicationDTO;
 import sample.student.StudentDAO;
+import sample.student.StudentDTO;
 
 /**
  *
- * @author Tranduc
+ * @author Dell
  */
-public class UpdateInforController extends HttpServlet {
+public class StudentListCompanyController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,39 +36,21 @@ public class UpdateInforController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try {
+        try  {
             /* TODO output your page here. You may use following sample code. */
-            HttpSession session = request.getSession();
-            String name = request.getParameter("txtname");
-            String phone = request.getParameter("txtphone");
-            
-            
-            String discription = request.getParameter("comdiscription");
-            String address = request.getParameter("comaddress");
-            String website = request.getParameter("linkwebsite");
-            
-            String email = (String) session.getAttribute("accEmail");
-            
-            LocalDate birthday = LocalDate.parse(request.getParameter("txtbirthday"));         
-            String success="Updated!!!";
-            int result = AccountDAO.updateProfile(email, name, phone, birthday.toString());  
-                 
-            AccountDTO acc = AccountDAO.loginAccount_V2(email);
-            
-            request.setAttribute("success", success);
-            session.setAttribute("acc", acc);
-            
-            if (acc.getRole() == 1) {
-                String majorid=request.getParameter("txtmajor");
-                ArrayList<MajorDTO> list = MajorDAO.getMajors();
-                session.setAttribute("majorList", list);
-                request.getRequestDispatcher("student_profile.jsp").forward(request, response);
+            ArrayList<StudentDTO> studentList=StudentDAO.getStudents();
+            ArrayList<AccountDTO> accList=new ArrayList<>();
+            ArrayList<ApplicationDTO> appList=new ArrayList<>();
+            for (StudentDTO stu : studentList) {
+                AccountDTO acc=AccountDAO.getAccountByID(stu.getAccID());
+                accList.add(acc);
+                //appList=ApplicationDAO.getApplicationByID(stu.getStudentID());
             }
-            if (acc.getRole() == 2) {
-                CompanyDAO.updateCompanyProfile(email, discription, address, website);     
-                request.getRequestDispatcher("CompanyProfileController").forward(request, response);
-            }
-        } catch (Exception e) {
+            request.setAttribute("stuList", studentList);
+            request.setAttribute("accList", accList);
+            request.setAttribute("appList", appList);
+            request.getRequestDispatcher("studentListCompany.jsp").forward(request, response);
+        }catch(Exception e){
             e.printStackTrace();
         }
     }
