@@ -143,6 +143,50 @@ public class CompanyDAO {
         }
         return list;
     }
+    
+    public static ArrayList<CompanyDTO> getCompaniesByName() throws SQLException {
+        ArrayList<CompanyDTO> list = new ArrayList<>();
+        Connection cn = null;
+        Statement st = null;
+        ResultSet rs = null;
+        try {
+            cn = DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = "select [comID],[comDescription],[comAddress],website,bannerImage,Company.[accID]\n" +
+"                        from [dbo].[Company] join Account on Company.accID=Account.accID\n" +
+"                        where Account.status=1 and Account.name like '%?%'";
+
+                st = cn.createStatement();
+
+                rs = st.executeQuery(sql);
+                while (rs != null && rs.next()) {
+                    int comid = rs.getInt("comID");
+                    String comdescription = rs.getString("comDescription");
+                    String comaddress = rs.getString("comAddress");
+                    int accid = rs.getInt("accID");
+                    String website = rs.getString("website");
+                    String banner = rs.getString("bannerImage");
+                    CompanyDTO com = new CompanyDTO(comid, comdescription, comaddress, accid, website, banner);
+                    list.add(com);
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (cn != null) {
+                cn.close();
+            }
+            if (st != null) {
+                st.close();
+            }
+            if (rs != null) {
+                rs.close();
+            }
+        }
+        return list;
+    }
+    
     public static ArrayList<CompanyDTO> getCompaniesV2() throws SQLException {
         ArrayList<CompanyDTO> list = new ArrayList<>();
         Connection cn = null;

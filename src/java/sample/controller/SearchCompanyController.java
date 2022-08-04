@@ -7,25 +7,18 @@ package sample.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import sample.account.AccountDAO;
-import sample.account.AccountDTO;
-import sample.company.CompanyDAO;
-import sample.company.CompanyDTO;
-import sample.job.JobDAO;
-import sample.job.JobDTO;
-import sample.major.MajorDAO;
-import sample.major.MajorDTO;
 
 /**
  *
  * @author Tranduc
  */
-public class JobsPageController extends HttpServlet {
+@WebServlet(name = "SearchCompanyController", urlPatterns = {"/SearchCompanyController"})
+public class SearchCompanyController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,33 +32,10 @@ public class JobsPageController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try  {
+        try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            String pagenumber = request.getParameter("page");
-            if (pagenumber == null) {
-                pagenumber = "1";
-            }
-            int pageIndex = Integer.parseInt(pagenumber);
-            int numofrow = 10;
-            ArrayList<JobDTO> listJob = JobDAO.getJobsByPage(pageIndex, numofrow);
-            ArrayList<CompanyDTO> listCompany = CompanyDAO.getCompanies();
-            ArrayList<AccountDTO> listAccount=new ArrayList<>();
-            ArrayList<MajorDTO> listMajor=MajorDAO.getMajors();
-                
+            String keyword=request.getParameter("txtsearch");
             
-            for (CompanyDTO com : listCompany) {
-                AccountDTO account=AccountDAO.getAccountByID(com.getAccID());
-                if(account.getAccId()==com.getAccID()){
-                listAccount.add(account);
-                }
-            }
-                request.setAttribute("majorList", listMajor);
-                request.setAttribute("companyList", listCompany);
-                request.setAttribute("jobList", listJob);
-                request.setAttribute("accList", listAccount);
-                request.getRequestDispatcher("jobs.jsp").forward(request, response);
-        }catch(Exception e){
-            e.printStackTrace();
         }
     }
 

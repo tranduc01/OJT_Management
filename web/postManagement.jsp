@@ -26,7 +26,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css"></script>
         <script src="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap4.min.css"></script>
         <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
-
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet"/>
         <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
         <script src="https://kit.fontawesome.com/12c372e324.js" crossorigin="anonymous"></script>
         <link rel="shortcut icon" href="img/FPT-logoo.jpg">
@@ -83,18 +83,51 @@
                 </span>
             </div>
         </nav>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
         <% if (request.getAttribute("success") != null) {
-        %>
+        %>       
         <script>
-            alert("Post Rejected !!!");
-        </script>
+            toastr.options = {
+                "closeButton": true,
+                "debug": true,
+                "newestOnTop": false,
+                "progressBar": true,
+                "preventDuplicates": false,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "2000",
+                "extendedTimeOut": "5000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut",
+                "position-class": "toast-top-full-width"
+            }
+            toastr["error"]("Rejected !!!").css("height", "50px");
+        </script>              
         <%
             }%>
 
         <% if (request.getAttribute("ok") != null) {
         %>
         <script>
-            alert("Post Approved !!!");
+            toastr.options = {
+                "closeButton": true,
+                "debug": true,
+                "newestOnTop": false,
+                "progressBar": true,
+                "preventDuplicates": false,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "2000",
+                "extendedTimeOut": "5000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut",
+                "position-class": "toast-top-full-width"
+            }
+            toastr["success"]("Approved !!").css("height", "50px");
         </script>
         <%
             }%>
@@ -162,8 +195,8 @@
                                                                 <c:if test="${job.getStatus() eq 3}"><h5><span class="badge badge-secondary">Expired</span></h5></c:if>
                                                                 </td>
                                                                 <td>                                                                                                         
-                                                                    <h5><a href="mainController?action=PostDetail&id=${job.getJobID()}" class="text-primary" data-toggle="tooltip" title="" data-original-title="view" style="padding-left: 16px;"><i class="far fa-eye"></i></a>   
-                                                                    <c:if test="${job.getStatus() eq 1}"><a href="#" class="text-primary" data-toggle="tooltip" title="" data-original-title="view" style="padding-left: 16px;" onclick="return remove();"><i class="far fa-trash-alt"></i></a></c:if></h5>
+                                                                    <h5><a href="mainController?action=PostDetail&id=${job.getJobID()}" class="text-primary" data-toggle="tooltip" title="" data-original-title="view" target="_blank" style="padding-left: 16px;"><i class="far fa-eye"></i></a>   
+                                                                    <c:if test="${job.getStatus() eq 1}"><a href="mainController?action=Reject&jobid=${job.getJobID()}" class="text-primary" data-toggle="tooltip" title="" data-original-title="view" style="padding-left: 16px;" onclick="return remove();"><i class="far fa-trash-alt"></i></a></c:if></h5>
                                                                 </td>
                                                                 <td>
                                                                 <c:if test="${job.getStatus()==0}">
@@ -227,5 +260,6 @@
                 }
             }
         </script>
+        
     </body>
 </html>

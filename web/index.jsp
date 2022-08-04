@@ -55,12 +55,6 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="JobsPageController">
-                                <span class="fa fa-briefcase fa-lg"></span>
-                                Jobs
-                            </a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link" href="IndexCompanyListController">
                                 <span class="fas fa-building-o"></span>
                                 Company
@@ -268,13 +262,13 @@
 
                         <form action="mainController" class="career-form mb-60">
                             <div class="row">
-                                <div class="col-md-6 col-lg-4 my-4">
+                                <div class="form-group col-md-6 col-lg-4 my-4">
                                     <div class="input-group position-relative">
                                         <input type="text" class="form-control" placeholder="Enter Your Keywords" id="keywords" name="keyword" value="<%= (request.getParameter("keyword") == null) ? "" : (request.getParameter("keyword"))%>">
                                     </div>
                                 </div>
 
-                                <div class="col-md-6 col-lg-4 my-4">
+                                <div class="form-group col-md-6 col-lg-4 my-4">
                                     <div class="select-container">
                                         <select class="custom-select" name="txtmajor">
                                             <option selected="" style="color: black;" value="all">All Majors</option>
@@ -284,7 +278,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-6 col-lg-4 my-4">
+                                <div class="form-group col-md-6 col-lg-4 my-4">
                                     <button type="submit" class="btn btn-lg btn-block btn-light btn-custom" id="contact-submit" name="action" value="SearchJob">
                                         Search
                                     </button>
