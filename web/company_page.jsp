@@ -39,6 +39,13 @@
             CompanyDTO com = (CompanyDTO) session.getAttribute("company");
             session.setAttribute("comID", com.getComID());
         %>
+        <script type="text/javascript" src="//js.nicedit.com/nicEdit-latest.js"></script> 
+        <script type="text/javascript">
+
+            bkLib.onDomLoaded(function () {
+                nicEditors.allTextAreas()
+            });
+        </script>
         <nav class="navbar navbar-dark navbar-expand-md fixed-top">
             <div class="container">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#Navbar">
@@ -181,11 +188,14 @@
                                                     <label class="small mb-1" for="inputLocation">Job Salary</label>
                                                     <input class="form-control" id="inputLocation" type="text" placeholder="Job Salary" name="jobSalary">
                                                 </div>
-                                            </div>                   
-                                            <div class="mb-3">
-                                                <label class="small mb-1" for="inputOrgName">Description</label>
-                                                <textarea class="form-control" type="text" id="feedback" rows="5" name="jobDescription"></textarea>
                                             </div>     
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                <label class="small mb-1" for="inputOrgName">Description</label>
+                                                <textarea type="text" id="feedback" style="width: 700px; height: 100px;" name="jobDescription"></textarea>
+                                            </div> 
+                                            </div>
+                                                
                                             <!-- Form Group (Job Requirement)-->
                                             <div class="mb-3">
                                                 <label class="small mb-1" for="inputEmailAddress">Job Requirement</label>

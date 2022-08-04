@@ -68,7 +68,7 @@ public class UpdateInforController extends HttpServlet {
                 session.setAttribute("majorList", list);
                 request.getRequestDispatcher("student_profile.jsp").forward(request, response);
             }
-            else if (acc.getRole() == 2) {
+            if (acc.getRole() == 2) {
                 CompanyDAO.updateCompanyProfile(email, discription, address, website);     
                 request.getRequestDispatcher("CompanyProfileController").forward(request, response);
             }

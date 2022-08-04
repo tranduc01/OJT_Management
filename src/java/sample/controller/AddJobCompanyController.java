@@ -49,7 +49,7 @@ public class AddJobCompanyController extends HttpServlet {
             String major = request.getParameter("Major");
             JobDAO.createJobCompany(jobTitle, jobName, jobDescription, jobRequirement, amount, jobBenefits, jobSalary, createDate, endDate, comID, major);
             //response.sendRedirect("company_page.jsp");
-            request.getRequestDispatcher("company_page.jsp").forward(request, response);
+            request.getRequestDispatcher("CompanyHomePageController").forward(request, response);
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
