@@ -165,7 +165,6 @@
                                 column4
                             ]
                             );
-
                 }
                 csvContent = "data:text/csv;charset=utf-8,\ufeff";
                 /* add the column delimiter as comma(,) and each row splitted by new line character (\n) */
