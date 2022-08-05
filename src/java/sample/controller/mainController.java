@@ -52,6 +52,8 @@ public class mainController extends HttpServlet {
     private static final String COMPANYPOSTDETAIL_CONTROLLER = "CompanyPostDetailController";
     private static final String REJECT = "Reject";
     private static final String REJECT_CONTROLLER = "RejectPostController";
+    private static final String COMPANYREJECT = "CompanyReject";
+    private static final String COMPANYREJECT_CONTROLLER = "CompanyRejectController";
     private static final String APPROVE = "Approve";
     private static final String APPROVE_CONTROLLER = "ApprovePostController";
     private static final String SEARCHJOB = "SearchJob";
@@ -163,6 +165,8 @@ public class mainController extends HttpServlet {
                 url=ADDCOMPANY_CONTROLLER;
             }else if(FILTERPOST.equals(action)){
                 url=FILTERPOST_CONTROLLER;
+            }else if(COMPANYREJECT.equals(action)){
+                url=COMPANYREJECT_CONTROLLER;
             }
         } catch (Exception e) {
             log("Error at mainController: " + e.toString());

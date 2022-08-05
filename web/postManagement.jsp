@@ -169,8 +169,8 @@
                                                                 <c:if test="${job.getStatus() eq 3}"><h5><span class="badge badge-secondary">Expired</span></h5></c:if>
                                                                 </td>
                                                                 <td>                                                                                                         
-                                                                    <h5><a href="mainController?action=PostDetail&id=${job.getJobID()}" class="text-primary" data-toggle="tooltip" title="" data-original-title="view" target="_blank" style="padding-left: 16px;"><i class="far fa-eye"></i></a>   
-                                                                    <c:if test="${job.getStatus() eq 1}"><a href="mainController?action=Reject&jobid=${job.getJobID()}" class="text-primary" data-toggle="tooltip" title="" data-original-title="view" style="padding: 5px 0px 0px 18px ;" onclick="return remove();"><i class="far fa-trash-alt"></i></a></c:if></h5>
+                                                                    <h5><a href="mainController?action=PostDetail&id=${job.getJobID()}" class="text-primary" data-toggle="tooltip" title="" data-original-title="view" target="_blank" style="padding-left: 5px;"><i class="far fa-eye"></i></a>   
+                                                                    <c:if test="${job.getStatus() eq 1}"><a href="mainController?action=Reject&jobid=${job.getJobID()}" class="text-primary" data-toggle="tooltip" title="" data-original-title="view" style="padding-left: 5px;" onclick="return remove();"><i class="far fa-trash-alt"></i></a></c:if></h5>
                                                                 </td>
                                                                 <td>
                                                                 <c:if test="${job.getStatus()==0}">

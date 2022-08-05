@@ -296,9 +296,11 @@
                                                                 <c:if test="${job.getStatus() eq 3}"><h5><span class="badge badge-secondary">Expired</span></h5></c:if>
                                                                 </td>
                                                                 <td>                                                                                                         
-                                                                    <h4><a href="mainController?action=CompanyPostDetail&id=${job.getJobID()}" class="text-primary" data-toggle="tooltip" title="" data-original-title="view" style="padding-left: 16px;"><i class="far fa-eye"></i></a>
-                                                                    <a data-toggle="modal" data-target="#myModalAdd${job.getJobID()}"  class="text-primary" data-toggle="tooltip" title="" data-original-title="view" style="padding-left: 16px;"><i class="far fa-pen-to-square"></i></a>
-                                                                </h4>
+                                                                    <h6>
+                                                                    <a href="mainController?action=CompanyPostDetail&id=${job.getJobID()}" class="text-primary" data-toggle="tooltip" title="" data-original-title="view" style="padding-left: 5px;"><i class="far fa-eye"></i></a>
+                                                                    <a data-toggle="modal" data-target="#myModalAdd${job.getJobID()}"  class="text-primary" data-toggle="tooltip" title="" data-original-title="view" style="padding-left: 5px;"><i class="far fa-pen-to-square"></i></a>                                                                 
+                                                                    <c:if test="${job.getStatus() eq 1}"><a href="mainController?action=CompanyReject&jobid=${job.getJobID()}" class="text-primary" data-toggle="tooltip" title="" data-original-title="view" style="padding-left: 5px;" onclick="return check();"><i class="far fa-trash-alt"></i></a></c:if>
+                                                                </h6>
                                                                 <form action="mainController" method="POST">
                                                                     <div id="myModalAdd${job.getJobID()}" class="modal fade" role="dialog">
                                                                         <div class="modal-dialog modal-lg">
@@ -402,5 +404,14 @@
                 </div>
             </div>
         </div>
+                                                <script>
+            function check() {
+                if (confirm("Are you sure to take down this post?") === false) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+        </script>
     </body>
 </html>
