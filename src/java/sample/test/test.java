@@ -5,7 +5,6 @@
  */
 package sample.test;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import sample.account.AccountDAO;
 import sample.account.AccountDTO;
@@ -15,8 +14,6 @@ import sample.company.CompanyDAO;
 import sample.company.CompanyDTO;
 import sample.job.JobDAO;
 import sample.job.JobDTO;
-import sample.major.MajorDAO;
-import sample.major.MajorDTO;
 import sample.result.ResultDAO;
 import sample.result.ResultDTO;
 import sample.student.StudentDAO;
@@ -30,38 +27,37 @@ public class test {
     public static void main(String[] args) {
         try {
            
+            ArrayList<ResultDTO> resultList=ResultDAO.getResults();
+            ArrayList<ApplicationDTO> appList=ApplicationDAO.getApplications();
+            
+            
+            ArrayList<JobDTO> jobList=new ArrayList<>();
+            ArrayList<StudentDTO> stuList=StudentDAO.getStudents();
+            
+            ArrayList<CompanyDTO> comList=CompanyDAO.getCompanies();
+            
+            ArrayList<AccountDTO> accList=AccountDAO.getAccounts();
             
 
-            CompanyDTO company = CompanyDAO.getCompanyByAccID(2);
-            ArrayList<ApplicationDTO> listApp = ApplicationDAO.getApplications();
-            ArrayList<JobDTO> listJob = JobDAO.getJobByComID(company.getComID());
-            ArrayList<StudentDTO> listStu = StudentDAO.getStudents();
-            ArrayList<ResultDTO> listResult=ResultDAO.getResults();
-            ArrayList<AccountDTO> listAcc = new ArrayList<>();            
-            for (StudentDTO stu : listStu) {
-                 AccountDTO acc = AccountDAO.getAccountByID(stu.getAccID());
-                listAcc.add(acc);
-            }
-            
-            for (JobDTO jobDTO : listJob) {
-                for (ApplicationDTO applicationDTO : listApp) {
-                    for (ResultDTO resultDTO : listResult) {                                            
-                    for (StudentDTO studentDTO : listStu) {
-                        for (AccountDTO accountDTO : listAcc) {                           
-                            if(jobDTO.getJobID()==applicationDTO.getJobID()){
-                                if(resultDTO.getAppID()==applicationDTO.getApplyID()){
+//            System.out.println(jobList.size());
+for (ResultDTO resultDTO : resultList) {                          
+            for (ApplicationDTO applicationDTO : appList) {                  
+                        for (AccountDTO accountDTO : accList) {
+                             for (StudentDTO studentDTO : stuList) {
+                            if(resultDTO.getAppID()==applicationDTO.getApplyID()) 
                                 if(applicationDTO.getStuID().equals(studentDTO.getStudentID())){
                                     if(studentDTO.getAccID()==accountDTO.getAccId()){
+                                        System.out.println(resultDTO.getAppID());
+                                        System.out.println(studentDTO.getStudentID());
                                         System.out.println(accountDTO.getName());
                                     }
                                 }
-                            }}
+                            }
                         }
                     }
-                    }
-                }
                 
-            }
+            
+}
             
         } catch (Exception e) {
             e.printStackTrace();

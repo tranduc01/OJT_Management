@@ -161,13 +161,16 @@
             </div> 
         </nav>      
         <div class="jumbotron">
+            
+            <a style="font-size: 15pt; color: white; background-color: #f27229; float: right; border-radius: 10px; border: 1px grey solid; margin-top: 20px; text-decoration: none;" href="result-template/OJT_Result.xlsx" download="">Download Template</a>
+            
             <div class="container submit-OJT-container row" style="padding-top: 50px;">
                 <form class="form col-md-12" action="ImportResultController" enctype="multipart/form-data" method="post"> 
                     <div class="form-title">
                         <h2>Upload File Excel</h2>               
                     </div>
                     <div class="form-group">
-                        <input type="file" id="myfile" name="myfile">
+                        <input type="file" id="myfile" name="myfile" accept=".csv, .xlsx">
                     </div>
 
                     <div class="button">
@@ -205,7 +208,8 @@
                                                             <td>${acc.getName()}</td>
                                                             <td>${res.getGrade()}</td>
                                                             <td>${res.getComment()}</td>
-                                                            <td>${res.getStatus()}</td>
+                                                            <td><c:if test="${res.getStatus()==1}"><span class="badge badge-success">Passed</span></c:if>
+                                                            <c:if test="${res.getStatus()==0}"><span class="badge badge-danger">Not Passed</span></c:if></td>
                                                         </tr>                                                                                                                                       
                                                     </c:if>                                                                                                                              
                                                 </c:if>

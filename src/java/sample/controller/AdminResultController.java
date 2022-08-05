@@ -7,7 +7,7 @@ package sample.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,14 +15,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import sample.account.AccountDAO;
 import sample.account.AccountDTO;
+import sample.application.ApplicationDAO;
+import sample.application.ApplicationDTO;
 import sample.company.CompanyDAO;
+import sample.company.CompanyDTO;
+import sample.job.JobDAO;
+import sample.job.JobDTO;
+import sample.result.ResultDAO;
+import sample.result.ResultDTO;
+import sample.student.StudentDAO;
+import sample.student.StudentDTO;
 
 /**
  *
  * @author Tranduc
  */
-@WebServlet(name = "AddCompanyController", urlPatterns = {"/AddCompanyController"})
-public class AddCompanyController extends HttpServlet {
+@WebServlet(name = "AdminResultController", urlPatterns = {"/AdminResultController"})
+public class AdminResultController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,19 +45,24 @@ public class AddCompanyController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try  {
+        try {
             /* TODO output your page here. You may use following sample code. */
-            String name=request.getParameter("txtname");
-            String email=request.getParameter("txtemail");
-            int status=1;
-            int role=2;
-            String password="123";
-            Date d=new Date(System.currentTimeMillis());
-            int result=AccountDAO.insertAccount(password, email, name, "", "", d.toString(), role, status);
-            AccountDTO acc=AccountDAO.loginAccount_V2(email);
-            int result1=CompanyDAO.insertCompany(acc.getAccId());
-            request.getRequestDispatcher("CompanyListController").forward(request, response);
-
+            ArrayList<ResultDTO> resultList=ResultDAO.getResults();
+            ArrayList<ApplicationDTO> appList=ApplicationDAO.getApplications();
+            
+            
+            ArrayList<JobDTO> jobList=new ArrayList<>();
+            ArrayList<StudentDTO> stuList=StudentDAO.getStudents();
+            
+            ArrayList<CompanyDTO> comList=CompanyDAO.getCompanies();
+            
+            ArrayList<AccountDTO> accList=AccountDAO.getAccounts();
+            
+            request.setAttribute("resultList", resultList);
+            request.setAttribute("appList", appList);
+            request.setAttribute("stuList", stuList);
+            request.setAttribute("accList", accList);
+            request.getRequestDispatcher("admin_result.jsp").forward(request, response);
         }catch(Exception e){
             e.printStackTrace();
         }

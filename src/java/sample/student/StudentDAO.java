@@ -58,6 +58,47 @@ public class StudentDAO {
         }
         return stu;
     }
+    
+     public static StudentDTO getStudentByID(String stuID) throws SQLException {
+        StudentDTO stu = null;
+        Connection cn = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            cn = DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = "select [stuID],cv,[Student].accID as 'accID',[majorID],[semID],Account.email as 'Email',Account.name as 'stuName'\n"
+                        + "from Student join Account on Student.accID=Account.accID\n"
+                        + "where Student.stuID=?";
+                pst = cn.prepareStatement(sql);
+                pst.setString(1, stuID);
+                rs = pst.executeQuery();
+                if (rs != null && rs.next()) {
+                    int accid=rs.getInt("accID");
+                    String stuid = rs.getString("stuID");
+                    String majorid = rs.getString("majorID");
+                    String semid = rs.getString("semID");
+                    String email = rs.getString("Email");
+                    String stuname = rs.getString("stuName");
+                    String cv = rs.getString("cv");
+                    stu = new StudentDTO(stuname, stuid, semid, email, majorid, cv, accid);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (cn != null) {
+                cn.close();
+            }
+            if (pst != null) {
+                pst.close();
+            }
+            if (rs != null) {
+                rs.close();
+            }
+        }
+        return stu;
+    }
 
     public static ArrayList<StudentDTO> getStudents() throws SQLException {
         ArrayList<StudentDTO> list = new ArrayList<>();
