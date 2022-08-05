@@ -8,11 +8,17 @@ package sample.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import sample.application.ApplicationDAO;
+import sample.application.ApplicationDTO;
+import sample.company.CompanyDAO;
+import sample.company.CompanyDTO;
+import sample.job.JobDAO;
+import sample.job.JobDTO;
 
 /**
  *
@@ -40,8 +46,33 @@ public class InsertApplicationController extends HttpServlet {
             int com_confirm=0;
             int status=2;
             Date applyDate=new Date(System.currentTimeMillis());
-            int result=ApplicationDAO.insertApplication(status, applyDate, stu_confirm, com_confirm, stuID, jobID);
+            
+            ArrayList<ApplicationDTO> appList=ApplicationDAO.getApplicationByID(stuID);
+            ArrayList<JobDTO> jobList=new ArrayList<>();
+            for (ApplicationDTO applicationDTO : appList) {
+                JobDTO job=JobDAO.getJobByID_V2(applicationDTO.getJobID());
+                jobList.add(job);
+            }
+            ArrayList<CompanyDTO> companyList=new ArrayList<>();
+            for (JobDTO jobDTO : jobList) {
+                CompanyDTO com=CompanyDAO.getCompanyByID(jobDTO.getComID());
+                companyList.add(com);
+            }
+            
+            JobDTO job=JobDAO.getJobByID_V2(jobID);
+            CompanyDTO c=CompanyDAO.getCompanyByID(job.getComID());
+            
+                boolean check=companyList.stream().anyMatch(com ->com.getComID()==c.getComID());
+                           
+            if(check==true){
+                String error="error";
+                request.setAttribute("error", error);
+                request.getRequestDispatcher("mainController?action=jobDetails&jobid="+jobID).forward(request, response);
+            }else{
+                int result=ApplicationDAO.insertApplication(status, applyDate, stu_confirm, com_confirm, stuID, jobID);
             request.getRequestDispatcher("mainController?action=jobDetails&jobid="+jobID).forward(request, response);
+            }
+            
         }catch(Exception e){
             e.printStackTrace();
         }

@@ -6,6 +6,7 @@
 package sample.test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import sample.account.AccountDAO;
 import sample.account.AccountDTO;
 import sample.application.ApplicationDAO;
@@ -26,38 +27,26 @@ import sample.student.StudentDTO;
 public class test {
     public static void main(String[] args) {
         try {
-           
-            ArrayList<ResultDTO> resultList=ResultDAO.getResults();
-            ArrayList<ApplicationDTO> appList=ApplicationDAO.getApplications();
-            
-            
+            ArrayList<ApplicationDTO> appList=ApplicationDAO.getApplicationByID("SE151204");
             ArrayList<JobDTO> jobList=new ArrayList<>();
-            ArrayList<StudentDTO> stuList=StudentDAO.getStudents();
+            for (ApplicationDTO applicationDTO : appList) {
+                JobDTO job=JobDAO.getJobByID_V2(applicationDTO.getJobID());
+                jobList.add(job);
+            }
+            ArrayList<CompanyDTO> companyList=new ArrayList<>();
+            for (JobDTO jobDTO : jobList) {
+                CompanyDTO com=CompanyDAO.getCompanyByID(jobDTO.getComID());
+                companyList.add(com);
+            }
             
-            ArrayList<CompanyDTO> comList=CompanyDAO.getCompanies();
+            JobDTO job=JobDAO.getJobByID_V2(2);
+            CompanyDTO c=CompanyDAO.getCompanyByID(job.getComID());
             
-            ArrayList<AccountDTO> accList=AccountDAO.getAccounts();
+                boolean check=companyList.stream().anyMatch(com ->com.getComID()==c.getComID());
+                            System.out.println(check);
+
             
 
-//            System.out.println(jobList.size());
-for (ResultDTO resultDTO : resultList) {                          
-            for (ApplicationDTO applicationDTO : appList) {                  
-                        for (AccountDTO accountDTO : accList) {
-                             for (StudentDTO studentDTO : stuList) {
-                            if(resultDTO.getAppID()==applicationDTO.getApplyID()) 
-                                if(applicationDTO.getStuID().equals(studentDTO.getStudentID())){
-                                    if(studentDTO.getAccID()==accountDTO.getAccId()){
-                                        System.out.println(resultDTO.getAppID());
-                                        System.out.println(studentDTO.getStudentID());
-                                        System.out.println(accountDTO.getName());
-                                    }
-                                }
-                            }
-                        }
-                    }
-                
-            
-}
             
         } catch (Exception e) {
             e.printStackTrace();

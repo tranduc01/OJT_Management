@@ -455,6 +455,19 @@
                 %>
             </div>
         </nav>
+            
+            <%
+                if(request.getAttribute("error")!=null){
+                    %>
+                    <script>
+                        alert("You have already applied for this company !!!");
+                    </script>
+        
+        <%
+                }
+            %>
+            
+            
         <c:set var="job" value="${requestScope.job}"/>
         <c:set var="com" value="${requestScope.com}"/>
         <c:set var="acc" value="${requestScope.acc}"/>
