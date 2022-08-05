@@ -286,18 +286,102 @@
                                                                 <c:if test="${job.getStatus() eq 3}"><h5><span class="badge badge-secondary">Expired</span></h5></c:if>
                                                                 </td>
                                                                 <td>                                                                                                         
-                                                                    <h5><a href="mainController?action=PostDetail&id=${job.getJobID()}" class="text-primary" data-toggle="tooltip" title="" data-original-title="view" style="padding-left: 16px;"><i class="far fa-eye"></i></a>   
-                                                                    <c:if test="${job.getStatus() eq 1}"><a href="#" class="text-primary" data-toggle="tooltip" title="" data-original-title="view" style="padding-left: 16px;" onclick="return remove();"><i class="far fa-trash-alt"></i></a></c:if></h5>
-                                                                </td>
-                                                                <td>
-                                                                <c:if test="${job.getStatus()==0}">
-                                                                    <h4><a href="mainController?action=Approve&jobid=${job.getJobID()}"><button class="badge badge-success"><i class="fa-solid fa-check"></i></button></a>
-                                                                        <a href="mainController?action=Reject&jobid=${job.getJobID()}"><button class="badge badge-danger" onclick="return check();"><i class="fa-solid fa-ban"></i></button></a></h4>
-                                                                            </c:if>
-                                                                            <c:if test="${job.getStatus()!=0}">
-                                                                    <h4></h4>
-                                                                </c:if>                                                 
-                                                            </td>
+                                                                    <h6>
+                                                                        <a href="mainController?action=CompanyPostDetail&id=${job.getJobID()}" class="text-primary" data-toggle="tooltip" title="" data-original-title="view" style="padding-left: 5px;"><i class="far fa-eye"></i></a>
+                                                                    <a data-toggle="modal" data-target="#myModalAdd${job.getJobID()}"  class="text-primary" data-toggle="tooltip" title="" data-original-title="view" style="padding-left: 5px;"><i class="far fa-pen-to-square"></i></a>                                                                 
+                                                                    <c:if test="${job.getStatus() eq 1}"><a href="mainController?action=CompanyReject&jobid=${job.getJobID()}" class="text-primary" data-toggle="tooltip" title="" data-original-title="view" style="padding-left: 5px;" onclick="return check();"><i class="far fa-trash-alt"></i></a></c:if>
+                                                                    </h6>
+                                                                    <form action="mainController" method="POST">
+                                                                        <div id="myModalAdd${job.getJobID()}" class="modal fade" role="dialog">
+                                                                        <div class="modal-dialog modal-lg">
+                                                                            <!-- Modal content-->
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">                           
+                                                                                    <h4 class="modal-title">Update a Post</h4>
+                                                                                </div>
+                                                                                <div class="modal-body">
+                                                                                    <input type="hidden" name="jobid" value="${job.getJobID()}">
+                                                                                    <div class="form-group">
+                                                                                        <label class="col-sm-2 control-label">Name</label>
+                                                                                        <div class="col-sm-12">
+                                                                                            <input class="form-control" name="jobName" type="text" required="" value="${job.getJobName()}">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="form-group">
+                                                                                        <label class="col-sm-4 control-label">Title</label>
+                                                                                        <div class="col-sm-12">
+                                                                                            <input class="form-control" name="jobTitle" type="text" value="Intern" readonly="">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="row gx-3 mb-3">
+                                                                                        <!-- Form Group (Job Name)-->                                            
+                                                                                        <!-- Form Group (Job Salary)-->
+                                                                                        <div class="col-md-6">
+                                                                                            <label class="small mb-1" for="inputLocation">Amount</label>
+                                                                                            <input class="form-control" id="inputLocation" type="number" placeholder="Amount" min="1" name="Amount" value="${job.getAmount()}">
+                                                                                        </div>
+                                                                                        <div class="col-md-6">
+                                                                                            <label class="small mb-1" for="inputLocation">Job Salary</label>
+                                                                                            <input class="form-control" id="inputLocation" type="number" placeholder="Job Salary" min="0" name="jobSalary" value="${job.getJobSalary()}">
+                                                                                        </div>
+                                                                                    </div>     
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-6">
+                                                                                            <label class="small mb-1" for="inputOrgName">Description</label>
+                                                                                            <textarea type="text" id="feedback" style="width: 700px; height: 100px;" name="jobDescription">${job.getJobDescription()}</textarea>
+                                                                                        </div> 
+                                                                                    </div>
+
+                                                                                    <!-- Form Group (Job Requirement)-->
+                                                                                    <div class="mb-3">
+                                                                                        <label class="small mb-1" for="inputEmailAddress">Job Requirement</label>
+                                                                                        <textarea class="form-control" style="width: 700px; height: 100px;" id="inputEmailAddress" type="text" placeholder="Job Requirement" name="jobRequirement" >${job.getJobRequirement()}</textarea>
+                                                                                    </div>
+                                                                                    <!-- Form Group (Job Benefits)-->
+                                                                                    <div class="mb-3">
+                                                                                        <label class="small mb-1" for="inputEmailAddress">Job Benefits</label>
+                                                                                        <textarea class="form-control" style="width: 700px; height: 100px;" id="inputEmailAddress" type="text" placeholder="Job Benefits" name="jobBenefits" >${job.getJobBenefits()}</textarea>
+                                                                                    </div>
+                                                                                    <!-- Form Row-->
+                                                                                    <div class="row gx-3 mb-3">
+                                                                                        <!-- Form Group (create number)-->
+                                                                                        <div class="col-md-6">
+                                                                                            <label class="small mb-1" for="inputPhone">Create Date</label>
+                                                                                            <input class="form-control" type="date" name="CreateDate" value="${job.getJobCreateDate()}" readonly="">
+                                                                                        </div>
+                                                                                        <!-- Form Group (end date)-->
+                                                                                        <div class="col-md-6">
+                                                                                            <label class="small mb-1" for="inputBirthday">End Date</label>
+                                                                                            <input class="form-control"  type="date" name="EndDate" value="${job.getJobEndDate()}" min="${requestScope.current}">
+                                                                                        </div>                               
+                                                                                    </div>                                                                      
+                                                                                    <div class="form-group">
+                                                                                        <label class="col-sm-2 control-label" >Major</label>
+                                                                                        <div class="col-sm-12">
+                                                                                            <select name="Major" class="form-control">
+                                                                                                <c:forEach var="major" items="${requestScope.majorList}">
+                                                                                                    <option value="${major.getMajorID()}" <c:if test="${job.getMajorID() eq major.getMajorID()}">selected=""</c:if>>${major.getMajorName()}</option>
+                                                                                                </c:forEach>
+                                                                                            </select>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="form-group">
+                                                                                        <label class="col-sm-2 control-label">Semester</label>
+                                                                                        <div class="col-sm-12">
+                                                                                            <input class="form-control" type="text" name="txtsemester" value="SU2022" readonly="">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="modal-footer">
+                                                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                                    <button type="submit" class="btn btn-primary" name="action" value="UpdatePost">Update</button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </form>
+                                                            </td>  
+                                                                
                                                         </tr> 
                                                     </c:if>
                                                 </c:if>

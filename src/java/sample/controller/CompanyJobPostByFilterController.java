@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import sample.account.AccountDAO;
 import sample.account.AccountDTO;
 import sample.company.CompanyDAO;
@@ -43,8 +44,11 @@ public class CompanyJobPostByFilterController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try {
                 /* TODO output your page here. You may use following sample code. */
+            HttpSession session=request.getSession();
+            AccountDTO acc=(AccountDTO) session.getAttribute("acc");
+            CompanyDTO company=CompanyDAO.getCompanyByAccID(acc.getAccId());
             int status=Integer.parseInt(request.getParameter("status"));
-            ArrayList<JobDTO> listJob1 = JobDAO.getJobByFilter(status);
+            ArrayList<JobDTO> listJob1 = JobDAO.getJobByFilterCompany(status, company.getComID());
             ArrayList<CompanyDTO> listCompany = CompanyDAO.getCompanies();
             ArrayList<AccountDTO> listAccount=new ArrayList<>();
             ArrayList<MajorDTO> listMajor=MajorDAO.getMajors();
