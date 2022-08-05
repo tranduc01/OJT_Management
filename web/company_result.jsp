@@ -59,7 +59,7 @@
         <div id="preloader">
             <img src="img/loader.gif"/>
         </div>
-        <nav class="navbar navbar-dark navbar-expand-md fixed-top">
+        <nav class="navbar navbar-dark navbar-expand-md">
             <div class="container">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#Navbar">
                     <span class="navbar-toggler-icon"></span>
@@ -106,39 +106,106 @@
                             </a>
                             <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
                                 <p class="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
-                                <c:forEach items="${requestScope.appList1}" var="app">   
-                                    <c:forEach items="${requestScope.jobList1}" var="job">  
-                                        <c:forEach items="${requestScope.comList1}" var="com">                                                                                                   
-                                            <c:forEach items="${requestScope.accList1}" var="acc">
-                                                <c:if test="${app.getJobID() eq job.getJobID()}">
-                                                    <c:if test="${job.getComID() eq com.getComID()}">
-                                                        <c:if test="${acc.getAccId() eq com.getAccID()}">   
-                                                            <a class="dropdown-item preview-item" href="mainController?action=GetApplication">
-                                                                <div class="preview-thumbnail">
-                                                                    <div class="preview-icon">
-                                                                        <img src="${acc.getAvatar()}" style="object-fit: cover;
-                                                                             overflow: hidden;
-                                                                             height: 100%;
-                                                                             width: 80px;
-                                                                             padding-right: 20px;"/>
+                                <c:if test="${sessionScope.role==1}">
+                                    <c:forEach items="${requestScope.appList1}" var="app">   
+                                        <c:forEach items="${requestScope.jobList1}" var="job">  
+                                            <c:forEach items="${requestScope.comList1}" var="com">                                                                                                   
+                                                <c:forEach items="${requestScope.accList1}" var="acc">
+                                                    <c:if test="${app.getJobID() eq job.getJobID()}">
+                                                        <c:if test="${job.getComID() eq com.getComID()}">
+                                                            <c:if test="${acc.getAccId() eq com.getAccID()}">   
+                                                                <a class="dropdown-item preview-item" href="mainController?action=GetApplication">
+                                                                    <div class="preview-thumbnail">
+                                                                        <div class="preview-icon">
+                                                                            <img src="${acc.getAvatar()}" style="object-fit: cover;
+                                                                                 overflow: hidden;
+                                                                                 height: 100%;
+                                                                                 width: 80px;
+                                                                                 padding-right: 20px;"/>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                                <div class="preview-item-content">
-                                                                    <h5 class="preview-subject font-weight-normal">${acc.getName()}</h5>
-                                                                    <h6 class="preview-subject font-weight-normal">${job.getJobName()}</h6>
+                                                                    <div class="preview-item-content">
+                                                                        <h5 class="preview-subject font-weight-normal">${acc.getName()}</h5>
+                                                                        <h6 class="preview-subject font-weight-normal">${job.getJobName()}</h6>
 
-                                                                    <p class="font-weight-light small-text mb-0 text-muted">
-                                                                        ${app.getApplyDate()}
-                                                                    </p>
-                                                                </div>
-                                                            </a>
+                                                                        <p class="font-weight-light small-text mb-0 text-muted">
+                                                                            ${app.getApplyDate()}
+                                                                        </p>
+                                                                    </div>
+                                                                </a>
+                                                            </c:if>
                                                         </c:if>
                                                     </c:if>
-                                                </c:if>
+                                                </c:forEach>
                                             </c:forEach>
                                         </c:forEach>
                                     </c:forEach>
-                                </c:forEach>
+                                </c:if>
+                                <c:if test="${sessionScope.role==2}">
+                                    <c:set var="acc" value="${sessionScope.acc}"></c:set>
+                                    <c:forEach var="job" items="${requestScope.comJob}">
+                                        <c:if test="${job.getStatus() eq 1}">
+                                            <a class="dropdown-item preview-item" href="CompanyHomePageController">
+                                                <div class="preview-thumbnail">
+                                                    <div class="preview-icon">
+                                                        <img src="${acc.getAvatar()}" style="object-fit: cover;
+                                                             overflow: hidden;
+                                                             height: 100%;
+                                                             width: 80px;
+                                                             padding-right: 20px;"/>
+                                                    </div>
+                                                </div>
+                                                <div class="preview-item-content">
+                                                    <p class="preview-subject font-weight-normal" style="margin-bottom: 0px;">${job.getJobName()}</p>
+                                                    <p style="color: green;margin-bottom: 0px;">Your Post have been Approved !!!</p>
+                                                    <p class="font-weight-light small-text mb-0 text-muted" style="margin-bottom: 0px;">
+                                                        ${job.getModifyDate()}
+                                                    </p>
+                                                </div>
+                                            </a>
+                                        </c:if>
+                                        <c:if test="${job.getStatus() eq 2}">
+                                            <a class="dropdown-item preview-item" href="CompanyHomePageController">
+                                                <div class="preview-thumbnail">
+                                                    <div class="preview-icon">
+                                                        <img src="${acc.getAvatar()}" style="object-fit: cover;
+                                                             overflow: hidden;
+                                                             height: 100%;
+                                                             width: 80px;
+                                                             padding-right: 20px;"/>
+                                                    </div>
+                                                </div>
+                                                <div class="preview-item-content">
+                                                    <p class="preview-subject font-weight-normal" style="margin-bottom: 0px;">${job.getJobName()}</p>
+                                                    <p style="color: tomato;margin-bottom: 0px;">Your Post have been Rejected !!!</p>
+                                                    <p class="font-weight-light small-text mb-0 text-muted" style="margin-bottom: 0px;">
+                                                        ${job.getModifyDate()}
+                                                    </p>
+                                                </div>
+                                            </a>
+                                        </c:if>
+                                        <c:if test="${job.getStatus() eq 3}">
+                                            <a class="dropdown-item preview-item" href="CompanyHomePageController">
+                                                <div class="preview-thumbnail">
+                                                    <div class="preview-icon">
+                                                        <img src="${acc.getAvatar()}" style="object-fit: cover;
+                                                             overflow: hidden;
+                                                             height: 100%;
+                                                             width: 80px;
+                                                             padding-right: 20px;"/>
+                                                    </div>
+                                                </div>
+                                                <div class="preview-item-content">
+                                                    <p class="preview-subject font-weight-normal" style="margin-bottom: 0px;">${job.getJobName()}</p>
+                                                    <p style="color: grey;margin-bottom: 0px;">Post Expired !!!</p>
+                                                    <p class="font-weight-light small-text mb-0 text-muted" style="margin-bottom: 0px;">
+                                                        ${job.getModifyDate()}
+                                                    </p>
+                                                </div>
+                                            </a>
+                                        </c:if>
+                                    </c:forEach>
+                                </c:if>
                             </div>
                         </li>
                         <li class="nav-item nav-profile dropdown">
@@ -162,9 +229,9 @@
         </nav>      
         <div class="jumbotron">
             
-            <a style="font-size: 15pt; color: white; background-color: #f27229; float: right; border-radius: 10px; border: 1px grey solid; margin-top: 20px; text-decoration: none;" href="result-template/OJT_Result.xlsx" download="">Download Template</a>
+            <a style="font-size: 15pt; color: white; background-color: #f27229; float: right; border-radius: 10px; border: 1px grey solid; text-decoration: none;" href="result-template/OJT_Result.xlsx" download="">Download Template</a>
             
-            <div class="container submit-OJT-container row" style="padding-top: 50px;">
+            <div class="container submit-OJT-container row">
                 <form class="form col-md-12" action="ImportResultController" enctype="multipart/form-data" method="post"> 
                     <div class="form-title">
                         <h2>Upload File Excel</h2>               

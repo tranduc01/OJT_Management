@@ -192,6 +192,71 @@
                                     </c:forEach>
                                 </c:forEach>
                             </c:if>
+                            <c:if test="${sessionScope.role==2}">
+                                <c:set var="acc" value="${sessionScope.acc}"></c:set>
+                                <c:forEach var="job" items="${requestScope.comJob}">
+                                    <c:if test="${job.getStatus() eq 1}">
+                                        <a class="dropdown-item preview-item" href="CompanyHomePageController">
+                                            <div class="preview-thumbnail">
+                                                <div class="preview-icon">
+                                                    <img src="${acc.getAvatar()}" style="object-fit: cover;
+                                                         overflow: hidden;
+                                                         height: 100%;
+                                                         width: 80px;
+                                                         padding-right: 20px;"/>
+                                                </div>
+                                            </div>
+                                            <div class="preview-item-content">
+                                                <p class="preview-subject font-weight-normal" style="margin-bottom: 0px;">${job.getJobName()}</p>
+                                                <p style="color: green;margin-bottom: 0px;">Your Post have been Approved !!!</p>
+                                                <p class="font-weight-light small-text mb-0 text-muted" style="margin-bottom: 0px;">
+                                                    ${job.getModifyDate()}
+                                                </p>
+                                            </div>
+                                        </a>
+                                    </c:if>
+                                    <c:if test="${job.getStatus() eq 2}">
+                                        <a class="dropdown-item preview-item" href="CompanyHomePageController">
+                                            <div class="preview-thumbnail">
+                                                <div class="preview-icon">
+                                                    <img src="${acc.getAvatar()}" style="object-fit: cover;
+                                                         overflow: hidden;
+                                                         height: 100%;
+                                                         width: 80px;
+                                                         padding-right: 20px;"/>
+                                                </div>
+                                            </div>
+                                            <div class="preview-item-content">
+                                                <p class="preview-subject font-weight-normal" style="margin-bottom: 0px;">${job.getJobName()}</p>
+                                                <p style="color: tomato;margin-bottom: 0px;">Your Post have been Rejected !!!</p>
+                                                <p class="font-weight-light small-text mb-0 text-muted" style="margin-bottom: 0px;">
+                                                    ${job.getModifyDate()}
+                                                </p>
+                                            </div>
+                                        </a>
+                                    </c:if>
+                                    <c:if test="${job.getStatus() eq 3}">
+                                        <a class="dropdown-item preview-item" href="CompanyHomePageController">
+                                            <div class="preview-thumbnail">
+                                                <div class="preview-icon">
+                                                    <img src="${acc.getAvatar()}" style="object-fit: cover;
+                                                         overflow: hidden;
+                                                         height: 100%;
+                                                         width: 80px;
+                                                         padding-right: 20px;"/>
+                                                </div>
+                                            </div>
+                                            <div class="preview-item-content">
+                                                <p class="preview-subject font-weight-normal" style="margin-bottom: 0px;">${job.getJobName()}</p>
+                                                <p style="color: grey;margin-bottom: 0px;">Post Expired !!!</p>
+                                                <p class="font-weight-light small-text mb-0 text-muted" style="margin-bottom: 0px;">
+                                                    ${job.getModifyDate()}
+                                                </p>
+                                            </div>
+                                        </a>
+                                    </c:if>
+                                </c:forEach>
+                            </c:if>
                         </div>
                     </li>
 
@@ -301,16 +366,16 @@
                                                         <div class="img-holder mr-md-4 mb-md-0 mb-4 mx-auto mx-md-0 d-md-none d-lg-flex">
                                                             <img src="${acc.getAvatar()}" style="height: 100px; width: 150px;">
                                                         </div>
-                                                            <a href="mainController?action=jobDetails&jobid=${job.getJobID()}" style="text-decoration: none; color: black;">
-                                                        <div class="job-content" style="padding-left: 50px;">
-                                                            <h4 class="text-center text-md-left">${job.getJobName()}</h4>
-                                                            <ul class="d-md-flex flex-wrap text-capitalize ff-open-sans">
-                                                                <li class="mr-md-4">
-                                                                    <i class="zmdi zmdi-pin mr-2" style="padding-left: 3px; padding-top: 5px;"></i> ${com.getComAddress()} </br>                                                              
-                                                                </li>                                                                                                                                                                                                  
-                                                            </ul>
-                                                        </div>
-                                                            </a>
+                                                        <a href="mainController?action=jobDetails&jobid=${job.getJobID()}" style="text-decoration: none; color: black;">
+                                                            <div class="job-content" style="padding-left: 50px;">
+                                                                <h4 class="text-center text-md-left">${job.getJobName()}</h4>
+                                                                <ul class="d-md-flex flex-wrap text-capitalize ff-open-sans">
+                                                                    <li class="mr-md-4">
+                                                                        <i class="zmdi zmdi-pin mr-2" style="padding-left: 3px; padding-top: 5px;"></i> ${com.getComAddress()} </br>                                                              
+                                                                    </li>                                                                                                                                                                                                  
+                                                                </ul>
+                                                            </div>
+                                                        </a>
                                                     </div>
                                                     <c:set var="end" value="${job.getJobEndDate()}" scope="request"/>
                                                     <% Date d = (Date) request.getAttribute("current");
@@ -326,7 +391,7 @@
                                                         </br>                                                              
                                                         <p>Remaining: <%= p.getDays()%> days<p>
                                                     </div>
-                                                   
+
                                                 </div>
                                             </div>
                                         </c:if>

@@ -37,17 +37,17 @@ import sample.student.StudentDTO;
  */
 @WebFilter(filterName = "Utf8Filter", urlPatterns = {"/*"})
 public class Utf8Filter implements Filter {
-    
+
     private static final boolean debug = true;
 
     // The filter configuration object we are associated with.  If
     // this value is null, this filter instance is not currently
     // configured. 
     private FilterConfig filterConfig = null;
-    
+
     public Utf8Filter() {
-    }    
-    
+    }
+
     private void doBeforeProcessing(ServletRequest request, ServletResponse response)
             throws IOException, ServletException {
         if (debug) {
@@ -74,8 +74,8 @@ public class Utf8Filter implements Filter {
 	    log(buf.toString());
 	}
          */
-    }    
-    
+    }
+
     private void doAfterProcessing(ServletRequest request, ServletResponse response)
             throws IOException, ServletException {
         if (debug) {
@@ -114,44 +114,51 @@ public class Utf8Filter implements Filter {
             FilterChain chain)
             throws IOException, ServletException {
         request.setCharacterEncoding("UTF-8");
-        try{
+        try {
             HttpServletRequest httpReq = (HttpServletRequest) request;
             HttpSession session = httpReq.getSession();
             AccountDTO account = (AccountDTO) session.getAttribute("acc");
-            if(account!=null){
-            StudentDTO student = StudentDAO.getStudentByAccount(account.getAccId());
-            if(student!=null){
-            ArrayList<ApplicationDTO> listApp1 = ApplicationDAO.getApplicationByID(student.getStudentID());
-            ArrayList<JobDTO> listJob1 = new ArrayList<>();
-            ArrayList<CompanyDTO> listCom1 = CompanyDAO.getCompanies();
-            ArrayList<AccountDTO> listAcc1 = new ArrayList<>();
-            for (ApplicationDTO app : listApp1) {
-                JobDTO job = JobDAO.getJobByID(app.getJobID());
-                listJob1.add(job);
-                            
+            if (account != null) {
+                StudentDTO student = StudentDAO.getStudentByAccount(account.getAccId());
+                CompanyDTO company=CompanyDAO.getCompanyByAccID(account.getAccId());
+                if (student != null) {
+                    ArrayList<ApplicationDTO> listApp1 = ApplicationDAO.getApplicationByID(student.getStudentID());
+                    ArrayList<JobDTO> listJob1 = new ArrayList<>();
+                    ArrayList<CompanyDTO> listCom1 = CompanyDAO.getCompanies();
+                    ArrayList<AccountDTO> listAcc1 = new ArrayList<>();
+                    for (ApplicationDTO app : listApp1) {
+                        JobDTO job = JobDAO.getJobByID(app.getJobID());
+                        listJob1.add(job);
+
+                    }
+                    for (CompanyDTO com : listCom1) {
+                        AccountDTO acc = AccountDAO.getAccountByID(com.getAccID());
+                        listAcc1.add(acc);
+                    }
+                    request.setAttribute("jobList1", listJob1);
+                    request.setAttribute("comList1", listCom1);
+                    request.setAttribute("appList1", listApp1);
+                    request.setAttribute("accList1", listAcc1);
+                }
+                
+                if(company!=null){
+                    ArrayList<JobDTO> jobList=JobDAO.getJobByComID(company.getComID());
+                    request.setAttribute("comJob", jobList);
+                }
+                
             }
-            for (CompanyDTO com : listCom1) {
-                 AccountDTO acc = AccountDAO.getAccountByID(com.getAccID());
-                listAcc1.add(acc);
-            }
-            request.setAttribute("jobList1", listJob1);
-            request.setAttribute("comList1", listCom1);
-            request.setAttribute("appList1", listApp1);
-            request.setAttribute("accList1", listAcc1);
-            }}
-            ArrayList<JobDTO> jobList=JobDAO.getJobs();
-            Date d=new Date(System.currentTimeMillis());
+            ArrayList<JobDTO> jobList = JobDAO.getJobs();
+            Date d = new Date(System.currentTimeMillis());
             for (JobDTO jobDTO : jobList) {
-                if(jobDTO.getJobEndDate().before(d)){
-                    int result=JobDAO.updateJobStatus(jobDTO.getJobID(), 3,d.toString());
+                if (jobDTO.getJobEndDate().before(d)) {
+                    int result = JobDAO.updateJobStatus(jobDTO.getJobID(), 3, d.toString());
                 }
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         chain.doFilter(request, response);
-        
-        
+
     }
 
     /**
@@ -173,16 +180,16 @@ public class Utf8Filter implements Filter {
     /**
      * Destroy method for this filter
      */
-    public void destroy() {        
+    public void destroy() {
     }
 
     /**
      * Init method for this filter
      */
-    public void init(FilterConfig filterConfig) {        
+    public void init(FilterConfig filterConfig) {
         this.filterConfig = filterConfig;
         if (filterConfig != null) {
-            if (debug) {                
+            if (debug) {
                 log("Utf8Filter:Initializing filter");
             }
         }
@@ -201,20 +208,20 @@ public class Utf8Filter implements Filter {
         sb.append(")");
         return (sb.toString());
     }
-    
+
     private void sendProcessingError(Throwable t, ServletResponse response) {
-        String stackTrace = getStackTrace(t);        
-        
+        String stackTrace = getStackTrace(t);
+
         if (stackTrace != null && !stackTrace.equals("")) {
             try {
                 response.setContentType("text/html");
                 PrintStream ps = new PrintStream(response.getOutputStream());
-                PrintWriter pw = new PrintWriter(ps);                
+                PrintWriter pw = new PrintWriter(ps);
                 pw.print("<html>\n<head>\n<title>Error</title>\n</head>\n<body>\n"); //NOI18N
 
                 // PENDING! Localize this for next official release
-                pw.print("<h1>The resource did not process correctly</h1>\n<pre>\n");                
-                pw.print(stackTrace);                
+                pw.print("<h1>The resource did not process correctly</h1>\n<pre>\n");
+                pw.print(stackTrace);
                 pw.print("</pre></body>\n</html>"); //NOI18N
                 pw.close();
                 ps.close();
@@ -231,7 +238,7 @@ public class Utf8Filter implements Filter {
             }
         }
     }
-    
+
     public static String getStackTrace(Throwable t) {
         String stackTrace = null;
         try {
@@ -245,9 +252,9 @@ public class Utf8Filter implements Filter {
         }
         return stackTrace;
     }
-    
+
     public void log(String msg) {
-        filterConfig.getServletContext().log(msg);        
+        filterConfig.getServletContext().log(msg);
     }
-    
+
 }

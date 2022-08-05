@@ -29,6 +29,146 @@
         <link rel="shortcut icon" href="img/FPT-logoo.jpg">
 
         <title>FPT OJT</title>
+        <style>
+            * {
+                outline: none;
+            }
+
+            .tb {
+                display: table;
+                width: 100%;
+            }
+
+            .td {
+                display: table-cell;
+                vertical-align: middle;
+            }
+
+            input,
+            button {
+                color: #fff;
+                font-family: Nunito;
+                padding: 0;
+                margin: 0;
+                border: 0;
+                background-color: transparent;
+            }
+
+            #cover {
+                position: absolute;
+                right: 100px;
+                width: 550px;
+                padding: 5px;
+                margin: -83px auto 0 auto;
+                background-color: #f27229;
+                border-radius: 20px;
+                box-shadow: 0 10px 40px #f27229, 0 0 0 20px #ffffffeb;
+                transform: scale(0.6);
+            }
+
+            form {
+                height: 60px;
+            }
+
+            input[type="text"] {
+                width: 100%;
+                height: 50px;
+                font-size: 45px;
+                line-height: 1;
+                color: black;
+            }
+
+            input[type="text"]::placeholder {
+                color: grey;
+            }
+
+            #s-cover {
+                width: 1px;
+                padding-left: 35px;
+            }
+
+            button {
+                position: relative;
+                display: block;
+                width: 84px;
+                height: 60px;
+                cursor: pointer;
+            }
+
+            #s-circle {
+                position: relative;
+                top: -8px;
+                left: 0;
+                width: 40px;
+                height: 40px;
+                margin-top: 0;
+                border-width: 15px;
+                border: 15px solid #fff;
+                background-color: transparent;
+                border-radius: 50%;
+                transition: 0.5s ease all;
+            }
+
+            button span {
+                position: absolute;
+                top: 35px;
+                left: 22px;
+                display: block;
+                width: 40px;
+                height: 15px;
+                background-color: transparent;
+                border-radius: 10px;
+                transform: rotateZ(52deg);
+                transition: 0.5s ease all;
+            }
+
+            button span:before,
+            button span:after {
+                content: "";
+                position: absolute;
+                bottom: 0;
+                right: 0;
+                width: 45px;
+                height: 15px;
+                background-color: #fff;
+                border-radius: 10px;
+                transform: rotateZ(0);
+                transition: 0.5s ease all;
+            }
+
+            #s-cover:hover #s-circle {
+                top: -1px;
+                width: 67px;
+                height: 15px;
+                border-width: 0;
+                background-color: #fff;
+                border-radius: 20px;
+            }
+
+            #s-cover:hover span {
+                top: 50%;
+                left: 56px;
+                width: 25px;
+                margin-top: -9px;
+                transform: rotateZ(0);
+            }
+
+            #s-cover:hover button span:before {
+                bottom: 11px;
+                transform: rotateZ(52deg);
+            }
+
+            #s-cover:hover button span:after {
+                bottom: -11px;
+                transform: rotateZ(-52deg);
+            }
+            #s-cover:hover button span:before,
+            #s-cover:hover button span:after {
+                right: -6px;
+                width: 40px;
+                background-color: #fff;
+            }
+        </style>
     </head>
     <body>
 
@@ -191,6 +331,71 @@
                                     </c:forEach>
                                 </c:forEach>
                             </c:if>
+                            <c:if test="${sessionScope.role==2}">
+                                <c:set var="acc" value="${sessionScope.acc}"></c:set>
+                                <c:forEach var="job" items="${requestScope.comJob}">
+                                    <c:if test="${job.getStatus() eq 1}">
+                                        <a class="dropdown-item preview-item" href="CompanyHomePageController">
+                                            <div class="preview-thumbnail">
+                                                <div class="preview-icon">
+                                                    <img src="${acc.getAvatar()}" style="object-fit: cover;
+                                                         overflow: hidden;
+                                                         height: 100%;
+                                                         width: 80px;
+                                                         padding-right: 20px;"/>
+                                                </div>
+                                            </div>
+                                            <div class="preview-item-content">
+                                                <p class="preview-subject font-weight-normal" style="margin-bottom: 0px;">${job.getJobName()}</p>
+                                                <p style="color: green;margin-bottom: 0px;">Your Post have been Approved !!!</p>
+                                                <p class="font-weight-light small-text mb-0 text-muted" style="margin-bottom: 0px;">
+                                                    ${job.getModifyDate()}
+                                                </p>
+                                            </div>
+                                        </a>
+                                    </c:if>
+                                    <c:if test="${job.getStatus() eq 2}">
+                                        <a class="dropdown-item preview-item" href="CompanyHomePageController">
+                                            <div class="preview-thumbnail">
+                                                <div class="preview-icon">
+                                                    <img src="${acc.getAvatar()}" style="object-fit: cover;
+                                                         overflow: hidden;
+                                                         height: 100%;
+                                                         width: 80px;
+                                                         padding-right: 20px;"/>
+                                                </div>
+                                            </div>
+                                            <div class="preview-item-content">
+                                                <p class="preview-subject font-weight-normal" style="margin-bottom: 0px;">${job.getJobName()}</p>
+                                                <p style="color: tomato;margin-bottom: 0px;">Your Post have been Rejected !!!</p>
+                                                <p class="font-weight-light small-text mb-0 text-muted" style="margin-bottom: 0px;">
+                                                    ${job.getModifyDate()}
+                                                </p>
+                                            </div>
+                                        </a>
+                                    </c:if>
+                                    <c:if test="${job.getStatus() eq 3}">
+                                        <a class="dropdown-item preview-item" href="CompanyHomePageController">
+                                            <div class="preview-thumbnail">
+                                                <div class="preview-icon">
+                                                    <img src="${acc.getAvatar()}" style="object-fit: cover;
+                                                         overflow: hidden;
+                                                         height: 100%;
+                                                         width: 80px;
+                                                         padding-right: 20px;"/>
+                                                </div>
+                                            </div>
+                                            <div class="preview-item-content">
+                                                <p class="preview-subject font-weight-normal" style="margin-bottom: 0px;">${job.getJobName()}</p>
+                                                <p style="color: grey;margin-bottom: 0px;">Post Expired !!!</p>
+                                                <p class="font-weight-light small-text mb-0 text-muted" style="margin-bottom: 0px;">
+                                                    ${job.getModifyDate()}
+                                                </p>
+                                            </div>
+                                        </a>
+                                    </c:if>
+                                </c:forEach>
+                            </c:if>
                         </div>
                     </li>
 
@@ -228,6 +433,21 @@
         </nav>
 
         <div class="jumbotron">
+            <div style="padding-top: 50px;">
+                <div id="cover">
+                    <form method="post" action="mainController">
+                        <div class="tb">
+                            <div class="td"><input type="text" name="txtsearch" placeholder="Search..." required></div>
+                            <div class="td" id="s-cover">
+                                <button type="submit" name="action" value="SearchCompany">
+                                    <div id="s-circle"></div>
+                                    <span></span>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
             <div class="container">
                 <div class="row">       
                     <div class="col-lg-12">
