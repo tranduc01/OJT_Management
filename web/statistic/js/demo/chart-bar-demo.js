@@ -29,13 +29,13 @@ var ctx = document.getElementById("myBarChart");
 var myBarChart = new Chart(ctx, {
   type: 'bar',
   data: {
-    labels: ["Fall 2021","Spring 2022", "Summer 2022"],
+    labels: ["Summer 2022"],
     datasets: [{
       label: "Students",
       backgroundColor: "#4e73df",
       hoverBackgroundColor: "#2e59d9",
       borderColor: "#4e73df",
-      data: [220,160,200],
+      data: [100]
     }],
   },
   options: {

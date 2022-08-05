@@ -259,7 +259,7 @@
                                                                         ${job.getJobName()}
                                                                     </td>
                                                                     <td>                                                                                                         
-                                                                        <h5><a href="mainController?action=jobDetails&jobid=${job.getJobID()}" class="text-center" style="padding-left: 16px;"><i class="far fa-eye"></i></a></h5>                                                                                                                                                                             
+                                                                        <h5><a href="mainController?action=jobDetails&jobid=${job.getJobID()}" target="_blank" class="text-center" style="padding-left: 16px;"><i class="far fa-eye"></i></a></h5>                                                                                                                                                                             
                                                                     </td>
                                                                     <td class="text-center">
                                                                         <c:if test="${app.getStu_confirm()==0 && app.getCom_conirm()==1}">

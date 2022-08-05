@@ -595,7 +595,7 @@
                         </div>
                         <div class="modal-body">
                             <c:if test="${stu.getCvPath() != null}">
-                                Your CV: <a href="${stu.getCvPath()}">View</a>
+                                Your CV: <a href="${stu.getCvPath()}" target="_blank">View</a>
                             </c:if>
                             <c:if test="${stu.getCvPath() == null}">
                                 <p>Please Upload your CV first !!!</p>

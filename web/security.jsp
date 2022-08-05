@@ -256,8 +256,7 @@
                                 %>
 
                                 <script>
-                                    window.alert("Password change successfully !!!");
-                                    window.location.href = "student_profile.jsp";
+                                    window.alert("Password change successfully !!!");                                 
                                 </script>
                                 %>
                                 <%
