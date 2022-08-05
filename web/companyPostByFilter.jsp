@@ -380,8 +380,7 @@
                                                                         </div>
                                                                     </div>
                                                                 </form>
-                                                            </td>  
-                                                                
+                                                            </td>                                                                
                                                         </tr> 
                                                     </c:if>
                                                 </c:if>

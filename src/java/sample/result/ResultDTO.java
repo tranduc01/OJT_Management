@@ -13,14 +13,14 @@ public class ResultDTO {
     private String stuID;
     private int resultID;
     private String comment;
-    private int status;
+    private String status;
     private int grade;
     private int appID;
 
     public ResultDTO() {
     }
 
-    public ResultDTO(String stuID, int resultID, String comment, int status, int grade, int appID) {
+    public ResultDTO(String stuID, int resultID, String comment, String status, int grade, int appID) {
         this.stuID = stuID;
         this.resultID = resultID;
         this.comment = comment;
@@ -28,6 +28,8 @@ public class ResultDTO {
         this.grade = grade;
         this.appID = appID;
     }
+
+   
 
     public int getAppID() {
         return appID;
@@ -63,13 +65,15 @@ public class ResultDTO {
         this.comment = comment;
     }
 
-    public int getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(String status) {
         this.status = status;
     }
+
+  
 
     public int getGrade() {
         return grade;

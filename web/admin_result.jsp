@@ -100,9 +100,7 @@
                         <th>Student ID</th>
                         <th>Student Name</th>    
                         <th>Grade</th>
-                        <th>Status</th>
-                        <th>Action</th>
-
+                        <th>Status</th>                       
                     </tr>
                 </thead>
                 <tbody>
@@ -117,10 +115,7 @@
                                                     <td>${stu.getStudentID()}</td>
                                                     <td>${acc.getName()}</td>
                                                     <td>${result.getGrade()}</td>
-                                                    <td><c:if test="${result.getStatus()==1}"><span class="badge badge-success">Passed</span></c:if>
-                                                        <c:if test="${result.getStatus()==0}"><span class="badge badge-danger">Not Passed</span></c:if>
-                                                        </td>
-                                                        <td></td>
+                                                    <td>${result.getStatus()}</td>                                                      
                                                     </tr>
                                             </c:if>    
                                         </c:if>    

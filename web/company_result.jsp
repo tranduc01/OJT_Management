@@ -275,8 +275,7 @@
                                                             <td>${acc.getName()}</td>
                                                             <td>${res.getGrade()}</td>
                                                             <td>${res.getComment()}</td>
-                                                            <td><c:if test="${res.getStatus()==1}"><span class="badge badge-success">Passed</span></c:if>
-                                                            <c:if test="${res.getStatus()==0}"><span class="badge badge-danger">Not Passed</span></c:if></td>
+                                                            <td>${res.getStatus()}</td>
                                                         </tr>                                                                                                                                       
                                                     </c:if>                                                                                                                              
                                                 </c:if>

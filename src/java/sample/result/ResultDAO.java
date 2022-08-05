@@ -21,7 +21,7 @@ import sample.utils.DBUtils;
  */
 public class ResultDAO {
 
-    public static int insertResult(String comment, int grade, int status, int appID) throws SQLException {
+    public static int insertResult(String comment, int grade, String status, int appID) throws SQLException {
         int result = 0;
         Connection cn = null;
         PreparedStatement pst = null;
@@ -32,7 +32,7 @@ public class ResultDAO {
                 pst = cn.prepareStatement(sql);
                 pst.setString(1, comment);
                 pst.setInt(2, grade);
-                pst.setInt(3, status);
+                pst.setString(3, status);
                 pst.setInt(4, appID);
                 pst.executeUpdate();
             }
@@ -93,7 +93,7 @@ public class ResultDAO {
                     int resultid = rs.getInt("resultID");
                     String comment = rs.getString("comment");
                     int grade = rs.getInt("grade");                  
-                    int status = rs.getInt("status");            
+                    String status = rs.getString("status");            
                     int appid = rs.getInt("appID");
                     ResultDTO re = new ResultDTO(null, resultid, comment, status, grade, appid);
                     list.add(re);

@@ -68,7 +68,7 @@ public class readExcelResult {
                         st.setComment((String) getCellValue(cell));
                         break;
                     case COLUMN_INDEX_STATUS:
-                        st.setStatus(new BigDecimal((double) cellValue).intValue());
+                        st.setStatus((String) getCellValue(cell));
                         break;
                 }
 
