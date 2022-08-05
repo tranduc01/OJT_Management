@@ -263,8 +263,11 @@
                                                                     </td>
                                                                     <td class="text-center">
                                                                         <c:if test="${app.getStu_confirm()==0 && app.getCom_conirm()==1}">
-                                                                            <h4><button class="badge badge-success"><i class="fa-solid fa-check"></i></button>
-                                                                                <button class="badge badge-danger"><i class="fa-solid fa-ban"></i></button></h4>
+                                                                            <form method="POST" action="VerifyOJTApplicationController?appID=${app.getApplyID()}">
+                                                                                <h4><button class="badge badge-success" type="submit" name="action" value="Accept"><i class="fa-solid fa-check"></i></button>
+                                                                                    <button class="badge badge-danger" type="submit" name="action" value="Reject" onclick="return check();"><i class="fa-solid fa-ban"></i></button></h4>
+
+                                                                            </form>
                                                                         </c:if>
                                                                     </td>
                                                                 </tr>
@@ -290,6 +293,15 @@
     window.addEventListener("load", function () {
         loader.style.display = "none";
     });
+        </script>
+        <script>
+            function check() {
+                if (confirm("Are you sure to reject?") === false) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
         </script>
     </body>
 </html>

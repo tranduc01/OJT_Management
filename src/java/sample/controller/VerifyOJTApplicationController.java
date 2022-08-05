@@ -47,12 +47,12 @@ public class VerifyOJTApplicationController extends HttpServlet {
             String action = request.getParameter("action");
             int appID =Integer.parseInt(request.getParameter("appID"));
             HttpSession session = request.getSession();
+            int role=(int) session.getAttribute("role");
             ArrayList<ApplicationDTO> listApp = ApplicationDAO.getApplications();
             ArrayList<JobDTO> listJob = new ArrayList<>();
             for (ApplicationDTO app : listApp) {
                 JobDTO job = JobDAO.getJobByID(app.getJobID());
                 listJob.add(job);
-
             }
             ArrayList<AccountDTO> listAcc = new ArrayList<>();
             ArrayList<StudentDTO> listStu = StudentDAO.getStudents();
@@ -68,8 +68,12 @@ public class VerifyOJTApplicationController extends HttpServlet {
                 ApplicationDAO.AcceptOJTApplication(appID);
             } else if ("Reject".equals(action)) {
                 ApplicationDAO.RejectOJTApplication(appID);
-            }
+            }  
+            if(role==1){
+                request.getRequestDispatcher("application.jsp").forward(request, response);
+            }else{          
             request.getRequestDispatcher("ApplicationForCompanyController").forward(request, response);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

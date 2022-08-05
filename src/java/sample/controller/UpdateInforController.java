@@ -53,10 +53,10 @@ public class UpdateInforController extends HttpServlet {
             
             String email = (String) session.getAttribute("accEmail");
             
-            LocalDate birthday = LocalDate.parse(request.getParameter("txtbirthday"));         
+            String birthday =request.getParameter("txtbirthday");         
             String success="Updated!!!";
             request.setAttribute("success", success);
-            int result = AccountDAO.updateProfile(email, name, phone, birthday.toString());  
+            int result = AccountDAO.updateProfile(email, name, phone, birthday);  
                  
             AccountDTO acc = AccountDAO.loginAccount_V2(email);
             
@@ -67,7 +67,7 @@ public class UpdateInforController extends HttpServlet {
                 
                 ArrayList<MajorDTO> list = MajorDAO.getMajors();
                 session.setAttribute("majorList", list);
-                request.getRequestDispatcher("student_profile.jsp").forward(request, response);
+                request.getRequestDispatcher("StudentProfileController").forward(request, response);
             }
             if (acc.getRole() == 2) {
                 CompanyDAO.updateCompanyProfile(email, discription, address, website);     

@@ -297,12 +297,12 @@
                                                                 </td>
                                                                 <td>                                                                                                         
                                                                     <h6>
-                                                                    <a href="mainController?action=CompanyPostDetail&id=${job.getJobID()}" class="text-primary" data-toggle="tooltip" title="" data-original-title="view" style="padding-left: 5px;"><i class="far fa-eye"></i></a>
+                                                                        <a href="mainController?action=CompanyPostDetail&id=${job.getJobID()}" class="text-primary" data-toggle="tooltip" title="" data-original-title="view" style="padding-left: 5px;"><i class="far fa-eye"></i></a>
                                                                     <a data-toggle="modal" data-target="#myModalAdd${job.getJobID()}"  class="text-primary" data-toggle="tooltip" title="" data-original-title="view" style="padding-left: 5px;"><i class="far fa-pen-to-square"></i></a>                                                                 
                                                                     <c:if test="${job.getStatus() eq 1}"><a href="mainController?action=CompanyReject&jobid=${job.getJobID()}" class="text-primary" data-toggle="tooltip" title="" data-original-title="view" style="padding-left: 5px;" onclick="return check();"><i class="far fa-trash-alt"></i></a></c:if>
-                                                                </h6>
-                                                                <form action="mainController" method="POST">
-                                                                    <div id="myModalAdd${job.getJobID()}" class="modal fade" role="dialog">
+                                                                    </h6>
+                                                                    <form action="mainController" method="POST">
+                                                                        <div id="myModalAdd${job.getJobID()}" class="modal fade" role="dialog">
                                                                         <div class="modal-dialog modal-lg">
                                                                             <!-- Modal content-->
                                                                             <div class="modal-content">
@@ -404,7 +404,7 @@
                 </div>
             </div>
         </div>
-                                                <script>
+        <script>
             function check() {
                 if (confirm("Are you sure to take down this post?") === false) {
                     return false;
