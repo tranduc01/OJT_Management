@@ -208,7 +208,6 @@
                                 Contact Us
                             </a>
                         </li>
-
                     </ul>
                 </div>
                 <% String email = (String) session.getAttribute("accEmail");

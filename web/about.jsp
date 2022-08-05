@@ -47,13 +47,7 @@
                                 <span class="fa fa-home fa-lg"></span>
                                 Home
                             </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="JobsPageController">
-                                <span class="fa fa-briefcase fa-lg"></span>
-                                Jobs
-                            </a>
-                        </li>
+                        </li>                      
                         <li class="nav-item">
                             <a class="nav-link" href="IndexCompanyListController">
                                 <span class="fas fa-building-o"></span>

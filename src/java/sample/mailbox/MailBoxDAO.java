@@ -30,7 +30,8 @@ public class MailBoxDAO {
             cn = DBUtils.makeConnection();
             if (cn != null) {
                 String sql = "select [boxID],[name],[email],[phone],[companyName],[major],[description],[url],status,sendDate\n"
-                        + "from [dbo].[MailBox]";
+                        + "from [dbo].[MailBox]\n"
+                        +"order by sendDate desc";
                 st = cn.createStatement();
                 rs = st.executeQuery(sql);
                 while (rs != null && rs.next()) {

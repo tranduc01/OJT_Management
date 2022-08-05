@@ -66,6 +66,8 @@ public class mainController extends HttpServlet {
     private static final String UNLOCKCOMPANY_CONTROLLER = "UnlockCompanyController";
     private static final String FILTERJOB = "jobfilter";
     private static final String FILTERJOB_CONTROLLER = "JobPostByFilterController";
+    private static final String FILTERPOST = "postfilter";
+    private static final String FILTERPOST_CONTROLLER = "CompanyJobPostByFilterController";
     private static final String SEARCHCOMPANY = "SearchCompany";
     private static final String SEARCHCOMPANY_CONTROLLER = "SearchCompanyController";
     private static final String SENDMAILBOX = "SendBox";
@@ -159,6 +161,8 @@ public class mainController extends HttpServlet {
                 url=SENDOFFER_CONTROLLER;
             }else if(ADDCOMPANY.equals(action)){
                 url=ADDCOMPANY_CONTROLLER;
+            }else if(FILTERPOST.equals(action)){
+                url=FILTERPOST_CONTROLLER;
             }
         } catch (Exception e) {
             log("Error at mainController: " + e.toString());

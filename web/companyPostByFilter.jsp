@@ -1,6 +1,6 @@
 <%-- 
-    Document   : postByFilter
-    Created on : Aug 3, 2022, 9:55:29 PM
+    Document   : companyPostByFilter
+    Created on : Aug 5, 2022, 4:07:08 PM
     Author     : Tranduc
 --%>
 
@@ -36,7 +36,7 @@
         <div id="preloader">
             <img src="img/loader.gif"/>
         </div>
-        <nav class="navbar navbar-dark navbar-expand-md">
+        <nav class="navbar navbar-dark navbar-expand-md fixed-top">
             <div class="container">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#Navbar">
                     <span class="navbar-toggler-icon"></span>
@@ -44,50 +44,100 @@
                 <a class="navbar-brand mr-auto" href="JobListByPageController"><img src="img/logo.png" height="30" width="41"></a>
                 <div class="collapse navbar-collapse" id="Navbar">
                     <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" href="admin_statistic.jsp">                            
-                                <span class="fa-solid fa-house"></span>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="CompanyHomePageController">
+                                <span class="fa fa-home fa-lg"></span>
                                 Home
                             </a>
-                        </li>
-                        <li class="nav-item active">
-                            <a class="nav-link" href="JobsPostController">
-                                <span class="fa-solid fa-briefcase"></span>
-                                Post
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="AdminStudentController">
+                        </li>                      
+                        <li class="nav-item">
+                            <a class="nav-link" href="StudentListCompanyController">
                                 <span class="fa-solid fa-users"></span>
                                 Students
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="CompanyListController">
-                                <span class="fa-solid fa-building"></span>
-                                Companies
+                            <a class="nav-link" href="ApplicationForCompanyController">
+                                <span class="fa-solid fa-users"></span>
+                                Application
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="AdminResultController">
-                                <span class="fa-solid fa-square-poll-vertical"></span>
-                                Results
+                            <a class="nav-link" href="CompanyProfileController">
+                                <span class="fa fa-building-o fa-lg"></span>
+                                Company Profile
                             </a>
-                        </li>
+                        </li>    
                         <li class="nav-item">
-                            <a class="nav-link" href="MailBoxController">
-                                <span class="fa-solid fa-inbox"></span>
-                                Mail Box
+                            <a class="nav-link" href="ResultListController">
+                                <span class="fa fa-graduation-cap fa-lg"></span>
+                                OJT Results
                             </a>
                         </li>
                     </ul>
-                </div>
-                <span class="navbar-text ml-auto">
-                    <a href="mainController?action=logout">
-                        <span class="fa fa-sign-in"></span> Logout</a>
-                </span>
-            </div>
+                    <ul class="navbar-nav navbar-nav-right ml-auto align-items-center">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
+                                <i class="fa-regular fa-bell mx-0"></i>
+                                <span class="count"></span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
+                                <p class="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
+                                <c:forEach items="${requestScope.appList1}" var="app">   
+                                    <c:forEach items="${requestScope.jobList1}" var="job">  
+                                        <c:forEach items="${requestScope.comList1}" var="com">                                                                                                   
+                                            <c:forEach items="${requestScope.accList1}" var="acc">
+                                                <c:if test="${app.getJobID() eq job.getJobID()}">
+                                                    <c:if test="${job.getComID() eq com.getComID()}">
+                                                        <c:if test="${acc.getAccId() eq com.getAccID()}">   
+                                                            <a class="dropdown-item preview-item" href="mainController?action=GetApplication">
+                                                                <div class="preview-thumbnail">
+                                                                    <div class="preview-icon">
+                                                                        <img src="${acc.getAvatar()}" style="object-fit: cover;
+                                                                             overflow: hidden;
+                                                                             height: 100%;
+                                                                             width: 80px;
+                                                                             padding-right: 20px;"/>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="preview-item-content">
+                                                                    <h5 class="preview-subject font-weight-normal">${acc.getName()}</h5>
+                                                                    <h6 class="preview-subject font-weight-normal">${job.getJobName()}</h6>
+
+                                                                    <p class="font-weight-light small-text mb-0 text-muted">
+                                                                        ${app.getApplyDate()}
+                                                                    </p>
+                                                                </div>
+                                                            </a>
+                                                        </c:if>
+                                                    </c:if>
+                                                </c:if>
+                                            </c:forEach>
+                                        </c:forEach>
+                                    </c:forEach>
+                                </c:forEach>
+                            </div>
+                        </li>
+                        <li class="nav-item nav-profile dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
+                                <img src="${sessionScope.acc.getAvatar()}" style="width: 40px;
+                                     height: 40px;
+                                     border-radius: 100%;"/>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
+                                <a class="dropdown-item" href="securityCompany.jsp">
+                                    <span class="fa fa-user-lock" style="color: #f27229;"></span> Security</a>
+                                <a class="dropdown-item" href="mainController?action=logout">
+                                    <i class="fa fa-power-off" style="color: #f27229;"></i>
+                                    Logout
+                                </a>
+                            </div>
+                        </li>       
+                    </ul>
+                </div>          
+            </div> 
         </nav>
+
         <% if (request.getAttribute("success") != null) {
         %>
         <script>
@@ -113,17 +163,17 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="user-dashboard-info-box table-responsive mb-0 bg-white p-4 shadow-sm">
-                            <div class="dropdown" style="float: right;">
-                                <a class="dropdown-toggle btn btn-primary"  data-toggle="dropdown">Status
-                                    <span class="caret"></span></a>
-                                <ul class="dropdown-menu">
-                                    <a href="JobsPostController"><li class="dropdown-item badge badge-brand">All</li></a>
-                                    <a href="mainController?action=jobfilter&status=1"><li class="dropdown-item badge badge-success">Approved</li></a>
-                                    <a href="mainController?action=jobfilter&status=0"><li class="dropdown-item badge badge-warning">Pending</li></a>
-                                    <a href="mainController?action=jobfilter&status=2"><li class="dropdown-item badge badge-danger">Rejected</li></a>
-                                    <a href="mainController?action=jobfilter&status=3"><li class="dropdown-item badge badge-secondary">Expired</li></a>
-                                </ul>
-                            </div>
+                            <div class="dropdown" style="float: right; margin-top: 40px;padding-right: 10px;">
+                            <a class="dropdown-toggle btn btn-info"  data-toggle="dropdown">Status
+                                <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <a href="CompanyHomePageController"><li class="dropdown-item badge badge-brand">All</li></a>
+                                <a href="mainController?action=postfilter&status=1"><li class="dropdown-item badge badge-success">Approved</li></a>
+                                <a href="mainController?action=postfilter&status=0"><li class="dropdown-item badge badge-warning">Pending</li></a>
+                                <a href="mainController?action=postfilter&status=2"><li class="dropdown-item badge badge-danger">Rejected</li></a>
+                                <a href="mainController?action=postfilter&status=3"><li class="dropdown-item badge badge-secondary">Expired</li></a>
+                            </ul>
+                        </div>
                             <table class="table manage-candidates-top mb-0">
                                 <thead>
                                     <tr>

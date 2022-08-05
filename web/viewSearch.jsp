@@ -51,19 +51,19 @@
                                 Home
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="JobsPageController">
-                                <span class="fa fa-briefcase fa-lg"></span>
-                                Jobs
-                            </a>
-                        </li>
+
                         <li class="nav-item">
                             <a class="nav-link" href="about.jsp">
                                 <span class="fas fa-graduation-cap"></span>
                                 About
                             </a>
                         </li>
-
+                        <li class="nav-item">
+                            <a class="nav-link" href="contactus.jsp">
+                                <span class="fas fa-address-book"></span>
+                                Contact Us
+                            </a>
+                        </li>
                     </ul>
                 </div>
                 <% String email = (String) session.getAttribute("accEmail");
@@ -85,72 +85,72 @@
                 %> 
 
                 <ul class="navbar-nav navbar-nav-right ml-auto align-items-center">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
-                                <i class="fa-regular fa-bell mx-0"></i>
-                                <span class="count"></span>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
+                            <i class="fa-regular fa-bell mx-0"></i>
+                            <span class="count"></span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
+                            <p class="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
+                            <a class="dropdown-item preview-item">
+                                <div class="preview-thumbnail">
+                                    <div class="preview-icon bg-success">
+                                        <i class="ti-info-alt mx-0"></i>
+                                    </div>
+                                </div>
+                                <div class="preview-item-content">
+                                    <h6 class="preview-subject font-weight-normal">Application Error</h6>
+                                    <p class="font-weight-light small-text mb-0 text-muted">
+                                        Just now
+                                    </p>
+                                </div>
                             </a>
-                            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
-                                <p class="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
-                                <a class="dropdown-item preview-item">
-                                    <div class="preview-thumbnail">
-                                        <div class="preview-icon bg-success">
-                                            <i class="ti-info-alt mx-0"></i>
-                                        </div>
+                            <a class="dropdown-item preview-item">
+                                <div class="preview-thumbnail">
+                                    <div class="preview-icon bg-warning">
+                                        <i class="ti-settings mx-0"></i>
                                     </div>
-                                    <div class="preview-item-content">
-                                        <h6 class="preview-subject font-weight-normal">Application Error</h6>
-                                        <p class="font-weight-light small-text mb-0 text-muted">
-                                            Just now
-                                        </p>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item preview-item">
-                                    <div class="preview-thumbnail">
-                                        <div class="preview-icon bg-warning">
-                                            <i class="ti-settings mx-0"></i>
-                                        </div>
-                                    </div>
-                                    <div class="preview-item-content">
-                                        <h6 class="preview-subject font-weight-normal">Settings</h6>
-                                        <p class="font-weight-light small-text mb-0 text-muted">
-                                            Private message
-                                        </p>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item preview-item">
-                                    <div class="preview-thumbnail">
-                                        <div class="preview-icon bg-info">
-                                            <i class="ti-user mx-0"></i>
-                                        </div>
-                                    </div>
-                                    <div class="preview-item-content">
-                                        <h6 class="preview-subject font-weight-normal">New user registration</h6>
-                                        <p class="font-weight-light small-text mb-0 text-muted">
-                                            2 days ago
-                                        </p>
-                                    </div>
-                                </a>
-                            </div>
-                        </li>
-                        <li class="nav-item nav-profile dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-                                <img src="${sessionScope.acc.getAvatar()}" style="width: 40px;
-                                     height: 40px;
-                                     border-radius: 100%;"/>
+                                </div>
+                                <div class="preview-item-content">
+                                    <h6 class="preview-subject font-weight-normal">Settings</h6>
+                                    <p class="font-weight-light small-text mb-0 text-muted">
+                                        Private message
+                                    </p>
+                                </div>
                             </a>
-                            <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-                                <a class="dropdown-item" href="<%=link%>">
-                                    <i class="fa-solid fa-address-card" style="color: #f27229;"></i>
-                                    Profile
-                                </a>
-                                <a class="dropdown-item" href="mainController?action=logout">
-                                    <i class="fa fa-power-off" style="color: #f27229;"></i>
-                                    Logout
-                                </a>
-                            </div>
-                        </li>       
-                    </ul>
+                            <a class="dropdown-item preview-item">
+                                <div class="preview-thumbnail">
+                                    <div class="preview-icon bg-info">
+                                        <i class="ti-user mx-0"></i>
+                                    </div>
+                                </div>
+                                <div class="preview-item-content">
+                                    <h6 class="preview-subject font-weight-normal">New user registration</h6>
+                                    <p class="font-weight-light small-text mb-0 text-muted">
+                                        2 days ago
+                                    </p>
+                                </div>
+                            </a>
+                        </div>
+                    </li>
+                    <li class="nav-item nav-profile dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
+                            <img src="${sessionScope.acc.getAvatar()}" style="width: 40px;
+                                 height: 40px;
+                                 border-radius: 100%;"/>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
+                            <a class="dropdown-item" href="<%=link%>">
+                                <i class="fa-solid fa-address-card" style="color: #f27229;"></i>
+                                Profile
+                            </a>
+                            <a class="dropdown-item" href="mainController?action=logout">
+                                <i class="fa fa-power-off" style="color: #f27229;"></i>
+                                Logout
+                            </a>
+                        </div>
+                    </li>       
+                </ul>
                 <%
                 } else {
                 %>
@@ -204,7 +204,7 @@
                             <div class="row">
                                 <div class="col-md-6 col-lg-4 my-4">
                                     <div class="input-group position-relative">
-                                        <input type="text" class="form-control" placeholder="Enter Your Keywords" id="keywords" name="keyword" value="<%= (request.getParameter("keyword")==null)?"":(request.getParameter("keyword")) %>">
+                                        <input type="text" class="form-control" placeholder="Enter Your Keywords" id="keywords" name="keyword" value="<%= (request.getParameter("keyword") == null) ? "" : (request.getParameter("keyword"))%>">
                                     </div>
                                 </div>
 
@@ -225,7 +225,7 @@
                                 </div>
                             </div>
                         </form>
-                        
+
                         <c:forEach var="job" items="${requestScope.jobList}">
                             <c:forEach var="com" items="${requestScope.companyList}">
                                 <c:forEach var="acc" items="${requestScope.accList}">
@@ -259,7 +259,7 @@
                     </div>
 
                     <!-- START Pagination -->
-                    
+
                 </div>   
 
             </div>
@@ -287,31 +287,31 @@
                 </div>
             </div>
         </div>  
-        
+
 
         <footer class="footer">
-       <div class="container">
-           <div class="row">
-                <div class="offset-1 col-6 col-sm-6 col-md-6">
-                    <a class="navbar-brand mr-auto" href="#"><img src="img/logo.png" height="50" width="70"></a><br>
-                    <i class="fa fa-phone fa-lg"></i> 028.73005585<br>
-                    <i class="fa fa-envelope fa-lg"></i>
-                    <a href="mailto:sschcm@fe.edu.vn"> sschcm@fe.edu.vn</a>
+            <div class="container">
+                <div class="row">
+                    <div class="offset-1 col-6 col-sm-6 col-md-6">
+                        <a class="navbar-brand mr-auto" href="#"><img src="img/logo.png" height="50" width="70"></a><br>
+                        <i class="fa fa-phone fa-lg"></i> 028.73005585<br>
+                        <i class="fa fa-envelope fa-lg"></i>
+                        <a href="mailto:sschcm@fe.edu.vn"> sschcm@fe.edu.vn</a>
+                    </div>
+                    <div class="col-5 col-sm-5 col-md-5">
+                        <h5>Follow us at</h5>
+                        <a class="btn btn-social-icon btn-facebook" href="https://www.facebook.com/FPTU.HCM"><i class="fa fa-facebook"></i></a>
+                        <a class="btn btn-social-icon btn-twitter" href="#"><i class="fa fa-twitter"></i></a>
+                        <a class="btn btn-social-icon btn-instagram" href="#"><i class='fa fa-instagram' style='font-size:36px'></i></a>
+                    </div>
                 </div>
-                <div class="col-5 col-sm-5 col-md-5">
-                    <h5>Follow us at</h5>
-                    <a class="btn btn-social-icon btn-facebook" href="https://www.facebook.com/FPTU.HCM"><i class="fa fa-facebook"></i></a>
-                    <a class="btn btn-social-icon btn-twitter" href="#"><i class="fa fa-twitter"></i></a>
-                    <a class="btn btn-social-icon btn-instagram" href="#"><i class='fa fa-instagram' style='font-size:36px'></i></a>
-                </div>
-           </div>
-           <div class="row justify-content-center">             
-            <div class="col-auto">
-                <p>© Copyright <span class="text-primary">2022</span> Group 7</p>
-            </div>
-       </div> 
-       </div> 
-    </footer>
+                <div class="row justify-content-center">             
+                    <div class="col-auto">
+                        <p>© Copyright <span class="text-primary">2022</span> Group 7</p>
+                    </div>
+                </div> 
+            </div> 
+        </footer>
         <script src="node_modules/jquery/dist/jquery.slim.min.js"></script>
         <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
         <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>

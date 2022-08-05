@@ -239,6 +239,17 @@
                                 </div>
                             </div>
                         </form>
+                        <div class="dropdown" style="float: right; margin-top: 15px;padding-right: 10px;">
+                            <a class="dropdown-toggle btn btn-info"  data-toggle="dropdown">Status
+                                <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <a href="CompanyHomePageController"><li class="dropdown-item badge badge-brand">All</li></a>
+                                <a href="mainController?action=postfilter&status=1"><li class="dropdown-item badge badge-success">Approved</li></a>
+                                <a href="mainController?action=postfilter&status=0"><li class="dropdown-item badge badge-warning">Pending</li></a>
+                                <a href="mainController?action=postfilter&status=2"><li class="dropdown-item badge badge-danger">Rejected</li></a>
+                                <a href="mainController?action=postfilter&status=3"><li class="dropdown-item badge badge-secondary">Expired</li></a>
+                            </ul>
+                        </div>
                         <div class="user-dashboard-info-box table-responsive mb-0 bg-white p-4 shadow-sm">
                             <table class="table manage-candidates-top mb-0">
                                 <thead>
@@ -365,7 +376,7 @@
                                                                                     <div class="form-group">
                                                                                         <label class="col-sm-2 control-label">Semester</label>
                                                                                         <div class="col-sm-12">
-                                                                                            <input class="form-control" type="text" name="txtsemester" value="SU2022">
+                                                                                            <input class="form-control" type="text" name="txtsemester" value="SU2022" readonly="">
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>

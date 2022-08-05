@@ -92,6 +92,17 @@
             </div>
         </nav>
 
+        
+        <% 
+            if(request.getAttribute("error")!=null){
+                %>
+                <script>
+                    window.alert("Email is already exist !!!");                                                        
+                </script>                   
+        <%
+            }    
+        %>
+        
         <div class="jumbotron">
             <div style="float: top;">
                 <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal" style="margin-bottom: 20px; float: right;margin-left: 20px;">Import Student</button>

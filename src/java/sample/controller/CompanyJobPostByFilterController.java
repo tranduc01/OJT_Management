@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,12 +19,15 @@ import sample.company.CompanyDAO;
 import sample.company.CompanyDTO;
 import sample.job.JobDAO;
 import sample.job.JobDTO;
+import sample.major.MajorDAO;
+import sample.major.MajorDTO;
 
 /**
  *
  * @author Tranduc
  */
-public class CompanyDetailsController extends HttpServlet {
+@WebServlet(name = "CompanyJobPostByFilterController", urlPatterns = {"/CompanyJobPostByFilterController"})
+public class CompanyJobPostByFilterController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,19 +41,29 @@ public class CompanyDetailsController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try{
-            /* TODO output your page here. You may use following sample code. */
-            int comID=Integer.parseInt(request.getParameter("comID"));
-            CompanyDTO com=CompanyDAO.getCompanyByID(comID);
-            ArrayList<JobDTO> jobList=JobDAO.getJobByComIDV2(comID);
-            AccountDTO acc=AccountDAO.getAccountByID(com.getAccID());
-            request.setAttribute("jobList", jobList);
-            request.setAttribute("com", com);
-            request.setAttribute("acc", acc);
-            request.getRequestDispatcher("companyDetails.jsp").forward(request, response);
-        }catch(Exception e){
-            e.printStackTrace();
-        }
+        try {
+                /* TODO output your page here. You may use following sample code. */
+            int status=Integer.parseInt(request.getParameter("status"));
+            ArrayList<JobDTO> listJob1 = JobDAO.getJobByFilter(status);
+            ArrayList<CompanyDTO> listCompany = CompanyDAO.getCompanies();
+            ArrayList<AccountDTO> listAccount=new ArrayList<>();
+            ArrayList<MajorDTO> listMajor=MajorDAO.getMajors();
+                
+
+            for (CompanyDTO com : listCompany) {
+                AccountDTO account=AccountDAO.getAccountByID(com.getAccID());
+                if(account.getAccId()==com.getAccID()){
+                listAccount.add(account);
+                }
+            }                                
+                request.setAttribute("companyList", listCompany);
+                request.setAttribute("jobList", listJob1);
+                request.setAttribute("accList", listAccount);
+                request.setAttribute("majorList", listMajor);
+                request.getRequestDispatcher("companyPostByFilter.jsp").forward(request, response);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

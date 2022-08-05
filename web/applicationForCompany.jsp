@@ -176,7 +176,7 @@
                                         <th><span>Job Name</span></th>
                                     </tr>
                                 </thead>
-                                <tbody style="text-align: center;">
+                                <tbody>
                                     <c:forEach items="${requestScope.appList}" var="app">   
                                         <c:forEach items="${requestScope.jobList}" var="job">  
                                             <c:forEach items="${requestScope.stuList}" var="stu">                                                                                                   
@@ -190,7 +190,76 @@
                                                                         <h6 style="padding-top: 15px;">${stu.getStudentID()}</h6>
                                                                     </td>
                                                                     <td>
-                                                                        <h6><a href="#" class="user-link" style="margin: 0;">${acc.getName()}</a></h6>
+                                                                        <h6><a data-toggle="modal" data-target="#myModalAddInfor${stu.getStudentID()}" class="user-link" style="margin: 0;">${acc.getName()}</a></h6>
+                                                                        <div id="myModalAddInfor${stu.getStudentID()}" class="modal fade" role="dialog">
+                                                                            <div class="modal-dialog">
+                                                                                <!-- Modal content-->
+                                                                                <div class="modal-content">
+                                                                                    <div class="modal-header">                           
+                                                                                        <h4 class="modal-title">Student Information</h4>
+                                                                                    </div>
+                                                                                    <div class="modal-body">
+                                                                                        <input type="hidden" name="accID" value="${acc.getAccId()}" readonly=""/>
+                                                                                        <div class="form-group">
+                                                                                            <label class="col-sm-2 control-label">Name</label>
+                                                                                            <div class="col-sm-12">
+                                                                                                <input class="form-control" name="txtname" type="text" readonly="" value="${stu.getStudentName()}">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="form-group">
+                                                                                            <label class="col-sm-4 control-label">Student ID</label>
+                                                                                            <div class="col-sm-12">
+                                                                                                <input class="form-control" name="txtstudentid" type="text" readonly="" value="${stu.getStudentID()}">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="form-group">
+                                                                                            <label class="col-sm-2 control-label" >Email</label>
+                                                                                            <div class="col-sm-12">
+                                                                                                <input class="form-control" type="text" name="txtemail" readonly="" value="${acc.getEmail()}">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="form-group">
+                                                                                            <label class="col-sm-2 control-label">Phone</label>
+                                                                                            <div class="col-sm-12">
+                                                                                                <input class="form-control"  type="text" readonly="" name="txtphone" value="${acc.getPhone()}">
+                                                                                            </div>
+                                                                                        </div>                                                    
+                                                                                        <div class="form-group">
+                                                                                            <label class="col-sm-2 control-label" >Major</label>
+                                                                                            <div class="col-sm-12">                                                                                                                                     
+                                                                                                <input class="form-control" type="text" readonly="" name="txtphone" value="${stu.getMajorID()}">                                                                                                                                                                    
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="form-group row">
+                                                                                            <div class="col-md-6">
+                                                                                                <label class="col-sm-2 control-label">Semester</label>
+                                                                                                <div class="col-md-12">
+                                                                                                    <input class="form-control" type="text" name="txtsemester" value="SU2022">
+                                                                                                </div>
+                                                                                            </div>
+
+                                                                                            <div class="col-md-6">
+                                                                                                <label class="col-sm-8 control-label" >Date Of Birth</label>
+                                                                                                <div class="col-md-12">
+                                                                                                    <input class="form-control" name="txtdateofbirth" type="date" value="${acc.getBirthday()}">
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="form-group">
+
+                                                                                            <c:if test="${stu.getCvPath()!=null}">
+                                                                                                <div class="form-group align-items-center" style="text-align: center;">
+                                                                                                    <a href="${stu.getCvPath()}" class="btn btn-primary" target="_blank">View CV</a>
+                                                                                                </div>
+                                                                                            </c:if>
+                                                                                        </div>
+                                                                                        <div class="modal-footer">
+                                                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
                                                                     </td>
                                                                     <td>
                                                                         ${app.getApplyDate()}
@@ -208,11 +277,11 @@
                                                                         <td style="width: 20%;">${job.getJobName()}</td>
                                                                     <td class="text-center">
                                                                         <c:if test="${app.getStu_confirm()==1 && app.getCom_conirm()==0}">
-                                                                        <form method="POST" action="VerifyOJTApplicationController?appID=${app.getApplyID()}">
-                                                                            
+                                                                            <form method="POST" action="VerifyOJTApplicationController?appID=${app.getApplyID()}">
+
                                                                                 <h4><button class="badge badge-success" type="submit" name="action" value="Accept"><i class="fa-solid fa-check"></i></button>
                                                                                     <button class="badge badge-danger" type="submit" name="action" value="Reject" onclick="return check();"><i class="fa-solid fa-ban"></i></button></h4>
-                                                                                    
+
                                                                             </form>
                                                                         </c:if>
                                                                     </td>
@@ -232,8 +301,8 @@
             </div>
         </div>
 
-        
-<script>
+
+        <script>
             function check() {
                 if (confirm("Are you sure to reject this application?") === false) {
                     return false;
@@ -243,10 +312,10 @@
             }
         </script>
         <script>
-    var loader = document.getElementById("preloader");
-    window.addEventListener("load", function () {
-        loader.style.display = "none";
-    });
+            var loader = document.getElementById("preloader");
+            window.addEventListener("load", function () {
+                loader.style.display = "none";
+            });
         </script>
     </body>
 </html>

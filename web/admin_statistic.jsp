@@ -4,6 +4,13 @@
     Author     : Tranduc
 --%>
 
+<%@page import="sample.job.JobDTO"%>
+<%@page import="sample.job.JobDAO"%>
+<%@page import="sample.student.StudentDAO"%>
+<%@page import="sample.student.StudentDTO"%>
+<%@page import="sample.company.CompanyDTO"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="sample.company.CompanyDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -69,7 +76,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="AdminResultController">
                                 <span class="fa-solid fa-square-poll-vertical"></span>
                                 Results
                             </a>
@@ -80,7 +87,7 @@
                                 Mail Box
                             </a>
                         </li>
-                        
+
                     </ul>
                 </div>
                 <span class="navbar-text ml-auto">
@@ -89,6 +96,12 @@
                 </span>
             </div>
         </nav>
+
+        <%
+            ArrayList<CompanyDTO> listCom = CompanyDAO.getCompanies();
+            ArrayList<StudentDTO> listStu = StudentDAO.getStudents();
+            ArrayList<JobDTO> listJob=JobDAO.getJobByFilter(0);
+        %>
 
         <div id="wrapper">
 
@@ -110,10 +123,10 @@
                                             <div class="col mr-2">
                                                 <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                                     Total Students</div>
-                                                <div class="h5 mb-0 font-weight-bold text-gray-800">50</div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800"><%= listStu.size()%></div>
                                             </div>
                                             <div class="col-auto">
-                                                <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                                <i class="fas fa-users fa-2x text-gray-300"></i>
                                             </div>
                                         </div>
                                     </div>
@@ -128,10 +141,10 @@
                                             <div class="col mr-2">
                                                 <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                                     Total Company</div>
-                                                <div class="h5 mb-0 font-weight-bold text-gray-800">20</div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800"><%= listCom.size()%></div>
                                             </div>
                                             <div class="col-auto">
-                                                <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                                <i class="fas fa-building fa-2x text-gray-300"></i>
                                             </div>
                                         </div>
                                     </div>
@@ -175,7 +188,7 @@
                                             <div class="col mr-2">
                                                 <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                                     Pending Post</div>
-                                                <div class="h5 mb-0 font-weight-bold text-gray-800">10</div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800"><%= listJob.size() %></div>
                                             </div>
                                             <div class="col-auto">
                                                 <i class="fas fa-comments fa-2x text-gray-300"></i>
@@ -265,7 +278,7 @@
     <!-- End of Page Wrapper -->
 
     <!-- Scroll to Top Button-->
-   
+
 
 
 

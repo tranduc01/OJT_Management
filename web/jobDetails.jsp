@@ -217,12 +217,7 @@
                                 Home
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="JobsPageController">
-                                <span class="fa fa-briefcase fa-lg"></span>
-                                Jobs
-                            </a>
-                        </li>
+                        
                         <li class="nav-item">
                             <a class="nav-link" href="IndexCompanyListController">
                                 <span class="fas fa-building-o"></span>
@@ -233,6 +228,12 @@
                             <a class="nav-link" href="about.jsp">
                                 <span class="fas fa-graduation-cap"></span>
                                 About
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contactus.jsp">
+                                <span class="fas fa-address-book"></span>
+                                Contact Us
                             </a>
                         </li>
                     </ul>

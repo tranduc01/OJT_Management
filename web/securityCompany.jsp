@@ -7,6 +7,7 @@
 <%@page import="sample.company.CompanyDTO"%>
 <%@page import="sample.account.AccountDTO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <%
     String email = (String) session.getAttribute("accEmail");
@@ -204,8 +205,7 @@ if(role==0 || role==1){
                                 %>
 
                                 <script>
-                                        window.alert("Password change successfully !!!");
-                                        window.location.href = "company_profile.jsp";
+                                        window.alert("Password change successfully !!!");                               
                                 </script>
                                 %>
                                 <%

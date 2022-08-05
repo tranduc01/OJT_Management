@@ -48,6 +48,13 @@ public class AddStudentController extends HttpServlet {
             int role = 1;
             int status = 1;
             Date d = new Date(System.currentTimeMillis());
+            
+            AccountDTO acc=AccountDAO.loginAccount_V2(mail);
+            if(acc!=null){
+                String error="loi";
+                request.setAttribute("error", error);
+                request.getRequestDispatcher("AdminStudentController").forward(request, response);
+            }else{
             int result = AccountDAO.insertAccount(stuid, mail, name, phone, birthday, d.toString(), role, status);
 
             ArrayList<AccountDTO> list1 = AccountDAO.getAccounts();
@@ -57,6 +64,7 @@ public class AddStudentController extends HttpServlet {
                 }
             }
             request.getRequestDispatcher("AdminStudentController").forward(request, response);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
