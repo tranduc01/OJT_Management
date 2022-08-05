@@ -151,7 +151,6 @@
             <div class="col-lg-12 mt-4 mt-lg-0">
                 <div class="row">
                     <div class="col-md-12">
-
                         <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModalAdd" style="margin-top: 20px; float: right;">Add Job</button>
                         <!-- Modal -->
                         <form  action="AddJobCompanyController" method="POST">
@@ -191,19 +190,18 @@
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <label class="small mb-1" for="inputOrgName">Description</label>
-                                                    <textarea type="text" id="feedback" style="width: 700px; height: 100px;" name="jobDescription"></textarea>
+                                                    <textarea type="text"  id="feedback" style="width: 700px; height: 100px;" name="jobDescription"></textarea>
                                                 </div> 
                                             </div>
-
                                             <!-- Form Group (Job Requirement)-->
                                             <div class="mb-3">
                                                 <label class="small mb-1" for="inputEmailAddress">Job Requirement</label>
-                                                <input class="form-control" id="inputEmailAddress" type="text" placeholder="Job Requirement" name="jobRequirement">
+                                                <textarea class="form-control" style="width: 700px; height: 100px;" id="inputEmailAddress" type="text" placeholder="Job Requirement" name="jobRequirement"></textarea>
                                             </div>
                                             <!-- Form Group (Job Benefits)-->
                                             <div class="mb-3">
                                                 <label class="small mb-1" for="inputEmailAddress">Job Benefits</label>
-                                                <input class="form-control" id="inputEmailAddress" type="text" placeholder="Job Benefits" name="jobBenefits">
+                                                <textarea class="form-control" style="width: 700px; height: 100px;" id="inputEmailAddress" type="text" placeholder="Job Benefits" name="jobBenefits"></textarea>
                                             </div>
                                             <!-- Form Row-->
                                             <div class="row gx-3 mb-3">
@@ -328,11 +326,11 @@
                                                                                         <!-- Form Group (Job Salary)-->
                                                                                         <div class="col-md-6">
                                                                                             <label class="small mb-1" for="inputLocation">Amount</label>
-                                                                                            <input class="form-control" id="inputLocation" type="number" placeholder="Amount" name="Amount" value="${job.getAmount()}">
+                                                                                            <input class="form-control" id="inputLocation" type="number" placeholder="Amount" min="1" name="Amount" value="${job.getAmount()}">
                                                                                         </div>
                                                                                         <div class="col-md-6">
                                                                                             <label class="small mb-1" for="inputLocation">Job Salary</label>
-                                                                                            <input class="form-control" id="inputLocation" type="number" placeholder="Job Salary" name="jobSalary" value="${job.getJobSalary()}">
+                                                                                            <input class="form-control" id="inputLocation" type="number" placeholder="Job Salary" min="0" name="jobSalary" value="${job.getJobSalary()}">
                                                                                         </div>
                                                                                     </div>     
                                                                                     <div class="row">
@@ -345,12 +343,12 @@
                                                                                     <!-- Form Group (Job Requirement)-->
                                                                                     <div class="mb-3">
                                                                                         <label class="small mb-1" for="inputEmailAddress">Job Requirement</label>
-                                                                                        <input class="form-control" id="inputEmailAddress" type="text" placeholder="Job Requirement" name="jobRequirement" value="${job.getJobRequirement()}">
+                                                                                        <textarea class="form-control" style="width: 700px; height: 100px;" id="inputEmailAddress" type="text" placeholder="Job Requirement" name="jobRequirement" >${job.getJobRequirement()}</textarea>
                                                                                     </div>
                                                                                     <!-- Form Group (Job Benefits)-->
                                                                                     <div class="mb-3">
                                                                                         <label class="small mb-1" for="inputEmailAddress">Job Benefits</label>
-                                                                                        <input class="form-control" id="inputEmailAddress" type="text" placeholder="Job Benefits" name="jobBenefits" value="${job.getJobBenefits()}">
+                                                                                        <textarea class="form-control" style="width: 700px; height: 100px;" id="inputEmailAddress" type="text" placeholder="Job Benefits" name="jobBenefits" >${job.getJobBenefits()}</textarea>
                                                                                     </div>
                                                                                     <!-- Form Row-->
                                                                                     <div class="row gx-3 mb-3">
