@@ -4,6 +4,8 @@
     Author     : Tranduc
 --%>
 
+<%@page import="sample.company.CompanyDTO"%>
+<%@page import="sample.account.AccountDTO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
@@ -33,6 +35,15 @@
         <title>FPT OJT</title>
     </head>
     <body>
+        <% AccountDTO acc = (AccountDTO) session.getAttribute("acc");
+        %>
+        <script type="text/javascript" src="//js.nicedit.com/nicEdit-latest.js"></script> 
+        <script type="text/javascript">
+
+            bkLib.onDomLoaded(function () {
+                nicEditors.allTextAreas()
+            });
+        </script>
         <nav class="navbar navbar-dark navbar-expand-md fixed-top">
             <div class="container">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#Navbar">
@@ -66,7 +77,7 @@
                             </a>
                         </li>    
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="ResultListController">
                                 <span class="fa fa-graduation-cap fa-lg"></span>
                                 OJT Results
                             </a>
@@ -122,7 +133,8 @@
                                      border-radius: 100%;"/>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-
+                                <a class="dropdown-item" href="securityCompany.jsp">
+                                    <span class="fa fa-user-lock" style="color: #f27229;"></span> Security</a>
                                 <a class="dropdown-item" href="mainController?action=logout">
                                     <i class="fa fa-power-off" style="color: #f27229;"></i>
                                     Logout
@@ -139,10 +151,10 @@
             <div class="col-lg-12 mt-4 mt-lg-0">
                 <div class="row">
                     <div class="col-md-12">
-                        
+
                         <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModalAdd" style="margin-top: 20px; float: right;">Add Job</button>
                         <!-- Modal -->
-                        <form action="mainController" method="post">
+                        <form  action="AddJobCompanyController" method="POST">
                             <div id="myModalAdd" class="modal fade" role="dialog">
                                 <div class="modal-dialog modal-lg">
                                     <!-- Modal content-->
@@ -155,71 +167,88 @@
                                             <div class="form-group">
                                                 <label class="col-sm-2 control-label">Name</label>
                                                 <div class="col-sm-12">
-                                                    <input class="form-control" name="txtname" type="text" required="">
+                                                    <input class="form-control" name="jobName" type="text" required="">
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-sm-4 control-label">Title</label>
                                                 <div class="col-sm-12">
-                                                    <input class="form-control" name="txttitle" type="text" value="Intern" readonly="">
+                                                    <input class="form-control" name="jobTitle" type="text" value="Intern" readonly="">
                                                 </div>
                                             </div>
-                                            <div class="form-group">
-                                                <label class="col-sm-2 control-label" >Email</label>
-                                                <div class="col-sm-12">
-                                                    <input class="form-control" type="email" name="txtemail" required="">
+                                            <div class="row gx-3 mb-3">
+                                                <!-- Form Group (Job Name)-->                                            
+                                                <!-- Form Group (Job Salary)-->
+                                                <div class="col-md-6">
+                                                    <label class="small mb-1" for="inputLocation">Amount</label>
+                                                    <input class="form-control" id="inputLocation" type="number" placeholder="Amount" name="Amount">
                                                 </div>
+                                                <div class="col-md-6">
+                                                    <label class="small mb-1" for="inputLocation">Job Salary</label>
+                                                    <input class="form-control" id="inputLocation" type="number" placeholder="Job Salary" name="jobSalary">
+                                                </div>
+                                            </div>     
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label class="small mb-1" for="inputOrgName">Description</label>
+                                                    <textarea type="text" id="feedback" style="width: 700px; height: 100px;" name="jobDescription"></textarea>
+                                                </div> 
                                             </div>
-                                            <div class="form-group">
-                                                <label class="col-sm-2 control-label">Phone</label>
-                                                <div class="col-sm-12">
-                                                    <input class="form-control"  type="text" name="txtphone">
-                                                </div>
-                                            </div>                                                    
 
-                                            <div class="form-group">
-                                                <label class="col-sm-2 control-label" >Major</label>
-                                                <div class="col-sm-12">
-                                                    <select name="txtmajor" class="form-control">
+                                            <!-- Form Group (Job Requirement)-->
+                                            <div class="mb-3">
+                                                <label class="small mb-1" for="inputEmailAddress">Job Requirement</label>
+                                                <input class="form-control" id="inputEmailAddress" type="text" placeholder="Job Requirement" name="jobRequirement">
+                                            </div>
+                                            <!-- Form Group (Job Benefits)-->
+                                            <div class="mb-3">
+                                                <label class="small mb-1" for="inputEmailAddress">Job Benefits</label>
+                                                <input class="form-control" id="inputEmailAddress" type="text" placeholder="Job Benefits" name="jobBenefits">
+                                            </div>
+                                            <!-- Form Row-->
+                                            <div class="row gx-3 mb-3">
+                                                <!-- Form Group (create number)-->
+                                                <div class="col-md-6">
+                                                    <label class="small mb-1" for="inputBirthday">Major</label>
+
+                                                    <select name="Major" class="form-control">
                                                         <c:forEach var="major" items="${requestScope.majorList}">
                                                             <option value="${major.getMajorID()}">${major.getMajorName()}</option>
                                                         </c:forEach>
                                                     </select>
                                                 </div>
-                                            </div>
+                                                <!-- Form Group (end date)-->
+                                                <div class="col-md-6">
+                                                    <label class="small mb-1" for="inputBirthday">End Date</label>
+                                                    <input class="form-control"  type="date" name="EndDate" min="${requestScope.current}">
+                                                </div>                               
+                                            </div>                                                                      
+
                                             <div class="form-group">
                                                 <label class="col-sm-2 control-label">Semester</label>
                                                 <div class="col-sm-12">
-                                                    <input class="form-control" type="text" name="txtsemester" value="SU2022">
+                                                    <input class="form-control" type="text" name="txtsemester" value="SU2022" readonly="">
                                                 </div>
                                             </div>
-                                            <div class="form-group">
-                                                <label class="col-sm-4 control-label" >Date Of Birth</label>
-                                                <div class="col-sm-12">
-                                                    <input class="form-control" name="txtdateofbirth" type="date">
-                                                </div>
-                                            </div>
-
-
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-primary" name="action" value="PostJob">Post</button>
+                                            <button type="submit" class="btn btn-primary">Post</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </form>
-                        
                         <div class="user-dashboard-info-box table-responsive mb-0 bg-white p-4 shadow-sm">
                             <table class="table manage-candidates-top mb-0">
                                 <thead>
                                     <tr>
                                         <th>Post</th>
                                         <th class="text-center">Create Date</th>
+                                        <th class="text-center">Modify Date</th>
                                         <th class="text-center">Status</th>                              
                                         <th class="action text-right">Action</th>
-                                        <th></th>
+
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -248,13 +277,106 @@
                                                                 </div>
                                                             </td>
                                                             <td class="candidate-list-favourite-time text-center">${job.getJobCreateDate()}</td>
+                                                            <td class="candidate-list-favourite-time text-center">${job.getModifyDate()}</td>
                                                             <td class="candidate-list-favourite-time text-center">
                                                                 <c:if test="${job.getStatus() eq 2}"><h5><span class="badge badge-danger">Rejected</span></h5></c:if>
                                                                 <c:if test="${job.getStatus() eq 0}"><h5><span class="badge badge-warning">Pending</span></h5></c:if>
                                                                 <c:if test="${job.getStatus() eq 1}"><h5><span class="badge badge-success">Approved</span></h5></c:if>
+                                                                <c:if test="${job.getStatus() eq 3}"><h5><span class="badge badge-secondary">Expired</span></h5></c:if>
                                                                 </td>
                                                                 <td>                                                                                                         
-                                                                    <h4><a href="mainController?action=CompanyPostDetail&id=${job.getJobID()}" class="text-primary" data-toggle="tooltip" title="" data-original-title="view" style="padding-left: 16px;"><i class="far fa-eye"></i></a></h4>                                                                                                                                                                             
+                                                                    <h4><a href="mainController?action=CompanyPostDetail&id=${job.getJobID()}" class="text-primary" data-toggle="tooltip" title="" data-original-title="view" style="padding-left: 16px;"><i class="far fa-eye"></i></a>
+                                                                    <a data-toggle="modal" data-target="#myModalAdd${job.getJobID()}"  class="text-primary" data-toggle="tooltip" title="" data-original-title="view" style="padding-left: 16px;"><i class="far fa-pen-to-square"></i></a>
+                                                                </h4>
+                                                                <form action="mainController" method="POST">
+                                                                    <div id="myModalAdd${job.getJobID()}" class="modal fade" role="dialog">
+                                                                        <div class="modal-dialog modal-lg">
+                                                                            <!-- Modal content-->
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">                           
+                                                                                    <h4 class="modal-title">Update a Post</h4>
+                                                                                </div>
+                                                                                <div class="modal-body">
+                                                                                    <input type="hidden" name="jobid" value="${job.getJobID()}">
+                                                                                    <div class="form-group">
+                                                                                        <label class="col-sm-2 control-label">Name</label>
+                                                                                        <div class="col-sm-12">
+                                                                                            <input class="form-control" name="jobName" type="text" required="" value="${job.getJobName()}">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="form-group">
+                                                                                        <label class="col-sm-4 control-label">Title</label>
+                                                                                        <div class="col-sm-12">
+                                                                                            <input class="form-control" name="jobTitle" type="text" value="Intern" readonly="">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="row gx-3 mb-3">
+                                                                                        <!-- Form Group (Job Name)-->                                            
+                                                                                        <!-- Form Group (Job Salary)-->
+                                                                                        <div class="col-md-6">
+                                                                                            <label class="small mb-1" for="inputLocation">Amount</label>
+                                                                                            <input class="form-control" id="inputLocation" type="number" placeholder="Amount" name="Amount" value="${job.getAmount()}">
+                                                                                        </div>
+                                                                                        <div class="col-md-6">
+                                                                                            <label class="small mb-1" for="inputLocation">Job Salary</label>
+                                                                                            <input class="form-control" id="inputLocation" type="number" placeholder="Job Salary" name="jobSalary" value="${job.getJobSalary()}">
+                                                                                        </div>
+                                                                                    </div>     
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-6">
+                                                                                            <label class="small mb-1" for="inputOrgName">Description</label>
+                                                                                            <textarea type="text" id="feedback" style="width: 700px; height: 100px;" name="jobDescription">${job.getJobDescription()}</textarea>
+                                                                                        </div> 
+                                                                                    </div>
+
+                                                                                    <!-- Form Group (Job Requirement)-->
+                                                                                    <div class="mb-3">
+                                                                                        <label class="small mb-1" for="inputEmailAddress">Job Requirement</label>
+                                                                                        <input class="form-control" id="inputEmailAddress" type="text" placeholder="Job Requirement" name="jobRequirement" value="${job.getJobRequirement()}">
+                                                                                    </div>
+                                                                                    <!-- Form Group (Job Benefits)-->
+                                                                                    <div class="mb-3">
+                                                                                        <label class="small mb-1" for="inputEmailAddress">Job Benefits</label>
+                                                                                        <input class="form-control" id="inputEmailAddress" type="text" placeholder="Job Benefits" name="jobBenefits" value="${job.getJobBenefits()}">
+                                                                                    </div>
+                                                                                    <!-- Form Row-->
+                                                                                    <div class="row gx-3 mb-3">
+                                                                                        <!-- Form Group (create number)-->
+                                                                                        <div class="col-md-6">
+                                                                                            <label class="small mb-1" for="inputPhone">Create Date</label>
+                                                                                            <input class="form-control" type="date" name="CreateDate" value="${job.getJobCreateDate()}" readonly="">
+                                                                                        </div>
+                                                                                        <!-- Form Group (end date)-->
+                                                                                        <div class="col-md-6">
+                                                                                            <label class="small mb-1" for="inputBirthday">End Date</label>
+                                                                                            <input class="form-control"  type="date" name="EndDate" value="${job.getJobEndDate()}" min="${requestScope.current}">
+                                                                                        </div>                               
+                                                                                    </div>                                                                      
+                                                                                    <div class="form-group">
+                                                                                        <label class="col-sm-2 control-label" >Major</label>
+                                                                                        <div class="col-sm-12">
+                                                                                            <select name="Major" class="form-control">
+                                                                                                <c:forEach var="major" items="${requestScope.majorList}">
+                                                                                                    <option value="${major.getMajorID()}" <c:if test="${job.getMajorID() eq major.getMajorID()}">selected=""</c:if>>${major.getMajorName()}</option>
+                                                                                                </c:forEach>
+                                                                                            </select>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="form-group">
+                                                                                        <label class="col-sm-2 control-label">Semester</label>
+                                                                                        <div class="col-sm-12">
+                                                                                            <input class="form-control" type="text" name="txtsemester" value="SU2022">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="modal-footer">
+                                                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                                    <button type="submit" class="btn btn-primary" name="action" value="UpdatePost">Update</button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </form>
                                                             </td>                                                   
                                                         </tr> 
                                                     </c:if>

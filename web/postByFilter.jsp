@@ -74,7 +74,12 @@
                                 Results
                             </a>
                         </li>
-
+                        <li class="nav-item">
+                            <a class="nav-link" href="MailBoxController">
+                                <span class="fa-solid fa-inbox"></span>
+                                Mail Box
+                            </a>
+                        </li>
                     </ul>
                 </div>
                 <span class="navbar-text ml-auto">
@@ -124,9 +129,10 @@
                                     <tr>
                                         <th>Post</th>
                                         <th class="text-center">Create Date</th>
+                                        <th class="text-center">Modify Date</th>
                                         <th class="text-center">Status</th>                              
                                         <th class="action text-right">Action</th>
-                                        <th></th>
+                                        
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -155,6 +161,7 @@
                                                                 </div>
                                                             </td>
                                                             <td class="candidate-list-favourite-time text-center">${job.getJobCreateDate()}</td>
+                                                            <td class="candidate-list-favourite-time text-center">${job.getModifyDate()}</td>
                                                             <td class="candidate-list-favourite-time text-center">
                                                                 <c:if test="${job.getStatus() eq 2}"><h5><span class="badge badge-danger">Rejected</span></h5></c:if>
                                                                 <c:if test="${job.getStatus() eq 0}"><h5><span class="badge badge-warning">Pending</span></h5></c:if>

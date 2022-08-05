@@ -66,6 +66,20 @@ public class mainController extends HttpServlet {
     private static final String UNLOCKCOMPANY_CONTROLLER = "UnlockCompanyController";
     private static final String FILTERJOB = "jobfilter";
     private static final String FILTERJOB_CONTROLLER = "JobPostByFilterController";
+    private static final String SEARCHCOMPANY = "SearchCompany";
+    private static final String SEARCHCOMPANY_CONTROLLER = "SearchCompanyController";
+    private static final String SENDMAILBOX = "SendBox";
+    private static final String SENDMAILBOX_CONTROLLER = "SendMailBoxController";
+    private static final String CHANGESTATUS = "ChangeStatus";
+    private static final String CHANGESTATUS_CONTROLLER = "ChangeMailStatusController";
+    private static final String MAILBYFilter = "FilterMail";
+    private static final String MAILBYfilter_CONTROLLER = "MailByFilterController";
+    private static final String UPDATEPOST = "UpdatePost";
+    private static final String UPDATEPOST_CONTROLLER = "UpdatePostController";
+    private static final String SENDOFFER = "SendOffer";
+    private static final String SENDOFFER_CONTROLLER = "OfferStudentController";
+    private static final String ADDCOMPANY = "AddCompany";
+    private static final String ADDCOMPANY_CONTROLLER = "AddCompanyController";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -131,6 +145,20 @@ public class mainController extends HttpServlet {
                 url=UNLOCKCOMPANY_CONTROLLER;
             }else if(FILTERJOB.equals(action)){
                 url=FILTERJOB_CONTROLLER;
+            }else if(SEARCHCOMPANY.equals(action)){
+                url=SEARCHCOMPANY_CONTROLLER;
+            }else if(SENDMAILBOX.equals(action)){
+                url=SENDMAILBOX_CONTROLLER;
+            }else if(CHANGESTATUS.equals(action)){
+                url=CHANGESTATUS_CONTROLLER;
+            }else if(MAILBYFilter.equals(action)){
+                url=MAILBYfilter_CONTROLLER;
+            }else if(UPDATEPOST.equals(action)){
+                url=UPDATEPOST_CONTROLLER;
+            }else if(SENDOFFER.equals(action)){
+                url=SENDOFFER_CONTROLLER;
+            }else if(ADDCOMPANY.equals(action)){
+                url=ADDCOMPANY_CONTROLLER;
             }
         } catch (Exception e) {
             log("Error at mainController: " + e.toString());

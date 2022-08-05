@@ -5,7 +5,6 @@
  */
 package sample.test;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import sample.account.AccountDAO;
 import sample.account.AccountDTO;
@@ -15,8 +14,8 @@ import sample.company.CompanyDAO;
 import sample.company.CompanyDTO;
 import sample.job.JobDAO;
 import sample.job.JobDTO;
-import sample.major.MajorDAO;
-import sample.major.MajorDTO;
+import sample.result.ResultDAO;
+import sample.result.ResultDTO;
 import sample.student.StudentDAO;
 import sample.student.StudentDTO;
 
@@ -26,11 +25,42 @@ import sample.student.StudentDTO;
  */
 public class test {
     public static void main(String[] args) {
-        int total=0;
-        for(int i=3;i<=30;i=i+3){
-            total=total+i;
-            i=i+2;
+        try {
+           
+            ArrayList<ResultDTO> resultList=ResultDAO.getResults();
+            ArrayList<ApplicationDTO> appList=ApplicationDAO.getApplications();
+            
+            
+            ArrayList<JobDTO> jobList=new ArrayList<>();
+            ArrayList<StudentDTO> stuList=StudentDAO.getStudents();
+            
+            ArrayList<CompanyDTO> comList=CompanyDAO.getCompanies();
+            
+            ArrayList<AccountDTO> accList=AccountDAO.getAccounts();
+            
+
+//            System.out.println(jobList.size());
+for (ResultDTO resultDTO : resultList) {                          
+            for (ApplicationDTO applicationDTO : appList) {                  
+                        for (AccountDTO accountDTO : accList) {
+                             for (StudentDTO studentDTO : stuList) {
+                            if(resultDTO.getAppID()==applicationDTO.getApplyID()) 
+                                if(applicationDTO.getStuID().equals(studentDTO.getStudentID())){
+                                    if(studentDTO.getAccID()==accountDTO.getAccId()){
+                                        System.out.println(resultDTO.getAppID());
+                                        System.out.println(studentDTO.getStudentID());
+                                        System.out.println(accountDTO.getName());
+                                    }
+                                }
+                            }
+                        }
+                    }
+                
+            
+}
+            
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        System.out.println(total);
     }
 }

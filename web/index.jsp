@@ -72,7 +72,12 @@
                                 About
                             </a>
                         </li>
-                        
+                        <li class="nav-item">
+                            <a class="nav-link" href="contactus.jsp">
+                                <span class="fas fa-address-book"></span>
+                                Contact Us
+                            </a>
+                        </li>
 
                     </ul>
                 </div>
@@ -82,10 +87,8 @@
                         String link = "";
                         if (role == 0) {
                             link = "JobsPostController";
-
                         } else if (role == 1) {
                             link = "mainController?action=StudentProfilePage";
-
                         } else {
                             link = "CompanyHomePageController";
                         }
@@ -322,8 +325,6 @@
                                                         LocalDate date = d.toLocalDate();
                                                         LocalDate end = d2.toLocalDate();
                                                         Period p = Period.between(date, end);
-
-
                                                     %>
                                                     <div class="job-right my-4 flex-shrink-0">
                                                         <i class="fa fa-user" style="padding-top: 5px;"></i> ${job.getAmount()}

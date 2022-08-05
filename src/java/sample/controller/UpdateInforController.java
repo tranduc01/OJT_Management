@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import sample.account.AccountDAO;
 import sample.account.AccountDTO;
+import sample.company.CompanyDAO;
 import sample.major.MajorDAO;
 import sample.major.MajorDTO;
 import sample.student.StudentDAO;
@@ -44,17 +45,34 @@ public class UpdateInforController extends HttpServlet {
             HttpSession session = request.getSession();
             String name = request.getParameter("txtname");
             String phone = request.getParameter("txtphone");
+            
+            
+            String discription = request.getParameter("comdiscription");
+            String address = request.getParameter("comaddress");
+            String website = request.getParameter("linkwebsite");
+            
             String email = (String) session.getAttribute("accEmail");
-            String majorid=request.getParameter("txtmajor");
+            
             LocalDate birthday = LocalDate.parse(request.getParameter("txtbirthday"));         
             String success="Updated!!!";
-            int result = AccountDAO.updateProfile(email, name, phone, birthday.toString());            
-            AccountDTO acc = AccountDAO.loginAccount_V2(email);            
-            ArrayList<MajorDTO> list = MajorDAO.getMajors();
             request.setAttribute("success", success);
+            int result = AccountDAO.updateProfile(email, name, phone, birthday.toString());  
+                 
+            AccountDTO acc = AccountDAO.loginAccount_V2(email);
+            
+            
             session.setAttribute("acc", acc);
-            session.setAttribute("majorList", list);
-            request.getRequestDispatcher("student_profile.jsp").forward(request, response);
+            
+            if (acc.getRole() == 1) {
+                
+                ArrayList<MajorDTO> list = MajorDAO.getMajors();
+                session.setAttribute("majorList", list);
+                request.getRequestDispatcher("student_profile.jsp").forward(request, response);
+            }
+            if (acc.getRole() == 2) {
+                CompanyDAO.updateCompanyProfile(email, discription, address, website);     
+                request.getRequestDispatcher("CompanyProfileController").forward(request, response);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

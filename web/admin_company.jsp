@@ -75,7 +75,12 @@
                                 Results
                             </a>
                         </li>
-                        
+                        <li class="nav-item ">
+                            <a class="nav-link" href="MailBoxController">
+                                <span class="fa-solid fa-inbox"></span>
+                                Mail Box
+                            </a>
+                        </li>
                     </ul>
                 </div>
                 <span class="navbar-text ml-auto">
@@ -101,7 +106,7 @@
                                 <div class="modal-body">
 
                                     <div class="form-group">
-                                        <label class="col-sm-2 control-label">Name</label>
+                                        <label class="col-sm-2 control-label">Company Name</label>
                                         <div class="col-sm-10">
                                             <input class="form-control" name="txtname" type="text" required="">
                                         </div>

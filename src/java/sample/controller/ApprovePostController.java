@@ -7,6 +7,7 @@ package sample.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -37,7 +38,8 @@ public class ApprovePostController extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             int jobID=Integer.parseInt(request.getParameter("jobid"));
             int status=1;
-            int result=JobDAO.updateJobStatus(jobID, status);
+            Date d=new Date(System.currentTimeMillis());
+            int result=JobDAO.updateJobStatus(jobID, status,d.toString());
             String ok="success";
             request.setAttribute("ok", ok);
             request.getRequestDispatcher("JobsPostController").forward(request, response);

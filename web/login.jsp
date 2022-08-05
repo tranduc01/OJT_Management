@@ -10,6 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="css/login.css"  />
+        <link rel="shortcut icon" href="img/FPT-logoo.jpg">
         <title>Login</title>
     </head>
     <body>

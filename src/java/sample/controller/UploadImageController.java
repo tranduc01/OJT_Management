@@ -47,7 +47,7 @@ public class UploadImageController extends HttpServlet {
         try {
             HttpSession session = request.getSession();
             String email = (String) session.getAttribute("accEmail");
-            
+
 //            Part filePart = request.getPart("file");
 //            String fileName = filePart.getSubmittedFileName();
 //            if (!fileName.isEmpty()) {
@@ -74,18 +74,18 @@ public class UploadImageController extends HttpServlet {
                 }
                 int result = AccountDAO.updateAvatarPath(email, path);
                 ArrayList<MajorDTO> list = MajorDAO.getMajors();
-AccountDTO acc = AccountDAO.loginAccount_V2(email);
+                AccountDTO acc = AccountDAO.loginAccount_V2(email);
                 session.setAttribute("acc", acc);
                 session.setAttribute("majorList", list);
-                request.getRequestDispatcher("student_profile.jsp").forward(request, response);
+                request.getRequestDispatcher("StudentProfileController").forward(request, response);
             } else {
                 ArrayList<MajorDTO> list = MajorDAO.getMajors();
-AccountDTO acc = AccountDAO.loginAccount_V2(email);
+                AccountDTO acc = AccountDAO.loginAccount_V2(email);
                 String noFile = "No file to upload !!!!";
                 request.setAttribute("noFile", noFile);
                 session.setAttribute("acc", acc);
                 session.setAttribute("majorList", list);
-                request.getRequestDispatcher("student_profile.jsp").forward(request, response);
+                request.getRequestDispatcher("StudentProfileController").forward(request, response);
             }
         } catch (Exception e) {
             e.printStackTrace();
