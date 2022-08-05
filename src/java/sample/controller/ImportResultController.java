@@ -73,7 +73,7 @@ public class ImportResultController extends HttpServlet {
             //insert Account
             for (ResultDTO result : list) {
                     
-                ArrayList<ApplicationDTO> listApp=ApplicationDAO.getApplicationByID(result.getStuID());
+                ArrayList<ApplicationDTO> listApp=ApplicationDAO.getApplicationByIDV2(result.getStuID());
                 for (ApplicationDTO applicationDTO : listApp) {
                     for (JobDTO job : listJob) {
                         if(applicationDTO.getJobID()==job.getJobID()){    
