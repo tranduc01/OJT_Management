@@ -29,7 +29,7 @@ var ctx = document.getElementById("myBarChart");
 var myBarChart = new Chart(ctx, {
   type: 'bar',
   data: {
-    labels: ["Summer 2022"],
+    labels: [""],
     datasets: [{
       label: "Students",
       backgroundColor: "#4e73df",

@@ -51,7 +51,7 @@ public class GetApplicationController extends HttpServlet {
             ArrayList<CompanyDTO> listCom = CompanyDAO.getCompanies();
             ArrayList<AccountDTO> listAcc = new ArrayList<>();
             for (ApplicationDTO app : listApp) {
-                JobDTO job = JobDAO.getJobByID(app.getJobID());
+                JobDTO job = JobDAO.getJobByID_V2(app.getJobID());
                 listJob.add(job);
                             
             }
